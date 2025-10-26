@@ -1,0 +1,151 @@
+\documentclass[A4]{article}
+\usepackage{amsmath, amssymb, braket}
+% 美文書入門 p.74 5.2数式用のフォント
+\usepackage{lmodern}
+\usepackage{bm}
+\usepackage{quantikz}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=cyan,
+    pdftitle={Quantum Circuit for First Quantization Hamiltonian Simulation Handling Coulomb Potential Pole},
+    pdfauthor={Hideo Takahashi},
+    pdfsubject={Research Paper},
+    pdfkeywords={Quantum Computer, First Quantization, ab initio, Simulator, Coulomb Potential, Quantum Chemistry},
+    bookmarksnumbered=true,
+    bookmarksopen=true
+}
+
+\usepackage[backend=biber, style=numeric, maxnames=5, doi=false, url=true, eprint=true]{biblatex}
+\addbibresource{quantum.bib}
+\makeatletter
+\let\mkbibemph=\mkbibitalic
+\let\blx@imc@mkbibemph=\blx@imc@mkbibitalic
+\makeatother
+\setlength{\biblabelsep}{0.5em}
+
+\usepackage{paper2025}
+\begin{document}
+\title{Development and error analysis of
+a quantum circuit for first quantization Hamiltonian simulation 
+of a one and two dimensional hydrogen atom model }
+\author{Hideo Takahashi}
+\date{\today}
+\maketitle
+\begin{abstract}
+We show a quantum circuit of a chemical simulator for Hamiltonian simulation
+based on first quantization which can run on quantum computers with limited
+number of qubits. Handling of the Coulomb potential pole is designed and tested.
+We also show a method to choose simulation parameters to optimize simulation
+accuracy within a given number of qubits for the circuit. Using the uniformly
+controlled rotation (UCR) circuit, which can be seen as a variation of quantum
+read only memories (QROMs), the Coulomb energy calculation can be implemented
+with fewer number of qubits and gates compared to a circuit based on arithmetic
+gates when the model qubit count is small, such as in a two-dimensional (2-D)
+Hydrogen model.  This enabled first quantization Hamiltonian simulation of 2-D
+Hydrogen using only 26 qubits.  Regarding the pole of the Coulomb potential, we
+show that replacing the potential value at the pole by a finite value
+H(0)=-4/δq, where δq is the spatial discretization grid size, will lead to good
+simulation results. When the qubit count for the overall circuit is given, there
+is a trade-off between the simulated box edge length L and discretization
+resolution δq-1. We show a method to minimize simulation error under this
+trade-off for a given wave function.  Using values determined by this method,
+good simulation results with low level of artifacts and aliases were obtained
+with a coarse 6-qubit spatial coordinate grid.
+\end{abstract}
+
+\section{Introduction}
+Quantum computing is expected to be a powerful tool for simulating quantum
+systems \cite{feynman1982simulating,AbramsAndLloyd1997.PhysRevLett.79.2586}. In particular, quantum chemistry
+simulations using quantum computers have been actively studied in recent years
+
+\cite{Aspuru-Guzik2005.10.1126/science.1113479, kassal2008.pnas.0808245105, Whitfield2011, Reiher2017, Babbush2018,
+Motta2020, Cao2019, McArdle2020, Kandala2017, OMalley2016, Kandala2019,
+Kivlichan2018, Grimsley2019, Sugisaki2020, Takahashi2023}. Most of these
+studies are based on the second quantization formalism, where the electronic
+structure is represented using a finite set of basis functions, and the
+Hamiltonian is expressed in terms of creation and annihilation operators for
+these basis functions. However, the second quantization approach requires a
+number of qubits proportional to the number of basis functions, which can be
+large for accurate simulations. On the other hand, the first quantization
+formalism represents the wave function directly in real space, allowing for
+more compact representations for certain systems. First quantization Hamiltonian
+simulation has been studied in several works \cite{Zalka1998, Kassal2006,
+Babbush2018first, Kivlichan2017, Berry2019first, Childs2021first}. However,
+implementing the Coulomb potential term in the Hamiltonian can be challenging due to
+the singularity at the origin. In this paper, we present a quantumcircuit for
+first quantization Hamiltonian simulation that efficiently handles the Coulomb
+potential pole and optimizes simulation parameters for a given qubit budget. We
+demonstrate our approach using a two-dimensional Hydrogen model, achieving
+accurate results with a limited number of qubits.
+\section{Quantum Circuit for First Quantization Hamiltonian Simulation}
+In first quantization, the Hamiltonian for a single electron in a Coulomb
+potential is given by
+\begin{equation}
+H = -\frac{1}{2} \nabla^2 - \frac{1}{r},
+\end{equation}
+where the first term represents the kinetic energy and the second term
+represents the Coulomb potential. To simulate the time evolution operator
+$U(t) = e^{-iHt}$, we use the Trotter-Suzuki decomposition to separate the kinetic and
+potential terms:
+\begin{equation}
+U(t) \approx \left( e^{-iT\Delta t} e^{-iV\Delta t} \right)^n,
+\end{equation}
+where $T = -\frac{1}{2} \nabla^2$, $V = -\frac{1}{r}$, $\Delta t = t/n$, and $n$ is the number of Trotter steps.
+\subsection{Kinetic Energy Term}
+The kinetic energy term can be implemented using the quantum Fourier transform
+(QFT) to switch to momentum space, apply the kinetic energy operator, and then
+transform back to position space. The circuit for the kinetic energy term is
+shown in Figure~\ref{fig:kinetic}.
+\begin{figure}[h]
+\centering
+graphics come here.
+\caption{Quantum circuit for the kinetic energy term using QFT.}
+\label{fig:kinetic}
+\end{figure}
+\subsection{Coulomb Potential Term}
+The Coulomb potential term $V = -\frac{1}{r}$ has a singularity at $r=0$. To handle this,
+we approximate the potential near the singularity by assigning a finite value
+$V(0) = -\frac{4}{\delta q}$, where $\delta q$ is the spatial discretization grid size. This value is
+determined by calculating the weighted average of $V(r)$ near the pole, assuming a specific wave function.
+The circuit for the potential term is implemented using a uniformly controlled
+rotation (UCR) circuit, which allows for efficient implementation of the potential
+term with fewer qubits and gates. The circuit is shown in Figure~\ref{fig:potential}.
+\begin{figure}[h]
+\centering
+graphics come here.
+\caption{Quantum circuit for the Coulomb potential term using UCR.}
+\label{fig:potential}
+\end{figure}
+\section{Optimization of Simulation Parameters}
+When the total number of qubits available for the simulation is limited, there
+is a trade-off between the simulated box edge length $L$ and the discretization
+resolution $\delta q^{-1}$. To minimize the simulation error under this trade-off, we propose a method to choose optimal values for $L$ and $\delta q$ based on the
+given wave function. The optimization process involves evaluating the simulation
+error for different combinations of $L$ and $\delta q$, and selecting the pair
+that minimizes the error while satisfying the qubit budget constraint.
+\section{Results}
+We tested our quantum circuit and optimization method using a two-dimensional
+Hydrogen model. The simulation was performed using a total of 26 qubits, with
+6 qubits allocated for the spatial coordinate. The results showed good agreement
+with the expected energy levels and wave functions, with minimal artifacts and
+aliases. Figure~\ref{fig:results} shows the comparison between the simulated and
+exact wave functions.
+\begin{figure}[h]
+\centering
+graphics come here.
+\caption{Comparison of simulated and exact wave functions for the 2-D Hydrogen model.}
+\label{fig:results}
+\end{figure}
+\section{Conclusion}
+We have presented a quantum circuit for first quantization Hamiltonian
+simulation that efficiently handles the Coulomb potential pole using a UCR
+circuit. We also proposed a method to optimize simulation parameters for a given
+qubit budget. Our approach was demonstrated using a two-dimensional Hydrogen
+model, achieving accurate results with a limited number of qubits. This work
+paves the way for more efficient quantum simulations of quantum systems using
+first quantization methods.
+
+\printbibliography[heading=bibintoc, title={参考文献}]
+\end{document}

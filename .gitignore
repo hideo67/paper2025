@@ -1,0 +1,16 @@
+.vscode
+*~
+*.aux
+*.dvi
+*.log
+*.pdf
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.toc
+*.out
+*.bbl
+*.blg
+*.brf
+*.run.xml
+*.bcf
