@@ -1,0 +1,44 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../thesis"
+		}
+	],
+	"settings": {
+		"latex-workshop.latex": {
+			"tools": [
+				{
+					"name": "lualatex",
+					"command": "lualatex",
+					"args": [
+						"-synctex=1",
+						"-interaction=nonstopmode",
+						"-file-line-error",
+						"%DOC%"
+					]
+				},
+				{
+					"name": "biber",
+					"command": "biber",
+					"args": [
+						"%DOC%"
+					]
+				}
+			],
+			"recipes": [
+				{
+					"name": "lualatex → biber → lualatex*2",
+					"tools": [
+						"lualatex",
+						"biber",
+						"lualatex",
+						"lualatex"
+					]
+				}
+			]
+		}
+	}
+}
