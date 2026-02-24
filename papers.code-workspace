@@ -9,7 +9,7 @@
 	],
 	"settings": {
 		"latex-workshop.latex": {
-			"tools": [
+			"toolsx": [
 				{
 					"name": "lualatex",
 					"command": "lualatex",
