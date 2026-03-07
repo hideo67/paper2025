@@ -37,6 +37,15 @@
 						"lualatex",
 						"lualatex"
 					]
+				},
+				{
+					"name": "latexmk (lualatex)",
+					"tools": [
+						"lualatex",
+						"biber",
+						"lualatex",
+						"lualatex"
+					]
 				}
 			]
 		}

@@ -4,6 +4,7 @@
 *.dvi
 *.log
 *.pdf
+*.xmpi
 *.fdb_latexmk
 *.fls
 *.synctex.gz
