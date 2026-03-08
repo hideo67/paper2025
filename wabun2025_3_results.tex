@@ -1,0 +1,407 @@
+\documentclass[wabun2025.tex]{subfiles}
+\begin{document}
+\section{結果}
+
+\subsection{評価対象のシミュレータ回路の構成}
+\subsubsection{算術演算回路を用いた回路構成}
+クーロンポテンシャルの計算に算術演算回路を用いた回路構成は、1次元のモデルではエ
+ミュレータに収まったが、2次元のモデルでは収まらなかった。
+
+図\ref{subfig:circuit-1d-arith-overall}は算術演算回路を用いたシミュレータ回路の
+全体像である。シミュレータ回路は、状態準備回路と時間発展回路から構成される。時間
+発展回路のqubit数が支配的であることが分かる。
+
+図\ref{subfig:circuit-1d-arith-time-evolution}は時間発展回路$\Thetae$の内部の回
+路を示している(式\eqref{eq:circuit-eval-theta-e})。時間発展回路はクーロンポテン
+シャルエネルギー項回路 $\Thetaep$、逆QFT回路、運動エネルギー項回路
+$\Thetaek$、QFT回路から構成される。図
+\ref{subfig:potential-energy-circuit-1d-arith}は $\Thetaep$ を示している。この回
+路は$1/|x|$を計算する回路である。
+
+\begin{figure}[ht]
+    \centering
+    \begin{subcaptionblock}[T][][t]{0.3\columnwidth}
+        \centering
+        \includegraphics[width=\textwidth]{paper2025_figs/arith1D/circuit.png}
+        \caption{回路の全体像}
+        \label{subfig:circuit-1d-arith-overall}
+    \end{subcaptionblock}
+    \begin{subcaptionblock}[T][][t]{0.42\columnwidth}
+        \centering
+        \includegraphics[width=\textwidth]{paper2025_figs/arith1D/elec_motion.png}
+        \caption{時間発展回路$\Thetae$の内部}
+        \label{subfig:circuit-1d-arith-time-evolution}
+    \end{subcaptionblock}
+    \caption{算術演算ゲートによる1次元モデルのシミュレータ回路}
+    \label{fig:circuit-1d-arith}
+    \begin{flushleft}\small
+
+        (a)は1次元モデルのシミュレータ回路の全体像を示す。回路は初期化回路
+        $\PsiSD$と時間発展回路$\Thetae$から構成される。(b)は時間発展回路
+        $\Thetae$の内部構成を示している。ポテンシャルエネルギー項回路
+        $\Thetaep$、逆QFT回路、運動エネルギー項回路$\Thetaek$、QFT回路から構成さ
+        れる。 $\Thetaep$のqubit数23が回路全体のqubit数を規定している。
+
+    \end{flushleft}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{paper2025_figs/arith1D/elec_potential_arithmetic.png}
+    \caption{算術演算ゲートによるポテンシャルエネルギー項回路 $\Thetaep$}
+    \label{subfig:potential-energy-circuit-1d-arith}
+    \begin{flushleft}\small
+
+        算術演算ゲートを用いて実装されたクーロンポテンシャル項回路$\Thetaep$回路
+        の中身。算術演算ゲートで $1/|x|$を2進数で計算し、結果のビット列の各ビッ
+        トの重みに応じてPゲートで位相を変化させている。除算ゲートudiv7のqubit数
+        が支配的である。補助qubitの総数は17ビットである。
+
+    \end{flushleft}
+\end{figure}
+
+\subsubsection{UCRZ回路を用いた回路構成}
+クーロンポテンシャルの計算にUCRZ回路を用いた回路構成は、1次元と2次元のモデルの両
+方でエミュレータに収まった。3次元のモデルでは収まらなかった。
+
+図\ref{fig:circuit-2d-ucrz}は水素の2次元モデルに対するUCRZ回路を用いたシミュレー
+タ回路である。ポテンシャル計算回路 $\Thetaepucr$ のビット数は13ビットとなり、回
+路全体のqubit数の決定要因ではなくなっている。最もqubit数が多い回路要素は波動関数
+の初期化回路$\PsiSD$である。
+
+\begin{figure}[ht]
+    \centering
+    \begin{subcaptionblock}[T][][t]{0.3\columnwidth}
+        \centering
+        \includegraphics[width=\textwidth]{paper2025_figs/ucrz2D/circuit.png}
+        \caption{シミュレータ全体}
+        \label{subfig:circuit-2d-ucrz-overall}
+    \end{subcaptionblock}
+    \begin{subcaptionblock}[T][][t]{0.52\columnwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{paper2025_figs/ucrz2D/elec_motion.png}
+        \caption{時間発展回路 $\Thetae$ の内部}
+        \label{subfig:time-evolution-circuit-2d-ucrz}
+    \end{subcaptionblock}
+    \caption{UCRZ回路を用いた座標分解能6bit の2次元モデルのシミュレータ回路}
+    \label{fig:circuit-2d-ucrz}
+    \begin{flushleft}\small
+
+        (a) シミュレータ回路の全体図。状態準備回路と時間発展回路から構成され
+        る。qubit数は状態準備回路の方が多い。(B)は時間発展回路の構成であり、ポテ
+        ンシャルエネルギー項回路 $\Thetaepucr$ はUniformly controlled Rotation
+        (UCR) 回路の一種、UCRZ回路を用いている。この例では6ビットの入力レジスタ
+        $xq0$, $yq0$の合計12ビットに与えられた重ねあわされた入力の値のそれぞれに
+        応じて補助 qubit である $target$ の位相を変化させる。補助 qubit は$target$
+        の1つだけである。
+    \end{flushleft}
+\end{figure}
+
+\clearpage
+\subsubsection{回路規模の評価}
+\label{subsec:circuit-size-evaluation}
+今回用いた計算環境のエミュレータで動作させられた最大のqubit数は27、ゲート数の現
+実的な上限は$10^7$程度であった。シミュレータの回路を生成させて回路規模を測定するこ
+とで、この範囲に回路規模が収まる回路構成を調べた。
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=15cm]{paper2025_figs/hamiltonian-gatecount.png}
+    \caption{回路規模}
+    \label{fig:hamiltonian-gatecount}
+    \begin{flushleft}\small
+    上段のグラフは1Dから3Dのモデルにおける回路のqubit数を示している。qubit数の多い
+    ものから順に、算術演算ゲート版回路、UCRZ版回路、状態準備回路を示している。状
+    態準備回路と時間発展回路の双方がqubit数制限に収まっている必要がある。算術演
+    算回路がqubit数の上限に収まっているのは1Dの7ビット以下の範囲に限られる。状態
+    準備回路が制限に収まっているのは2Dの7ビットのケースまでである。UCRZ回路は3D
+    の8ビットのケースまで範囲に収まっている。算術演算ゲートの回路のqubit数が1Dの
+    場合と2D,3Dの場合とで大きく異なっているが、これは1Dにおいては距離計算が絶対
+    値回路で済むのに対して2D,3Dでは二乗回路と平方根回路を用いたノルム計算が必要
+    となり、回路が複雑になるためである。
+
+    下段のグラフは回路が使用するtwo-qubitゲートの数である。時間発展回路のゲート数は
+    シミュレーションのステップ数の一例として1000ステップ分の回路のゲート数を示し
+    ている。状態準備回路は1回しか実行されないので無視している。算術演算回路の
+    ゲート数はどの次元でも大きく値が変わらないがUCRZ回路は傾きが次元に応じて大き
+    くなっている。これはUCRZ回路のゲート数が入力ビット数の指数に比例し、入力ビッ
+    ト数は次元数×座標ビット数になっているためである。その結果、一次元では常に
+    UCRZ回路のゲート数の方が少ないが、3DになるとUCRZ回路のゲート数の方が算術演算
+    回路版のゲート数よりも多くなっている。
+    \end{flushleft}
+\end{figure}
+
+$\Thetaep$ を算術演算ゲートで実装した場合とUCRZゲートで実装した場合とで回路の
+qubit数と時間発展1ステップあたりのtwo-qubitゲート数を比較したグラフを図
+\ref{fig:hamiltonian-gatecount}に示す。グラフにはさらにシステムの状態準備回路の
+値もプロットしている。これらのグラフから、1次元モデルおよび2次元モデルの座標
+ビット数6bitまでであればUCRZ回路の方が算術演算回路よりもビット数だけでなくゲート
+数も少ないことが分かる。一方で3次元モデルではどのビット数においても算術演算ゲー
+ト版のゲート数がUCRZ回路版のゲート数を下回っており、UCRZよりも有利な回路となって
+いることが分かる。
+
+量子コンピュータ実機で回路を動作させる場合には、ビット数とモデルの次元数に応じて
+有利な回路構成を選ぶことが推奨できる。
+
+\clearpage
+
+\begin{table}[ht]
+\centering
+\caption{エミュレータで動作した回路構成一覧}
+\begin{tabular}{r|c|c}
+    \hline
+    次元数 & 算術ゲート版回路の$\nb$ & UCRZ版回路の$\nb$ \\
+    \hline
+    1 & 6,7 & 評価せず \\
+    2 & 動作せず & 6 \\
+    3 & 動作せず & 動作せず \\
+    \hline
+\end{tabular}
+\label{tab:emulator-circuit-configurations}
+\end{table}
+
+次元数1から3のそれぞれにおいて動作可能であった回路の構成を 表
+\ref{tab:emulator-circuit-configurations} に示す。1次元のモデルでは算術演算回路
+版のシミュレータが動作可能であったのでUCRZ回路版は評価していない。2次元のモデル
+では算術演算回路版は動作できず、UCRZ回路版のみが動作可能であった。3次元のモデル
+ではいずれの版の回路も動作不能であった。
+
+1次元、2次元のモデル共に、回路をエミュレータ上で動作させることができた。計算にあ
+たっては、第\ref{sec:coulomb-potential-handling}節で述べるクーロンポテンシャルの
+特異点の扱い方を採用し、第\ref{sec:parameter-selection-for-minimum-error}節で述
+べる誤差最小化のためのパラメータ選択を行った。これにより、算術演算ゲートを用いた
+クーロンポテンシャル計算回路、UCRZ回路によるクーロンポテンシャル計算回路共に、期
+待する波動関数の時間発展動作を得ることができた。計算の誤差については第
+\ref{sec:parameter-selection-for-minimum-error}節で分析する。
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{paper2025_figs/circuit-size-qubits.png}
+    \caption{粒子数とqubit数の関係}
+    \label{fig:qubit-for-some-molecules}
+    \begin{flushleft}\small
+
+        粒子数の異なるいくつかの分子に対して、qubit数の関係を示している。粒子数
+        (number of particles)は電子数と原子数の和である。各点が表している原子な
+        いし分子は、粒子数の順に \ce{H}, \ce{He}, \ce{Li}, \ce{H + H2}, \ce{O},
+        glycine(\ce{C2H5NO2}), Alanine(\ce{C3H7NO2}) である。 「\verb|+|」の点
+        は原子核位置を固定の条件による値である(Born-Oppenheimer近似:BOA)。
+        「\verb|x|」の点はKassal\cite{kassal2008.pnas.0808245105}に掲載の式に
+        よる値である。
+    \end{flushleft}
+\end{figure}
+
+いくつかの原子ないし分子に対して本回路生成プログラムでシミュレータの回路を生成さ
+せた時の粒子数とqubit数の関係を図\ref{fig:qubit-for-some-molecules}に示す。この
+図はエミュレータでの実行は無視してqubit数を制約なく使っている。座標のqubit数は10
+ビットとしており、3次元のモデルとして計算している。演算は算術演算ゲートを用いて
+いる。粒子数に線形なqubit数が必要であることが分かる。
+
+\subsection{クーロンポテンシャルの極の扱い}
+\subsubsection{局所平均ポテンシャルを用いる方法}
+\label{subsubsec:results-local-average-potential}
+$\Hla(r)$おける$\reff$の値を$\reff=\deltar/a$とおいて$1\le a\le 8$の範囲でのエネ
+ルギー計算値を複数種類の$\nb$に対して求めたグラフを図\ref{fig:Ha1-vs-delta1}に示
+す。このグラフの計算に用いた計算パラメータはエミュレータによる実行が不能な範囲の
+値を含むため、量子回路ではなく等価な演算をする古典プログラムにより計算した。図
+\ref{subfig:Ha1-energy-0-0}と\ref{subfig:Ha1-energy-1-0}を見ると２種類の波動関数
+$\PsiTwoD_{0,0}$と$\PsiTwoD_{1,0}$ のそれぞれにおいて、$a=4$ すなわち
+$\reff=\deltar/4$ の時にエネルギー固有値の解析解にほぼ一致する結果が得られた。い
+ずれのグラフも$a=4$を境に誤差の符号が反転している。 $\reff$の値を導出した式(15)
+では、$\deltar\ll1$の時の近似値が$\deltar/4$であるが、グラフを見ると$\deltar/4$
+から外れると誤差が生じるので最適条件が各ビット数で共通になっている。
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}{0.45\columnwidth}
+        \centering
+        \includegraphics[width=1\columnwidth]{paper2025_figs/compare_energy/compare_energy_h2D_TO2_r0lim_0_0.png}
+        \caption{$\PsiTwoD_{0,0}$}
+        \label{subfig:Ha1-energy-0-0}
+    \end{subfigure}
+    \begin{subfigure}{0.47\columnwidth}
+        \centering
+        \includegraphics[width=1\columnwidth]{paper2025_figs/compare_energy/compare_energy_h2D_TO2_r0lim_1_0.png}
+        \caption{$\PsiTwoD_{1,0}$}
+        \label{subfig:Ha1-energy-1-0}
+    \end{subfigure}
+    \caption{近似式$\Hla(r)$において$\reff$の値を変えた時のエネルギー値の変化}
+    \label{fig:Ha1-vs-delta1}
+    \begin{flushleft}\small
+        (a) $\PsiTwoD_{0,0}$に関して $\reff=\deltar/a$とおいて $a$ を変化させ
+        たグラフ。$a$ の値は比が$\sqrt{2}$ の等比級数としている。各ビット数共に
+        $a=4$ の時すなわち $\reff=\deltar/4$ の時に$\Hk+\Hp$ が解析解のエネル
+        ギー固有値の $-2.0$ に近い値を示している。(b)$\PsiTwoD_{1,0}$の時のグラ
+        フ。ここでも $a=4$ においてエネルギー固有値の $-0.2222$ に近い値を示して
+        いる。
+    \end{flushleft}
+\end{figure}
+
+\subsubsection{ソフトコアポテンシャル}
+\label{subsubsec:results-soft-core-potential}
+(a2)の近似式は、距離を求めるノルム計算にオフセット項を加えた、soft core
+ポテンシャルの式であり、次のように定義する\cite{Kivlichan_2017}。
+\begin{equation}
+\Hsc(r) = -\frac{1}{\sqrt{r^2+\Delta^2}}\label{eq:Ha2r}
+\end{equation}
+
+$\Hsc(r)$ について、式の中での定数$\Delta$ を変化させた時のエネルギー計算値
+を図\ref{fig:Ha2-vs-delta2}示す。なお、これらのグラフの計算値はシミュレータ回路ではな
+く古典プログラムにより計算した。
+
+$r=0$においては$\Hsc(0)=-1/\Delta$となり、$\Hla(r)$と同じ形の式となる。その結
+果、$\Hla(r)$の時と同様に$\Delta=\deltar/4$を用いた時にエネルギー固有値の解析
+解に近い値が得られている。$r\ne0$においては両者には差があるが、エネルギー計算値
+には大きな差は見られない。図 8に示すグラフを見ると、$\Hsc(r)$においても
+$\Delta=\deltar/4$の時にエネルギー固有値の解析解に近い値が得られている。
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}{0.45\columnwidth}
+        \centering
+        \includegraphics[width=1\columnwidth]{paper2025_figs/compare_energy/compare_energy_h2D_TO2_rofs_0_0.png}
+        \caption{$\PsiTwoD_{0,0}$}
+        \label{subfig:Ha2-energy-0-0}
+    \end{subfigure}
+    \begin{subfigure}{0.47\columnwidth}
+        \centering
+        \includegraphics[width=1\columnwidth]{paper2025_figs/compare_energy/compare_energy_h2D_TO2_rofs_1_0.png}
+        \caption{$\PsiTwoD_{1,0}$}
+        \label{subfig:Ha2-energy-1-0}
+    \end{subfigure}
+    \caption{近似式$\Hsc(r)$において$\Delta$の値を変えた時のエネルギー値の変化}
+    \label{fig:Ha2-vs-delta2}
+    \begin{flushleft}\small
+
+        (a) $\PsiTwoD_{0,0}$に関して $\Delta=\deltar/a$とおいて $a$ を変化させ
+        たグラフ。$a$ の値は比が$\sqrt{2}$ の等比級数としている。各ビット数共に
+        $a=4$ の時すなわち $a=\deltar/4$ の時に$\Hk+\Hp$ が解析解のエネル
+        ギー固有値の $-2.0$ に近い値を示している。(b)$\PsiTwoD_{1,0}$の時のグラ
+        フ。ここでも $a=4$ においてエネルギー固有値の $-0.2222$ に近い値を示して
+        いる。
+
+    \end{flushleft}
+\end{figure}
+\clearpage
+\subsection{誤差を最小にするシミュレーションパラメタの決定}
+時間発展期間$t=1.0$を固定して、Trotter分割数 $\nT$ を変化させた際の誤差の上限
+$\BN{\gamma}(\psi;t)$ と誤差の観測値 $\xiN{\gamma}$を図
+\ref{fig:trotter-error-t1-part1}, \ref{fig:trotter-error-t1-part2} に示す。
+$\gamma=1,2$ はTrotter次数を表す。より長いシミュレーション時間の例として波動関数
+$\PsiTwoD_{1,0}$の周期が$2\pi/E_2=28.277$ であることを考慮して $t=30.0$としたグ
+ラフを図\ref{fig:trotter-error-t30-part1}, \ref{fig:trotter-error-t30-part2}に示
+す。サンプリング定理に基づく$\nT$の下限である $\nTpminTwoD$ と $\nTkminTwoD$を垂
+直線で示した。他のグラフの単位がエネルギーであるのに対して、これらのグラフは式
+\eqref{eq:observed-trotter-error-1st}, \eqref{eq:observed-trotter-error-2nd}定義した
+波動関数の振幅の差のノルムを示している。
+
+Trotter次数 $\gamma$による違いは方位量子数 $m=0$ である $\PsiTwoD_{0,0}$ と
+$\PsiTwoD_{1,0}$ の計算例（図 \ref{subfig:trotter-error-2d-0-0-6b-t1} から
+\ref{subfig:trotter-error-2d-1-0-9b-t1}）ではほとんど見られなかった。$m=1$ であ
+る$\PsiTwoD_{1,1}$では$\nT$ が小さい領域では両者に差が見られた。Burgarthは3次元
+の水素原子モデルにおいて方位量子数が0の固有関数ではTrotter次数を上げても精度の改
+善は見られないことを報告している\cite{Burgarth2024.PhysRevResearch.6.043155}。次
+元は異なるが$\PsiTwoD_{0,0}$と$\PsiTwoD_{1,0}$の計算例は同様の結果を示す。
+
+いずれのグラフも$\nT$の増大と共に$\xiN{1}$, $\xiN{2}$ 共に減少する
+が、$\nT=\nTkminTwoD$のあたりで飽和する。$\PsiTwoD_{1,1}$ では $\nT>\nTkminTwoD$
+の領域で多少の減少が見られるがわずかである。これは、この領域では空間分解能による
+誤差$\errdisc$ の成分が優勢であるためと考えられる。ここに示した波動関数で
+は、$\nT$の値を$\nTkminTwoD$よりも大きな値に設定しても誤差の改善はない。例えば図
+\ref{subfig:trotter-error-2d-0-0-6b-t1}と図
+\ref{subfig:trotter-error-2d-0-0-9b-t1}を比較すると同じ$\PsiTwoD_{0,0}$に対して
+$n_b$を6から9に増やすと飽和した時の誤差の値が1/10程度に縮小していることがわか
+る。
+
+なお、$\nT$ に対応する$\deltat$ の値を考えると$t=1.0 \mathrm{a.u.}=24.19
+\mathrm{attosecond} (\mathrm{as})$ をさらに$10^2$から$10^3$期間に分割するため
+attosecond未満の値になる。
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}{0.45\columnwidth}
+        \centering
+        \includegraphics[width=1\columnwidth]{paper2025_figs/sdt_error/trotter_err_n0_m0_6b_t1.0.png}
+        \caption{$\PsiTwoD_{0,0}, \nb=6, t=1.0$}
+        \label{subfig:trotter-error-2d-0-0-6b-t1}
+    \end{subfigure}
+    \begin{subfigure}{0.45\columnwidth}
+        \centering
+        \includegraphics[width=1\columnwidth]{paper2025_figs/sdt_error/trotter_err_n0_m0_9b_t1.0.png}
+        \caption{$\PsiTwoD_{0,0}, \nb=9, t=1.0$}
+        \label{subfig:trotter-error-2d-0-0-9b-t1}
+    \end{subfigure}
+
+    \begin{subfigure}{0.45\columnwidth}
+        \centering
+        \includegraphics[width=1\columnwidth]{paper2025_figs/sdt_error/trotter_err_n1_m0_6b_t1.0.png}
+        \caption{$\PsiTwoD_{1,0}, \nb=6, t=1.0$}
+        \label{subfig:trotter-error-2d-1-0-6b-t1}
+    \end{subfigure}
+    \begin{subfigure}{0.45\columnwidth}
+        \centering
+        \includegraphics[width=1\columnwidth]{paper2025_figs/sdt_error/trotter_err_n1_m0_9b_t1.0.png}
+        \caption{$\PsiTwoD_{1,0}, \nb=9, t=1.0$}
+        \label{subfig:trotter-error-2d-1-0-9b-t1}
+    \end{subfigure}
+
+    \caption{時間発展期間$t=1.0$ での分割数$\nT$に対する誤差の上限 $\BN{\gamma}$ と観測値 $\xiN{\gamma}$}
+    \label{fig:trotter-error-t1-part1}
+    \begin{flushleft}\small
+
+        2次元モデルの波動関数におけるTrotter分割数に対する誤差。時間発展の期間
+        $t=1.0$は固定であり、横軸はTrotter分割数$\nT$である。$\xiN{1}$と
+        $\xiN{2}$はそれぞれTrotter次数1,2 に対する誤差である（式
+        \eqref{eq:observed-trotter-error-1st},
+        \eqref{eq:observed-trotter-error-2nd}）。この値はTrotter誤差以外の誤差も含
+        む。$\BN{1}, \BN{2}$ はそれぞれTrotter誤差の解析的な上限値である（式
+        \eqref{eq:observed-trotter-error-bound-1st},
+        \eqref{eq:observed-trotter-error-bound-2nd}）。垂直線$\nT=\nTpminTwoD$と
+        $\nT=\nTkminTwoD$ はそれぞれ、サンプリング定理に基づく$\deltat$に関する上限
+        値 $\deltatPmaxTwoD$と$\deltatKmaxTwoD$ に相当するTrotter分割数である
+        （式\eqref{eq:nT-pmin-definition}, \eqref{eq:nT-kmin-definition}）。
+
+    \end{flushleft}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}{0.45\columnwidth}
+        \centering
+        \includegraphics[width=1\columnwidth]{paper2025_figs/sdt_error/trotter_err_n1_m1_6b_t1.0.png}
+        \caption{$\PsiTwoD_{1,1}, \nb=6, t=1.0$}
+        \label{subfig:trotter-error-2d-1-1-6b-t1}
+    \end{subfigure}
+    \begin{subfigure}{0.45\columnwidth}
+        \centering
+        \includegraphics[width=1\columnwidth]{paper2025_figs/sdt_error/trotter_err_n1_m1_9b_t1.0.png}
+        \caption{$\PsiTwoD_{1,1}, \nb=9, t=1.0$}
+        \label{subfig:trotter-error-2d-1-1-9b-t1}
+    \end{subfigure}
+    \caption{時間発展期間$t=1.0$ での分割数$\nT$に対する誤差の上限 $\BN{\gamma}$ と観測値 $\xiN{\gamma}$}
+    \label{fig:trotter-error-t1-part2}
+    \begin{flushleft}\small
+        2次元モデルの波動関数におけるTrotter分割数に対する誤差（つづき）。
+    \end{flushleft}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}{0.8\columnwidth}
+        \centering
+        \includegraphics[width=1\columnwidth]{paper2025_figs/deltak_range/psitilde1D_continuous.png}
+        \caption{$\PsiOneD_{1}$の波数表示のスペクトル}
+    \end{subfigure}
+    \begin{subfigure}{0.8\columnwidth}
+        \centering
+        \includegraphics[width=1\columnwidth]{paper2025_figs/deltak_range/psitilde2D_continuous.png}
+        \caption{$\PsiTwoD_{1,0}$の波数表示のスペクトル}
+    \end{subfigure}
+    \caption{波動関数の波数スペクトル}
+    \begin{flushleft}\small
+        2次元モデルの波動関数におけるTrotter分割数に対する誤差（つづき）。
+    \end{flushleft}
+\end{figure}
+
+\clearpage
+\end{document}
