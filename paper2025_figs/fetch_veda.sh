@@ -22,7 +22,6 @@ for f in "${FILES[@]}"; do
     fi
 done
 
-
 SRC_DIR=$SRC_ROOT/circuits1D/GPU_cuStateVec_double_6bsigned_TO1/N1odd_L15.0_X0.0/dt0.010/63n.20e/STAR
 DEST_DIR=arith1D
 FILES=(
@@ -98,6 +97,8 @@ for f in "${FILES[@]}"; do
     fi
 done
 
+# compare energy vs a in deltar/a for 2d
+
 SRC_DIR=$SRC_ROOT/compare2D
 DEST_DIR=compare_energy
 FILES=(
@@ -105,6 +106,21 @@ FILES=(
     compare_energy_h2D_TO2_r0lim_1_0.png
     compare_energy_h2D_TO2_rofs_0_0.png
     compare_energy_h2D_TO2_rofs_1_0.png
+)
+
+mkdir -p $DEST_DIR
+for f in "${FILES[@]}"; do
+    if [ ! -f $DEST_DIR/$f ]; then
+        scp $SRC_DIR/$f $DEST_DIR
+    fi
+done
+
+# compare energy vs a in deltar/a for 3d
+
+SRC_DIR=$SRC_ROOT/compare3D
+DEST_DIR=compare_energy
+FILES=(
+    compare_energy_h3D_TO2_r0lim_1_0_0.png
 )
 
 mkdir -p $DEST_DIR
