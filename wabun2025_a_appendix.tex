@@ -90,34 +90,18 @@ q_0^2\left\{\left(1-q_0^2\deltar^2\right)e^{-q_0\deltar}-1\right\}
 第\ref{sec:coulomb-potential-handling}節で述べた近似式 $\Hla(r)$ におけるパラ
 メータ $\reff$ の導出を、クーロンポテンシャルの特異点を中心とする微小な円形領域
 におけるポテンシャルの単純な幾何学的平均から定める方法で示す。
-クーロンポテンシャルの特異点を中心とする半径 $\deltar/2$ の円形領域における
+クーロンポテンシャルの特異点を中心とする半径 $R=\deltar/2$ の円形領域における
 ポテンシャルの幾何学的平均は、
 \begin{align}
-    \bar{V} &= \frac{1}{\pi(\deltar/2)^2}\int_{\theta=0}^{2\pi}d\theta
-              \int_{r=0}^{\deltar/2} -\frac{1}{r} r dr\notag\\
-    &=-\frac{2}{\deltar^2}\int_{r=0}^{\deltar/2} dr\notag\\
-    &=-\frac{2}{\deltar^2}\left[\frac{\deltar}{2}-0\right]\notag\\
-    &=-\frac{1}{\deltar/4}
+    \bar{V} &= \frac{1}{\pi R^2}\int_{r=0}^{R} -\frac{1}{r} 2\pi r dr\notag\\
+    &=-\frac{1}{\pi R^2}\times 2\pi R \notag\\
+    &=-\frac{2}{R}\notag\\
+    &=-\frac{4}{\deltar}
 \end{align}
 となる。$\bar{V}=-1/\reff$ を解くと、$\reff=\deltar/4$と定めることができる。
 
 \section{3次元水素原子モデルでの評価}
-\subsection{幾何学的平均からの実行半径の導出}
-幾何学平均を用いて3次元水素原子モデルにおける実効半径を定める方法を示す。
-クーロンポテンシャルの特異点を中心とする半径 $\deltar/2$ の球形領域におけるポテンシャルの幾何学的平均は、
-\begin{align}
-    \bar{V} &= \frac{1}{\frac{4}{3}\pi(\deltar/2)^3}
-              \int_{\phi=0}^{2\pi}d\phi
-              \int_{\theta=0}^{\pi}d\theta
-              \int_{r=0}^{\deltar/2} -\frac{1}{r} r^2 \sin\theta dr\notag\\
-    &=-\frac{6}{\pi\deltar^3}\times 2\pi \times 2 \times \int_{r=0}^{\deltar/2} r dr\notag\\
-    &=-\frac{24}{\deltar^3}\left[\frac{(\deltar/2)^2}{2}-0\right]\notag\\
-    &=-\frac{3}{\deltar}
-\end{align}
-となる。$\bar{V}=-1/\reff$ を解くと、$\reff=\deltar/3$と定めることができる。
-
-\subsection{時間発展シミュレーションにおける評価}
-
+\label{sec:appendix_a_3d-evaluation}
 3次元水素原子モデルに局所平均ポテンシャルを適用して時間発展シミュレーションを
 行い、実行半径を変えてエネルギー誤差を評価した結果を示す。
 
