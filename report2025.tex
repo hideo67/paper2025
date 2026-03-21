@@ -1,0 +1,123 @@
+%
+%
+% report_2025.tex
+%
+%
+%
+\documentclass[fontsize=11pt]{article} % Note: Changed from jlreq to article for English typesetting, but you can revert to jlreq if you prefer.
+\usepackage{subfiles}
+\usepackage{amsmath, amssymb, braket} % AMS math
+\usepackage{lmodern} % Font for math
+\usepackage{graphicx,color}
+\usepackage{subcaption} % Captions for figures
+\usepackage{bm} % Bold math
+\usepackage{quantikz} % Quantum circuit diagrams
+\usepackage[version=4]{mhchem} % Chemical formulas
+\usepackage[backend=biber, style=numeric, maxnames=5, doi=false, url=true, eprint=true]{biblatex}
+\addbibresource{quantum.bib}
+\makeatletter
+\let\mkbibemph=\mkbibitalic
+\let\blx@imc@mkbibemph=\blx@imc@mkbibitalic
+\makeatother
+\setlength{\biblabelsep}{0.5em}
+
+%\usepackage{pdfx}  % side-effect: configures hyperref
+\usepackage{hyperref} % Link embedding, PDF table of contents generation
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=cyan,
+    pdftitle={Time Evolution Simulation of 1D and 2D Hydrogen Atom Models Using Full Quantum Circuits: Error Analysis and Parameter Optimization},
+    pdfauthor={Hideo Takahashi},
+    pdfsubject={Research Paper},
+    pdfkeywords={Quantum Computer, First Quantization, ab initio, Simulator, Coulomb Potential, Quantum Chemistry},
+    bookmarksnumbered=true,
+    bookmarksopen=true
+}
+\usepackage{xr}
+\externaldocument{report_2025_sm}
+\usepackage{paper2025}
+
+\begin{document}
+\title
+{Time Evolution Simulation of 1D and 2D Hydrogen Atom Models Using Full Quantum Circuits:\\Error Analysis and Parameter Optimization}
+\author{Hideo Takahashi, Tatsuya Tomaru, Toshiyuki Hirano, Saisei Tahara, Fumitoshi Sato}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+In this study, we constructed a quantum circuit for a first-quantization-based
+Hamiltonian simulator capable of operating on a small-scale quantum computer
+emulator with fewer than 30 qubits. Specifically, we realized a simulation of a
+two-dimensional single hydrogen atom model using 26 qubits (6 qubits for the
+coordinate register). To the best of our knowledge, this is the first
+operational report of a grid-based simulator that implements the entire process,
+including the Coulomb potential, exclusively using quantum circuits.
+
+To construct the circuit within limited quantum resources (number of qubits), we
+applied Uniformly Controlled Rotation (UCR) circuits to calculate the Coulomb
+potential. Furthermore, as a theoretical guideline for obtaining highly accurate
+computational results, we established a method for handling the singularity
+(pole) of the Coulomb potential and optimizing the discretization parameters.
+Regarding the singularity of the Coulomb potential, we demonstrated that
+divergence can be avoided and errors minimized by determining an effective value
+from a simple geometric average of the potential within a minute circular region
+centered on the pole.
+
+Additionally, under the constraint of a given number of qubits, we proposed a
+method to determine the optimal spatial grid spacing by evaluating the tradeoff
+between the spatial discretization error caused by grid coarseness and the
+domain truncation error due to a finite domain length. For the time evolution
+step size, rather than relying on the formal Trotter error bound that assumes
+the worst-case scenario, we clarified the conditions required to maintain
+sufficient accuracy while avoiding an unnecessary increase in quantum circuit
+depth. This was achieved based on the sampling theorem, focusing on the maximum
+frequency component of the wave function. This approach provides a powerful
+guideline for designing practical quantum simulations under limited resources.
+\end{abstract}
+
+\subfile{report2025_1_intro.tex}
+\subfile{report2025_2_method.tex}
+\subfile{report2025_3_results.tex}
+\subfile{report2025_4_analysis.tex}
+
+\section{Conclusion}
+In this study, we presented a circuit configuration capable of simulating the
+full time evolution of a two-dimensional hydrogen atom model on a Qiskit
+emulator. To the best of our knowledge, this is the first report to implement
+grid-based time evolution calculations, including the Coulomb potential,
+entirely as a quantum circuit and to confirm its operation on an emulator.
+
+Regarding the handling of the Coulomb potential singularity, we proposed a
+method using $\reff=\deltar/4$ as the effective radius to determine the
+effective potential at the grid point containing the singularity in the 2D
+model. Numerical experiments confirmed not only that this value minimizes the
+energy error of the system, but also that it coincides with the value derived
+from the geometric area average around the singularity, clarifying the physical
+validity of this approach in a discretized space.
+
+Furthermore, we established a procedure for determining simulation parameters
+that minimize errors under a given number of qubits ($\nb$). We demonstrated
+that the spatial grid spacing $\deltar$ can be determined as the optimal value
+and the dynamic range of the simulation by balancing the tradeoff between
+spatial discretization error and domain truncation error. 
+
+Moreover, regarding the time step $\deltat$ of the Trotter decomposition, we
+numerically confirmed that it can be determined not from the formal upper bound
+of the Trotter error assuming the worst case, but from the requirement of the
+sampling theorem (half-period condition) based on the maximum frequency
+component of the wave function. Particularly when targeting states near the
+ground state, we demonstrated that within the range satisfying this condition,
+the spatial error becomes dominant over the time error (i.e., the error
+saturates), providing a guideline to avoid unnecessary increases in quantum
+circuit depth.
+
+These findings are expected to serve as highly practical and powerful guidelines
+for designing and executing quantum simulations using the grid method under
+limited quantum resources.
+
+\printbibliography[heading=bibintoc, title={References}]
+
+\subfile{report2025_a_appendix.tex}
+
+\end{document}
