@@ -319,7 +319,7 @@ $\nTkminTwoD$ を垂直線で示している。縦軸はエネルギーではな
 
 特筆すべきは、対象状態の量子数によるTrotter次数の効果の違いである。方位量子数
 $m=0$ を持つ $\PsiTwoD_{0,0}$ および $\PsiTwoD_{1,0}$ の結果（図
-\ref{subfig:trotter-error-2d-0-0-6b-t1}〜\ref{subfig:trotter-error-2d-1-0-9b-t1}）
+\ref{fig:trotter-error-t1-part1}の(a)〜(d)）
 では、Trotter次数 $\gamma$ の違いによる明確な精度の差は見られなかった。これ
 は、Burgarthらが3次元水素原子モデルにおいて、方位量子数が0の固有関数ではTrotter
 次数を上げても精度の改善は見られないと報告した知見
@@ -327,7 +327,7 @@ $m=0$ を持つ $\PsiTwoD_{0,0}$ および $\PsiTwoD_{1,0}$ の結果（図
 結果である。
 
 一方で、方位量子数 $m=1$ を持つ $\PsiTwoD_{1,1}$ の結果（図
-\ref{subfig:trotter-error-2d-1-1-6b-t1}〜\ref{subfig:trotter-error-2d-1-1-9b-t1}）
+\ref{fig:trotter-error-t1-part2}の(a)〜(b)）
 では、分割数 $\nT$ が小さい領域において1次（$\xiN{1}$）と2次（$\xiN{2}$）の
 Trotter分解の間に明確な精度差が確認できる。これは、角運動量を持つ状態においては
 運動エネルギーとポテンシャルエネルギーの非可換性がより強く影響するため、高次分解
@@ -343,39 +343,15 @@ $\errdisc$ が支配的になるためである。
 したがって、ここに示した条件下では、サンプリング定理から導かれる下限値
 $\nTkminTwoD$ を大きく超える分割数を設定しても、計算コストが増大するだけで全体誤
 差の改善には寄与しないと言える。空間誤差との関係については、例えば図
-\ref{subfig:trotter-error-2d-0-0-6b-t1}（$\nb=6$）と図
-\ref{subfig:trotter-error-2d-0-0-9b-t1}（$\nb=9$）を比較すると明確である。空間分
+\ref{fig:trotter-error-t1-part1}の(a)（$\nb=6$）と図
+\ref{fig:trotter-error-t1-part1}の(b)（$\nb=9$）を比較すると明確である。空間分
 解能 $\nb$ を高めることで、Trotter誤差が飽和した後の残存誤差のフロア（底）が1/10
 程度まで大きく縮小していることが確認できる。
 
 
 \begin{figure}[ht]
     \centering
-    \begin{subfigure}{0.45\columnwidth}
-        \centering
-        \includegraphics[width=1\columnwidth]{paper2025_figs/sdt_error/trotter_err_n0_m0_6b_t1.0.png}
-        \caption{$\PsiTwoD_{0,0}, \nb=6, t=1.0$}
-        \label{subfig:trotter-error-2d-0-0-6b-t1}
-    \end{subfigure}
-    \begin{subfigure}{0.45\columnwidth}
-        \centering
-        \includegraphics[width=1\columnwidth]{paper2025_figs/sdt_error/trotter_err_n0_m0_9b_t1.0.png}
-        \caption{$\PsiTwoD_{0,0}, \nb=9, t=1.0$}
-        \label{subfig:trotter-error-2d-0-0-9b-t1}
-    \end{subfigure}
-
-    \begin{subfigure}{0.45\columnwidth}
-        \centering
-        \includegraphics[width=1\columnwidth]{paper2025_figs/sdt_error/trotter_err_n1_m0_6b_t1.0.png}
-        \caption{$\PsiTwoD_{1,0}, \nb=6, t=1.0$}
-        \label{subfig:trotter-error-2d-1-0-6b-t1}
-    \end{subfigure}
-    \begin{subfigure}{0.45\columnwidth}
-        \centering
-        \includegraphics[width=1\columnwidth]{paper2025_figs/sdt_error/trotter_err_n1_m0_9b_t1.0.png}
-        \caption{$\PsiTwoD_{1,0}, \nb=9, t=1.0$}
-        \label{subfig:trotter-error-2d-1-0-9b-t1}
-    \end{subfigure}
+    \includegraphics[width=\columnwidth]{paper2025_figs/sdt_error/trotter_err_00_10_t1.png}
 
     \caption{時間発展期間$t=1.0$ での分割数$\nT$に対する誤差の上限 $\BN{\gamma}$ と観測値 $\xiN{\gamma}$}
     \label{fig:trotter-error-t1-part1}
@@ -391,18 +367,7 @@ $\nTkminTwoD$ を大きく超える分割数を設定しても、計算コスト
 
 \begin{figure}[ht]
     \centering
-    \begin{subfigure}{0.45\columnwidth}
-        \centering
-        \includegraphics[width=1\columnwidth]{paper2025_figs/sdt_error/trotter_err_n1_m1_6b_t1.0.png}
-        \caption{$\PsiTwoD_{1,1}, \nb=6, t=1.0$}
-        \label{subfig:trotter-error-2d-1-1-6b-t1}
-    \end{subfigure}
-    \begin{subfigure}{0.45\columnwidth}
-        \centering
-        \includegraphics[width=1\columnwidth]{paper2025_figs/sdt_error/trotter_err_n1_m1_9b_t1.0.png}
-        \caption{$\PsiTwoD_{1,1}, \nb=9, t=1.0$}
-        \label{subfig:trotter-error-2d-1-1-9b-t1}
-    \end{subfigure}
+    \includegraphics[width=\columnwidth]{paper2025_figs/sdt_error/trotter_err_11_t1.png}
     \caption{時間発展期間 $t=1.0$ における分割数 $\nT$ に対する誤差の上限 $\BN{\gamma}$ と観測値 $\xiN{\gamma}$（続き）}
     \label{fig:trotter-error-t1-part2}
     \begin{flushleft}\small

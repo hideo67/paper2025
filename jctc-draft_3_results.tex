@@ -379,8 +379,7 @@ Equations \eqref{eq:observed-trotter-error-1st} and
 What is noteworthy is the difference in the effect of the Trotter order
 depending on the quantum number of the target state. In the results for
 $\PsiTwoD_{0,0}$ and $\PsiTwoD_{1,0}$ with an azimuthal quantum number of $m=0$
-(Figures \ref{subfig:trotter-error-2d-0-0-6b-t1} -
-\ref{subfig:trotter-error-2d-1-0-9b-t1}), no distinct difference in accuracy due
+(Figure \ref{fig:trotter-error-t1-part1}(a) to (d)), no distinct difference in accuracy due
 to the difference in the Trotter order $\gamma$ was observed. This is
 consistent---despite the difference in dimensions---with the findings reported
 by Burgarth et al. \cite{Burgarth2024.PhysRevResearch.6.043155}, who stated that
@@ -388,8 +387,7 @@ for 3D hydrogen atom models, increasing the Trotter order for eigenfunctions
 with an azimuthal quantum number of 0 does not yield accuracy improvements.
 
 On the other hand, in the results for $\PsiTwoD_{1,1}$ having an azimuthal
-quantum number of $m=1$ (Figures \ref{subfig:trotter-error-2d-1-1-6b-t1} -
-\ref{subfig:trotter-error-2d-1-1-9b-t1}), a clear difference in accuracy between
+quantum number of $m=1$ (Figure \ref{fig:trotter-error-t1-part2}(a) and (b)), a clear difference in accuracy between
 the 1st-order ($\xiN{1}$) and 2nd-order ($\xiN{2}$) Trotter decompositions can
 be confirmed in the region where the number of divisions $\nT$ is small. This is
 thought to be because the non-commutativity of kinetic energy and potential
@@ -410,38 +408,14 @@ number of divisions to far exceed the lower limit $\nTkminTwoD$ derived from the
 sampling theorem only increases computational costs and does not contribute to
 improving the overall error. Regarding the relationship with the spatial error,
 this is evident, for example, when comparing Figure
-\ref{subfig:trotter-error-2d-0-0-6b-t1} ($\nb=6$) and Figure
-\ref{subfig:trotter-error-2d-0-0-9b-t1} ($\nb=9$). It can be confirmed that by
+\ref{fig:trotter-error-t1-part1}(a) ($\nb=6$) and Figure
+\ref{fig:trotter-error-t1-part1}(b) ($\nb=9$). It can be confirmed that by
 increasing the spatial resolution $\nb$, the floor of the residual error after
 the Trotter error has saturated is significantly reduced to about 1/10.
 
 \begin{figure}[ht]
     \centering
-    \begin{subfigure}{0.45\columnwidth}
-        \centering
-        \includegraphics[width=1\columnwidth]{paper2025_figs/sdt_error/trotter_err_n0_m0_6b_t1.0.png}
-        \caption{$\PsiTwoD_{0,0}, \nb=6, t=1.0$}
-        \label{subfig:trotter-error-2d-0-0-6b-t1}
-    \end{subfigure}
-    \begin{subfigure}{0.45\columnwidth}
-        \centering
-        \includegraphics[width=1\columnwidth]{paper2025_figs/sdt_error/trotter_err_n0_m0_9b_t1.0.png}
-        \caption{$\PsiTwoD_{0,0}, \nb=9, t=1.0$}
-        \label{subfig:trotter-error-2d-0-0-9b-t1}
-    \end{subfigure}
-
-    \begin{subfigure}{0.45\columnwidth}
-        \centering
-        \includegraphics[width=1\columnwidth]{paper2025_figs/sdt_error/trotter_err_n1_m0_6b_t1.0.png}
-        \caption{$\PsiTwoD_{1,0}, \nb=6, t=1.0$}
-        \label{subfig:trotter-error-2d-1-0-6b-t1}
-    \end{subfigure}
-    \begin{subfigure}{0.45\columnwidth}
-        \centering
-        \includegraphics[width=1\columnwidth]{paper2025_figs/sdt_error/trotter_err_n1_m0_9b_t1.0.png}
-        \caption{$\PsiTwoD_{1,0}, \nb=9, t=1.0$}
-        \label{subfig:trotter-error-2d-1-0-9b-t1}
-    \end{subfigure}
+    \includegraphics[width=\columnwidth]{paper2025_figs/sdt_error/trotter_err_00_10_t1.png}
 
     \caption{Upper bound $\BN{\gamma}$ and observed value $\xiN{\gamma}$ of the error with respect to the number of divisions $\nT$ at time evolution period $t=1.0$}
     \label{fig:trotter-error-t1-part1}
@@ -461,18 +435,7 @@ the Trotter error has saturated is significantly reduced to about 1/10.
 
 \begin{figure}[ht]
     \centering
-    \begin{subfigure}{0.45\columnwidth}
-        \centering
-        \includegraphics[width=1\columnwidth]{paper2025_figs/sdt_error/trotter_err_n1_m1_6b_t1.0.png}
-        \caption{$\PsiTwoD_{1,1}, \nb=6, t=1.0$}
-        \label{subfig:trotter-error-2d-1-1-6b-t1}
-    \end{subfigure}
-    \begin{subfigure}{0.45\columnwidth}
-        \centering
-        \includegraphics[width=1\columnwidth]{paper2025_figs/sdt_error/trotter_err_n1_m1_9b_t1.0.png}
-        \caption{$\PsiTwoD_{1,1}, \nb=9, t=1.0$}
-        \label{subfig:trotter-error-2d-1-1-9b-t1}
-    \end{subfigure}
+    \includegraphics[width=\columnwidth]{paper2025_figs/sdt_error/trotter_err_11_t1.png}
     \caption{Upper bound $\BN{\gamma}$ and observed value $\xiN{\gamma}$ of the error with respect to the number of divisions $\nT$ at time evolution period $t=1.0$ (continued)}
     \label{fig:trotter-error-t1-part2}
     \begin{flushleft}\small

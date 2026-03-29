@@ -23,6 +23,14 @@ input13="dq_tradeoff/eval1d_dq.png"
 input14="dq_tradeoff/eval2d_dq_geom_0_0.png"
 input15="dq_tradeoff/eval2d_dq_geom_1_0.png"
 output8="dq_tradeoff/eval1d_2d.png"
+input16="sdt_error/trotter_err_n0_m0_6b_t1.0.png"
+input17="sdt_error/trotter_err_n0_m0_9b_t1.0.png"
+input18="sdt_error/trotter_err_n1_m0_6b_t1.0.png"
+input19="sdt_error/trotter_err_n1_m0_9b_t1.0.png"
+output9="sdt_error/trotter_err_00_10_t1.png"
+input20="sdt_error/trotter_err_n1_m1_6b_t1.0.png"
+input21="sdt_error/trotter_err_n1_m1_9b_t1.0.png"
+output10="sdt_error/trotter_err_11_t1.png"
 label_splice="120x0"
 label_pointsize="64"
 circuit_label_pointsize="64"
@@ -104,6 +112,36 @@ if [[ ! -f "$input15" ]]; then
 	exit 1
 fi
 
+if [[ ! -f "$input16" ]]; then
+	echo "Error: missing input file: $input16" >&2
+	exit 1
+fi
+
+if [[ ! -f "$input17" ]]; then
+	echo "Error: missing input file: $input17" >&2
+	exit 1
+fi
+
+if [[ ! -f "$input18" ]]; then
+	echo "Error: missing input file: $input18" >&2
+	exit 1
+fi
+
+if [[ ! -f "$input19" ]]; then
+	echo "Error: missing input file: $input19" >&2
+	exit 1
+fi
+
+if [[ ! -f "$input20" ]]; then
+	echo "Error: missing input file: $input20" >&2
+	exit 1
+fi
+
+if [[ ! -f "$input21" ]]; then
+	echo "Error: missing input file: $input21" >&2
+	exit 1
+fi
+
 convert \
 	\( "$input1" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$circuit_label_pointsize" -annotate "$circuit_label_offset" "(a)" \) \
 	\( "$input2" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$circuit_label_pointsize" -annotate "$circuit_label_offset" "(b)" \) \
@@ -135,6 +173,26 @@ convert \
 	"$input14" \
 	"$input15" \
 	-append "$output8"
+
+mkdir -p "$(dirname "$output9")"
+convert \
+	\( \
+		\( "$input16" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$label_pointsize" -annotate "$label_offset" "(a)" \) \
+		\( "$input17" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$label_pointsize" -annotate "$label_offset" "(b)" \) \
+		+append \
+	\) \
+	\( \
+
+mkdir -p "$(dirname "$output10")"
+convert \
+	\( "$input20" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$label_pointsize" -annotate "$label_offset" "(a)" \) \
+	\( "$input21" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$label_pointsize" -annotate "$label_offset" "(b)" \) \
+	+append "$output10"
+		\( "$input18" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$label_pointsize" -annotate "$label_offset" "(c)" \) \
+		\( "$input19" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$label_pointsize" -annotate "$label_offset" "(d)" \) \
+		+append \
+	\) \
+	-append "$output9"
 
 mkdir -p "$(dirname "$output6")"
 if command -v pdftocairo >/dev/null 2>&1; then
