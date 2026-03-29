@@ -40,7 +40,8 @@
 
 \begin{document}
 \title
-{Time Evolution Simulation of 1D and 2D Hydrogen Atom Models Using Full Quantum Circuits:\\Error Analysis and Parameter Optimization}
+{Time Evolution Simulation of a Hydrogen Atom Using Full Quantum Circuits}
+
 \author{Hideo Takahashi, Tatsuya Tomaru, Toshiyuki Hirano, Saisei Tahara, Fumitoshi Sato}
 \date{\today}
 \maketitle
@@ -48,15 +49,11 @@
 \begin{abstract}
 In this study, we constructed a quantum circuit for a first-quantization-based
 Hamiltonian simulator capable of operating on a small-scale quantum computer
-emulator with fewer than 30 qubits. Specifically, we realized a simulation of a
-two-dimensional single hydrogen atom model using 26 qubits (6 qubits for the
-coordinate register). To the best of our knowledge, this is the first
-operational report of a grid-based simulator that implements the entire process,
-including the Coulomb potential, exclusively using quantum circuits.
+emulator with fewer than 30 qubits.
 
 To construct the circuit within limited quantum resources (number of qubits), we
 applied Uniformly Controlled Rotation (UCR) circuits to calculate the Coulomb
-potential. Furthermore, as a theoretical guideline for obtaining highly accurate
+potential. Furthermore, as a guideline for obtaining highly accurate
 computational results, we established a method for handling the singularity
 (pole) of the Coulomb potential and optimizing the discretization parameters.
 Regarding the singularity of the Coulomb potential, we demonstrated that
@@ -72,8 +69,7 @@ step size, rather than relying on the formal Trotter error bound that assumes
 the worst-case scenario, we clarified the conditions required to maintain
 sufficient accuracy while avoiding an unnecessary increase in quantum circuit
 depth. This was achieved based on the sampling theorem, focusing on the maximum
-frequency component of the wave function. This approach provides a powerful
-guideline for designing practical quantum simulations under limited resources.
+frequency component of the wave function.
 \end{abstract}
 
 \subfile{report2025_1_intro.tex}

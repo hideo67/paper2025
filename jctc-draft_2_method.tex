@@ -4,7 +4,7 @@
 %
 %
 %
-\documentclass[report_2025.tex]{subfiles}
+\documentclass[jctc-draft.tex]{subfiles}
 \begin{document}
 \section{Method}
 \label{sec:method}
@@ -36,7 +36,7 @@ the elementary charge, electron mass, Bohr radius, and Planck's constant are all
 set to 1. The main variables used from this section onwards are listed in Table
 \ref{tab:variables}.
 
-\begin{table}[ht]
+\begin{table}
     \centering
     \caption{Variables used in this section}
     \begin{tabular}{cc}
@@ -170,13 +170,17 @@ E_1^{\mathrm{1D}}&=-\frac{1}{2}
 The position and wavenumber representations of $\psi_1^{\mathrm{1D}}$ are shown
 in Fig. \ref{fig:initial-wavefunction-1d}.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{paper2025_figs/analytic1D/t_00.000.png}
     \caption{Example of the 1D model wave function $\PsiOneD_1$}
     \label{fig:initial-wavefunction-1d}
     \begin{flushleft}\small
-        Values of $\PsiOneD_1$ (Eq. \eqref{eq:psi1D1-wave-function}) at 6-bit resolution. (A) shows the wave function amplitude in real-space. (B) shows the wave function amplitude in k-space. (C) is a logarithmic scale representation of the amplitude in k-space.
+
+        Values of $\PsiOneD_1$ (Eq. \eqref{eq:psi1D1-wave-function}) at 6-bit
+        resolution. (A) shows the wave function amplitude in real-space. (B)
+        shows the wave function amplitude in k-space. (C) is a logarithmic scale
+        representation of the amplitude in k-space.
     \end{flushleft}
 \end{figure}
 
@@ -214,23 +218,34 @@ Fig. \ref{fig:initial-wavefunction-2d-00_10}(a), Fig.
 \ref{fig:initial-wavefunction-2d-00_10}(b), and
 Fig. \ref{subfig:initial-wavefunction-2d-1-1}, respectively.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
     \includegraphics[width=1\columnwidth]{paper2025_figs/classic2D/initial-wavefunction-2d-00_10.png}
-    \caption{Initial wave functions $\PsiTwoD_{0,0}$ and $\PsiTwoD_{1,0}$}
+    \caption{Wave functions $\PsiTwoD_{0,0}$ and $\PsiTwoD_{1,0}$}
     \label{fig:initial-wavefunction-2d-00_10}
     \begin{flushleft}\small 
-        (a) Ground state $\PsiTwoD_{0,0}$ with principal quantum number $n=0$ and azimuthal quantum number $m=0$ (Eq. \eqref{eq:psi2D00-wave-function}). (b) Excited state $\PsiTwoD_{1,0}$ with $n=1, m=0$ (Eq. \eqref{eq:psi2D10-wave-function}). In both, the upper row shows the real part of the wave function in real-space, and the lower row shows the real part in k-space. Both (a) and (b) have non-zero wave function values at the origin.
+
+        (a) Ground state $\PsiTwoD_{0,0}$ with principal quantum number $n=0$
+        and azimuthal quantum number $m=0$ (Eq.
+        \eqref{eq:psi2D00-wave-function}). (b) Excited state $\PsiTwoD_{1,0}$
+        with $n=1, m=0$ (Eq. \eqref{eq:psi2D10-wave-function}). In both, the
+        upper row shows the real part of the wave function in real-space, and
+        the lower row shows the real part in k-space. Both (a) and (b) have
+        non-zero wave function values at the origin.
     \end{flushleft}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
     \includegraphics[width=0.45\columnwidth]{paper2025_figs/classic2D/6b_n1_m1/t_00.000_3d-qp.png}
     \caption{Wave function $\PsiTwoD_{1,1}$}
     \label{subfig:initial-wavefunction-2d-1-1}
     \begin{flushleft}\small
-        Excited state $\PsiTwoD_{1,1}$ with $n=1, m=1$ (Eq. \eqref{eq:psi2D11-wave-function}). The upper row shows the real part of the wave function in real-space, and the lower row shows the real part in k-space. The wave function value at the origin is zero.
+
+        Excited state $\PsiTwoD_{1,1}$ with $n=1, m=1$ (Eq.
+        \eqref{eq:psi2D11-wave-function}). The upper row shows the real part of
+        the wave function in real-space, and the lower row shows the real part
+        in k-space. The wave function value at the origin is zero.
     \end{flushleft}
 \end{figure}
 
@@ -275,16 +290,24 @@ executed on the emulator are shown in Table
 \ref{subsec:circuit-size-evaluation-results}.
 
 \subsubsection{Computing Environment}
-The computer hardware and software used for the simulation calculations are as
-follows:
-\begin{itemize}
-    \item CPU: AMD Ryzen 9 7950X 16 Core × 1
-    \item Memory: 128GB
-    \item GPU: NVIDIA GeForce RTX 4090 × 1
-    \item OS: Ubuntu 22.04.4 LTS
-    \item Quantum SDK: Qiskit 1.4.0, qiskit-aer-gpu 0.15.1
-    \item Quantum Chemistry Simulator Software: Chemical Reaction Simulator Q (crsQ) \cite{website:crsq}
-\end{itemize}
+The computer hardware and software used for the simulation calculations are
+shown in Table \ref{tab:computing-environment}.
+
+\begin{table}[ht]
+    \centering
+    \caption{computing environment}
+    \begin{tabular}{ll}
+        item & description \\
+        \hline
+        CPU & AMD Ryzen 9 7950X 16 Core × 1 \\
+        Memory & 128GB \\
+        GPU & NVIDIA GeForce RTX 4090 × 1 \\
+        OS & Ubuntu 22.04.4 LTS \\
+        Quantum SDK & Qiskit 1.4.0, qiskit-aer-gpu 0.15.1 \\
+        Quantum Chemistry Simulator Software & Chemical Reaction Simulator Q (crsQ) \cite{website:crsq}
+    \end{tabular}
+    \label{tab:computing-environment}
+\end{table}
 
 \subsection{Simulator Circuit Configuration}
 \label{sec:simulator-circuit-configuration}
@@ -339,7 +362,7 @@ arithmetic circuits \cite{Zalka-rspa.1998.0162}.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.6\columnwidth]{paper2025_figs/quantikz/arith.png}
+    \includegraphics[width=0.4\columnwidth]{paper2025_figs/quantikz/arith.png}
 
     \caption{Example of the Coulomb potential term circuit $\Thetaep$ in a 3-electron system}
     \label{fig:theta-ep-multi-electron}

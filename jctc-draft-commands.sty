@@ -1,0 +1,198 @@
+%
+% macros for paper 2025.
+% (c) 2025 Hideo Takahashi
+%
+
+% wavefunctions
+\newcommand{\PsiThreeD}{\Psi^{\mathrm{3D}}}
+\newcommand{\PsiTwoD}{\Psi^{\mathrm{2D}}}
+\newcommand{\PsiOneD}{\Psi^{\mathrm{1D}}}
+
+% number of electrons
+\newcommand{\nelec}{N_{\mathrm{e}}}
+% number of nuclei
+\newcommand{\nnuc}{N_{\mathrm{n}}}
+
+% number of energy eigenstates
+\newcommand{\nrho}{N_{\mathrm{\rho}}}
+
+% bits per dimension
+\newcommand{\nb}{n_{\mathrm{b}}}
+
+% Trotter rounds
+\newcommand{\nT}{n_{\mathrm{T}}}
+\newcommand{\nTnuc}{n_{\mathrm{n}}}
+\newcommand{\nTelec}{n_{\mathrm{e}}}
+\newcommand{\nTpminOneD}{n_{\mathrm{Tpmin}}^{\mathrm{1D}}}
+\newcommand{\nTpminTwoD}{n_{\mathrm{Tpmin}}^{\mathrm{2D}}}
+\newcommand{\nTkminOneD}{n_{\mathrm{Tkmin}}^{\mathrm{1D}}}
+\newcommand{\nTkminTwoD}{n_{\mathrm{Tkmin}}^{\mathrm{2D}}}
+% mass of electron
+\newcommand{\melec}{m_{\mathrm{e}}}
+% mass of nucleus
+\newcommand{\mnuc}{M_{\mathrm{n}}}
+
+% electron potential term
+\newcommand{\Hep}{H_{\mathrm{ep}}}
+% electron kinetic term
+\newcommand{\Hek}{H_{\mathrm{ek}}}
+% electron-nucleus interaction term
+\newcommand{\Hen}{H_{\mathrm{en}}}
+% nucleus potential term
+\newcommand{\Hnp}{H_{\mathrm{np}}}
+% nucleus kinetic term
+\newcommand{\Hnk}{H_{\mathrm{nk}}}
+
+% electron/nucleus potential term
+\newcommand{\Hp}{H_{\mathrm{p}}}
+% electron/nucleus kinetic term
+\newcommand{\Hk}{H_{\mathrm{k}}}
+
+\newcommand{\HkOneD}{H_{\mathrm{k}}^{\mathrm{1D}}}
+\newcommand{\HpOneD}{H_{\mathrm{p}}^{\mathrm{1D}}}
+\newcommand{\HkTwoD}{H_{\mathrm{k}}^{\mathrm{2D}}}
+\newcommand{\HpTwoD}{H_{\mathrm{p}}^{\mathrm{2D}}}
+
+\newcommand{\HekOneD}{H_{\mathrm{ek}}^{\mathrm{1D}}}
+\newcommand{\HepOneD}{H_{\mathrm{ep}}^{\mathrm{1D}}}
+\newcommand{\HekTwoD}{H_{\mathrm{ek}}^{\mathrm{2D}}}
+\newcommand{\HepTwoD}{H_{\mathrm{ep}}^{\mathrm{2D}}}
+
+\newcommand{\HaOne}{H_{\mathrm{a1}}}
+\newcommand{\HaTwo}{H_{\mathrm{a2}}}
+% local average potential
+\newcommand{\Hla}{H_{\mathrm{LA}}}
+\newcommand{\HlaOneD}{H_{\mathrm{LA}}^{\mathrm{1D}}}
+\newcommand{\HlaTwoD}{H_{\mathrm{LA}}^{\mathrm{2D}}}
+\newcommand{\reff}{r_{\mathrm{eff}}} % effective radius
+\newcommand{\reffnm}[1]{r_{\mathrm{eff},#1}}
+% soft-core potential
+\newcommand{\Hsc}{H_{\mathrm{SC}}}
+\newcommand{\HscOneD}{H_{\mathrm{SC}}^{\mathrm{1D}}}
+\newcommand{\HscTwoD}{H_{\mathrm{SC}}^{\mathrm{2D}}}
+
+\newcommand{\HaOneOneD}{H_{\mathrm{a1}}^{\mathrm{1D}}}
+\newcommand{\HaOneTwoD}{H_{\mathrm{a1}}^{\mathrm{2D}}}
+\newcommand{\HaTwoOneD}{H_{\mathrm{a2}}^{\mathrm{1D}}}
+\newcommand{\HaTwoTwoD}{H_{\mathrm{a2}}^{\mathrm{2D}}}
+
+% absolute value
+\newcommand{\abs}[1]{{\left| #1 \right|}}
+
+% Ψ^RS
+\newcommand{\ketPsiRS}{\ket{\Psi}^{\mathrm{RS}}}
+% Ψ^KS
+\newcommand{\ketPsiKS}{\ket{\Psi}^{\mathrm{KS}}}
+
+% Quantum Fourier Transform
+\newcommand{\QFT}{\mathrm{QFT}}
+% Inverse Quantum Fourier Transform
+\newcommand{\QFTdagger}{\mathrm{QFT}^\dagger}
+\newcommand{\nQFT}{\mathrm{nQFT}}
+\newcommand{\nQFTdagger}{\mathrm{nQFT}^\dagger}
+
+% circuit blocks
+\newcommand{\Psig}{\Psi_{\mathrm{g}}}
+\newcommand{\PsiSD}{\Psi_{\mathrm{SD}}}
+\newcommand{\ThetaSTEP}{\Theta_{\mathrm{STEP}}}
+\newcommand{\Thetaep}{\Theta_{\mathrm{ep}}}
+\newcommand{\Thetaepucr}{\Theta_{\mathrm{epUCR}}}
+\newcommand{\Thetaek}{\Theta_{\mathrm{ek}}}
+\newcommand{\Thetanp}{\Theta_{\mathrm{np}}}
+\newcommand{\Thetank}{\Theta_{\mathrm{nk}}}
+\newcommand{\Thetae}{\Theta_{\mathrm{e}}}
+\newcommand{\Thetan}{\Theta_{\mathrm{n}}}
+\newcommand{\emb}{\mathrm{emb}}
+\newcommand{\embtheta}{\mathrm{emb\theta}}
+\newcommand{\embphi}{\mathrm{emb\phi}}
+\newcommand{\Ry}{\mathrm{Ry}}
+\newcommand{\Rz}{\mathrm{Rz}}
+
+\newcommand{\ix}{i_{\mathrm{x}}}
+\newcommand{\iy}{i_{\mathrm{y}}}
+\newcommand{\iz}{i_{\mathrm{z}}}
+
+\newcommand{\chij}{\bm{\chi}_{j}}
+\newcommand{\chijx}{\chi_{j,x}}
+\newcommand{\chijy}{\chi_{j,y}}
+\newcommand{\chijz}{\chi_{j,z}}
+
+\newcommand{\kapl}{\bm{\kappa}_{\ell}}
+\newcommand{\kaplx}{\kappa_{\ell,x}}
+\newcommand{\kaply}{\kappa_{\ell,y}}
+\newcommand{\kaplz}{\kappa_{\ell,z}}
+
+% \newcommand{\chiix}{\chi_{i,x}}
+% \newcommand{\chiiy}{\chi_{i,y}}
+% \newcommand{\chiiz}{\chi_{i,z}}
+
+\newcommand{\Iix}{I^{(i)}_{\mathrm{x}}}
+\newcommand{\Iiy}{I^{(i)}_{\mathrm{y}}}
+\newcommand{\Iiz}{I^{(i)}_{\mathrm{z}}}
+\newcommand{\Ix}[1]{I^{(#1)}_{\mathrm{x}}}
+\newcommand{\Iy}[1]{I^{(#1)}_{\mathrm{y}}}
+\newcommand{\Iz}[1]{I^{(#1)}_{\mathrm{z}}}
+\newcommand{\Ne}{N_{\mathrm{e}}}
+\newcommand{\Nn}{N_{\mathrm{n}}}
+
+\newcommand{\kix}{k^{(i)}_{\mathrm{x}}}
+\newcommand{\kiy}{k^{(i)}_{\mathrm{y}}}
+\newcommand{\kiz}{k^{(i)}_{\mathrm{z}}}
+\newcommand{\kx}{k_{\mathrm{x}}}
+\newcommand{\ky}{k_{\mathrm{y}}}
+\newcommand{\kappax}{\kappa_{\mathrm{x}}}
+\newcommand{\kappay}{\kappa_{\mathrm{y}}}
+\newcommand{\kappaz}{\kappa_{\mathrm{z}}}
+
+\newcommand{\kellx}{k_{\ell,x}}
+\newcommand{\kelly}{k_{\ell,y}}
+\newcommand{\kellz}{k_{\ell,z}}
+\newcommand{\pix}{p_{i,x}}
+\newcommand{\piy}{p_{i,y}}
+\newcommand{\piz}{p_{i,z}}
+\newcommand{\pellx}{p_{\ell,x}}
+\newcommand{\pelly}{p_{\ell,y}}
+\newcommand{\pellz}{p_{\ell,z}}
+\newcommand{\nellx}{n_{\ell,x}}
+\newcommand{\nelly}{n_{\ell,y}}
+\newcommand{\nellz}{n_{\ell,z}}
+
+\newcommand{\elle}{\ell_{\mathrm{e}}}
+\newcommand{\elln}{\ell_{\mathrm{n}}}
+
+\newcommand{\ksigmaU}{\mathrm{k}_{\sigma_{\mathrm{u}}}}
+\newcommand{\ksigma}{\mathrm{k}_{\sigma}}
+
+\newcommand{\deltar}{\delta r}
+\newcommand{\deltak}{\delta k}
+\newcommand{\deltap}{\delta p}
+\newcommand{\deltat}{\delta t}
+\newcommand{\deltatPmax}{\delta t_{\mathrm{pmax}}}
+\newcommand{\deltatKmax}{\delta t_{\mathrm{kmax}}}
+\newcommand{\deltatPmaxOneD}{\delta t_{\mathrm{pmax}}^{\mathrm{1D}}}
+\newcommand{\deltatPmaxTwoD}{\delta t_{\mathrm{pmax}}^{\mathrm{2D}}}
+\newcommand{\deltatKmaxOneD}{\delta t_{\mathrm{kmax}}^{\mathrm{1D}}}
+\newcommand{\deltatKmaxTwoD}{\delta t_{\mathrm{kmax}}^{\mathrm{2D}}}
+
+\newcommand{\errtotal}{err_{\mathrm{total}}}
+\newcommand{\errspatial}{err_{\mathrm{spatial}}}
+\newcommand{\errtemporal}{err_{\mathrm{temporal}}}
+\newcommand{\errdisc}{err_{\mathrm{disc}}}
+\newcommand{\errcutoff}{err_{\mathrm{cutoff}}}
+\newcommand{\erralias}{err_{\mathrm{alias}}}
+\newcommand{\errtrotter}{err_{\mathrm{trotter}}}
+
+\newcommand{\xiN}[1]{\xi_{N}^{(#1)}}
+\newcommand{\SN}[1]{S_{N}^{(#1)}}
+\newcommand{\BN}[1]{B_{N}^{(#1)}}
+\newcommand{\Sd}{S_{\mathrm{d}}}
+
+\newcommand{\xe}[1]{x_{\mathrm{e}#1}}
+\newcommand{\xn}[1]{x_{\mathrm{n}#1}}
+
+\newcommand{\Su}{S_{\mathrm{u}}}
+\newcommand{\Sb}{S_{\mathrm{b}}}
+\newcommand{\ksigmau}{\mathrm{k}_{\mathrm{u}\Sigma}}
+\newcommand{\ksigmab}{\mathrm{k}_{\mathrm{b}\Sigma}}
+\newcommand{\sigmau}{\sigma_{\mathrm{u}}}
+\newcommand{\sigmab}{\sigma_{\mathrm{b}}}

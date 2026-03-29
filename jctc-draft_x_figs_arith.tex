@@ -1,0 +1,11 @@
+\documentclass[tikz, border=5pt]{standalone}
+\usepackage{quantikz}
+\usepackage{jctc-draft-commands}
+\begin{document}
+    \begin{quantikz}[transparent]
+        \lstick{$n_1$} & \qwbundle{\nb} & \gate[4]{\Thetaep} &                   & \gate[4]{\Thetaep} &\\
+        \lstick{$n_2$} & \qwbundle{\nb} &                    &\gate[3]{\Thetaep} & \linethrough &\\
+        \lstick{$n_3$} & \qwbundle{\nb} & \linethrough       &                   & & \\
+        \lstick{$tmp$} & \qwbundle{} &                    &                   & &
+    \end{quantikz}
+\end{document}

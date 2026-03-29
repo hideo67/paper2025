@@ -1,0 +1,206 @@
+\documentclass[jctc-draft.tex]{subfiles}
+\begin{document}
+\section{Discussion}
+\label{sec:analysis}
+\subsection{Configuration of the Simulator Circuit}
+\label{sec:circuit-structure-analysis}
+\subsubsection{Comparison of Resource Consumption Between the Two Circuit Methods}
+As shown in Figure \ref{fig:hamiltonian-gatecount}, the required number of
+qubits for both the arithmetic circuit and the UCRZ circuit increases linearly
+with the number of coordinate qubits. However, the arithmetic operation has a
+larger constant term and slope. On the other hand, looking at the number of
+2-qubit gates as a measure of circuit depth, the number of UCRZ gates increases
+exponentially with respect to the input (dimensionality $\times$ number of
+coordinate qubits), whereas the arithmetic circuit shows only a moderate
+increase. However, in small-scale models, the smallness of the constant term for
+the UCRZ gate is dominant. Therefore, a trade-off was confirmed: direct state
+preparation using UCRZ gates is advantageous for small-scale, low-dimensional
+systems, while arithmetic operations will be superior in terms of depth when
+performing large-scale, high-resolution simulations in the future.
+
+\subsubsection{Utility of UCRZ Gates in Quantum Emulators}
+In quantum emulators on classical computers, the simulatable state vector space
+is exponentially limited by the hardware's memory (RAM) capacity (typically
+around 20 to 30 qubits). Between the two circuit methods examined in this study,
+the approach of using UCRZ gates to suppress the consumption of ancilla qubits
+is extremely useful for algorithm verification, as it circumvents this severe
+qubit constraint and enables Hamiltonian simulations of higher dimensions (such
+as the 2D hydrogen atom model in this study) to be executed on the emulator.
+
+\subsubsection{Prospects for Implementation Costs Anticipating Application to FTQC Devices}
+While any operational gate can be executed at a uniform cost on an emulator, the
+situation is different for actual fault-tolerant quantum computers (FTQC). In
+particular, promising error correction schemes like the Surface code require
+enormous physical resources, such as magic state distillation, to execute
+non-Clifford gates compared to Clifford gates. The CC-NOT gates in arithmetic
+circuits and arbitrary Rz rotation gates in UCRZ circuits fall precisely into
+this category. Ultimately, the bottleneck lies in how many T gates these can be
+approximated and decomposed into (T-count / T-depth). In particular, the Rz
+rotation in the UCRZ gate significantly fluctuates in T-gate consumption
+depending on the required accuracy. Therefore, for application to real devices,
+a quantitative comparison of the gate implementation costs of both methods,
+taking into account the overhead of error correction, will be a future
+challenge.
+
+\subsection{Handling the Pole of the Coulomb Potential}
+\label{sec:coulomb-potential-handling-analysis}
+\subsubsection{Reason Why the Effective Radius is $\deltar$/4}
+As shown in Figure \ref{fig:Ha1-vs-delta1}, the optimal value for the effective
+radius $\reff=\deltar/a$ used in the local average potential was obtained at
+$a=4$ for the 2D model. That is, setting $\reff=\deltar/4$ most effectively
+regularized the divergence caused by the pole (singularity) of the Coulomb
+potential. This result was intriguing and differed from our initial intuition.
+
+Initially, we focused on the energy expectation value $\braket{\psi|H|\psi}$
+within a circular region of radius $\deltar/2$ centered on the singularity, and
+determined $\reff$ such that the integral value using the analytical solution
+matched the approximation formula using the representative value. The $\reff$
+derived by this method includes higher-order terms of the grid spacing $\deltar$
+and approaches $\reff=\deltar/4$ in the limit of $\deltar\rightarrow0$. Assuming
+that these higher-order terms could not be ignored under conditions of coarse
+coordinate resolution (e.g., $\nb=6$), we performed time evolution simulations
+using $\reff$ including the higher-order terms. However, comparative
+verification revealed that the system's energy value approached the analytical
+solution more closely when using $\deltar/4$, where the higher-order terms are
+truncated.
+
+To investigate the cause of this, we re-evaluated $\reff$ so that the geometric
+regional average of the simple potential function $V(r)=-1/r$, without weighting
+by the wave function, matched the representative value. This directly derived
+$\reff=\deltar/4$ without higher-order terms. This fact suggests that in a
+finitely discretized grid space, adopting a simple mean field of the microscopic
+region represented by the lattice point serving as the singularity as the
+potential yields more accurate energy, rather than assuming higher-order changes
+of the wave function within the grid.
+
+\subsubsection{Validity of the Approximation Within a Circular Region}
+To obtain a local average centered on a lattice point, one method is to
+integrate over a square region with side $\deltar$ represented by that lattice
+point. However, in this study, to obtain an analytically closed-form expression,
+the calculation was performed in a circular region of radius $\deltar/2$
+centered on the singularity (lattice point). The integral value of the Coulomb
+potential is dominated by the contribution near the origin, which is the
+singularity, and is isotropic. Therefore, the circular region is considered to
+capture the essential spatial scaling better. The fact that the energy value in
+the numerical experiment was optimal at the value ($a=4$) obtained from this
+approximation supports the validity of this approximation.
+
+\subsubsection{Reason Why Truncating Higher-Order Terms Improves Accuracy}
+As mentioned above, higher-order terms of $\deltar$ appear in a rigorous
+evaluation using $\braket{\psi|H|\psi}$, but applying this to the simulation
+ironically decreased the accuracy. This is presumed to be because, on a coarse
+grid with a finite grid spacing $\deltar$, the higher-order spatial changes
+(curvature) of the wave function around the lattice point cannot be fully
+expressed. As a result, it became clear that adopting a simple geometric average
+(truncating higher-order terms), which does not depend on minute shape changes
+of the wave function exceeding the grid resolution, provides the most stable
+regularization parameter.
+
+\subsubsection{Extension to 3D Models and General Versatility}
+\label{subsec:discussion-3d-extension}
+
+To verify whether the local average potential method as a technique to avoid the
+singularity of the Coulomb potential is an essential property independent of
+dimensions (the general versatility of this method), we evaluated the extension
+of this method to a 3D model.
+
+In 3D space, a minute cubic grid (side $\deltar$) containing the singularity is
+approximated by a sphere of radius $\deltar/2$ centered on the singularity, and
+the spatial average of the Coulomb potential $-1/r$ inside it is calculated.
+Assuming the volume of the sphere of radius $R = \deltar/2$ is $V =
+\frac{4}{3}\pi R^3$, the average potential inside the sphere is obtained
+analytically as follows.
+\begin{equation}
+    \frac{1}{V} \int_{0}^{R} -\frac{1}{r} 4\pi r^2 dr 
+    = \frac{1}{\frac{4}{3}\pi R^3} \cdot 4\pi
+      \left[ -\frac{1}{2}r^2 \right]_{0}^{R} 
+    = -\frac{3}{2R} = -\frac{3}{\deltar}=-\frac{1}{\reff}
+\end{equation}
+Therefore, the effective radius for avoiding divergence at the singularity in
+the 3D model is derived as $\reff = \deltar/3$.
+
+To verify this theoretical prediction, numerical calculations for a 3D hydrogen
+atom model were performed. Since it is difficult to secure a practical number of
+qubits for a 3D model using currently available quantum circuit emulators, a
+classical simulation program that performs time evolution operations equivalent
+to quantum circuits was used for this evaluation.
+
+The results are shown in Figure \ref{fig:Ha1-vs-delta1-3d} of Appendix
+\ref{sec:appendix_a_3d-evaluation}. Setting the effective radius as
+$r_{\mathrm{eff}} = \deltar/a$, the coefficient $a$ was varied from $1$ to $5$,
+and the energy expectation value of the ground state was evaluated after
+executing time evolution for a sufficient period under conditions of spatial
+resolution $\nb \in \{6, 7, 8\}$. As a result, similar to the 2D model, the
+energy expectation value matched the analytical ground state energy of the 3D
+hydrogen atom model ($-0.5\ \mathrm{a.u.}$) when $a=3$ (i.e., $r_{\mathrm{eff}}
+= \deltar/3$) under all $\nb$ conditions.
+
+This fact indicates that the approach of the local average potential, which
+determines the effective radius using the geometric spatial average of a minute
+region containing the singularity, is effective regardless of the
+dimensionality. This suggests that when fault-tolerant quantum computers (FTQC)
+with a sufficient number of qubits are realized in the future, and
+first-quantization simulations of practical 3D molecular models are performed,
+the Coulomb singularity can be regularized with high accuracy using the simple
+and clear guideline of $\deltar/3$.
+
+\subsection{Simulation Parameters for Minimizing Error}
+\label{sec:parameter-selection-for-minimum-error-analysis}
+\subsubsection{Dynamic Range of Simulation at a Given $\nb$}
+In general, the target system handled in a simulation is represented by a linear
+combination of multiple eigenstates with different quantum numbers, and these
+need to be represented simultaneously under a single spatial grid spacing
+$\deltar$.
+
+Based on the trade-off analysis between the spatial discretization error and the
+domain truncation error (cutoff error) with respect to $\deltar$ shown in Figure
+\ref{fig:dq-tradeoff}, the ground state, which has the narrowest wave function
+spread, requires the smallest $\deltar$. When attempting to represent up to the
+highest possible excited state simultaneously with the ground state, it is
+desirable to set the value of $\deltar$ as large as possible within a range that
+does not hinder the representation of the ground state. At that time, the
+maximum quantum number that can be represented without being affected by the
+cutoff error is determined, and the range from the ground state to that maximum
+quantum number becomes the representable range of this simulation, that is, the
+"dynamic range." This serves as a powerful guideline for estimating the
+representable state space in advance when executing simulations with limited
+quantum resources.
+
+\subsubsection{Increase in $\nb$ and the Plateau of Optimal Parameters}
+Looking at Figure \ref{fig:dq-tradeoff}, it was confirmed that as $\nb$
+increases, the plateau (flat region) of $\deltar$ where both the spatial
+discretization error and the cutoff error are negligible expands. This means
+that as the number of available qubits increases, the system becomes more robust
+against parameter setting errors. In an environment where the hardware is
+immature and $\nb$ is small, strict tuning of $\deltar$ is required, but if
+$\nb$ increases in the future, it is expected that the simulation accuracy will
+become more tolerant to parameter selection.
+
+\subsubsection{Comparison Between Worst-Case Trotter Error Estimates and Calculated Errors}
+Conventional Trotter error evaluations tend to require an extremely small
+$\deltat$ because they assume the worst case based on the operator norm
+\cite{Burgarth2024.PhysRevResearch.6.043155}. However, in realistic systems
+where energy is concentrated in eigenstates near the ground state,
+state-dependent error evaluation is more appropriate. The results of this
+experiment show that results close to the accuracy limit for a given $\nb$ can
+be obtained by using a $\deltat$ that satisfies the limit of phase change based
+on the sampling theorem (half-period condition), which is coarser than the
+formal requirements of the Trotter error. This makes it possible to avoid
+increasing the depth of the quantum circuit caused by unnecessarily fine time
+steps.
+
+\subsubsection{Trade-off Between Spatial Error and Time Error}
+As shown in Figure \ref{fig:trotter-error-t1-part1}, a phenomenon was observed
+where the reduction of the system's energy error saturated even when $\deltat$
+was made finer than a certain threshold. This can be interpreted as the dominant
+error factor of the overall simulation shifting from the time error (Trotter
+error or sampling error) to the spatial error (mainly spatial discretization
+error) caused by the coarseness of the spatial grid $\deltar$. That is, there is
+a limit to the spatial accuracy that can be achieved with a certain combination
+of $\nb$ and $\deltar$, and making $\deltat$ disproportionately fine (i.e.,
+making the quantum circuit deeper) leads to a waste of quantum resources. This
+analysis provides an integrated procedure for determining the spatial resolution
+$\deltar$ and the time step $\deltat$ in a well-balanced manner for a given
+number of qubits $\nb$.
+
+\end{document}

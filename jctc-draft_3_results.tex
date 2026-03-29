@@ -1,4 +1,4 @@
-\documentclass[wabun2025.tex]{subfiles}
+\documentclass[jctc-draft.tex]{subfiles}
 \begin{document}
 \section{Results}
 In this section, we present the results of the numerical evaluation based on the
@@ -37,9 +37,9 @@ $\Thetaek$, and a QFT circuit. Figure
 $\Thetaep$ (the circuit for calculating $1/|x|$), which consumes the most
 resources among them.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
-    \includegraphics[width=0.72\textwidth]{paper2025_figs/arith1D/circuit_and_elec_motion.png}
+    \includegraphics[width=0.8\textwidth]{paper2025_figs/arith1D/circuit_and_elec_motion.png}
     \caption{Simulator circuit of the 1D model using arithmetic operation gates}
     \label{fig:circuit-1d-arith}
     \begin{flushleft}\small
@@ -56,7 +56,7 @@ resources among them.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{paper2025_figs/arith1D/elec_potential_arithmetic.png}
+    \includegraphics[width=0.4\textwidth]{paper2025_figs/arith1D/elec_potential_arithmetic.png}
     \caption{Potential energy term circuit $\Thetaep$ using arithmetic operation gates}
     \label{subfig:potential-energy-circuit-1d-arith}
     \begin{flushleft}\small
@@ -135,13 +135,13 @@ circuit requires fewer gates than the UCRZ circuit across all bit counts.
     \label{fig:hamiltonian-gatecount}
     \begin{flushleft}\small
 
-    Top: Required number of qubits in 1D-3D models. The arithmetic circuit stays
-    within the limit (black dashed line) only in 1D (7 bits or less), while the
+    (a),(b),(c) Required number of qubits in 1D-3D models. The arithmetic circuit stays
+    within the limit (red horizontal line) only in 1D (7 bits or less), while the
     UCRZ circuit stays within the limit up to 3D (8 bits). The sharp increase in
     qubits for arithmetic circuits in 2D/3D is due to the complexity of norm
     calculations. 
     
-    Bottom: Number of 2-qubit gates required for 1000 steps of time evolution.
+    (d),(e),(f) Number of 2-qubit gates required for 1000 steps of time evolution.
     The arithmetic circuit shows moderate growth against dimensionality, whereas
     the UCRZ circuit increases exponentially against input bits, making the
     arithmetic circuit more advantageous in terms of gate counts in a 3D
@@ -237,7 +237,7 @@ bits. This strongly supports the validity of the theoretical approximation in
 Section \ref{sec:coulomb-potential-handling}, which derived $\reff \approx
 \deltar/4$ from the consistency of the integral value in a minute region.
 
-\begin{figure}[ht]
+\begin{figure}
     \centering
     \includegraphics[width=0.95\columnwidth]{paper2025_figs/compare_energy/compare_energy_h2D_TO2_r0lim_combined.png}
     \caption{Changes in energy values when varying $\reff$ in the approximation formula $\Hla(r)$}
@@ -342,15 +342,15 @@ functions).
     \label{fig:dq-tradeoff}
     \begin{flushleft}\small 
         
-        (a) shows the evaluation results for the 1D model $\PsiOneD_1$, and (b)
-        and (c) show the results for the 2D model's $\PsiTwoD_{0,0}$ and
-        $\PsiTwoD_{1,0}$, respectively. (A1) to (C1) show the real part values
-        of the wave function at the intercept $y=0$ and the computational domain
-        boundaries ($\pm L/2$) corresponding to the selected $\deltar$. (A2) to
-        (C2) plot the discretization error and cutoff error individually, and
-        (A3) to (C3) show their sum. The point where this sum of errors is
-        minimized is the point of trade-off equilibrium, giving the optimal
-        $\deltar$.
+        (a) through (c) shows the evaluation results for the 1D model
+        $\PsiOneD_1$, and (d) through (i) show the results for the 2D model's
+        $\PsiTwoD_{0,0}$ and $\PsiTwoD_{1,0}$, respectively. (a), (d) and (g)
+        show the real part values of the wave function at the intercept $y=0$
+        and the computational domain boundaries ($\pm L/2$) corresponding to the
+        selected $\deltar$. (b), (e) and (h) plot the discretization error and
+        cutoff error individually,  and (c), (f) and (i) show their sum. The
+        point where this sum of errors is minimized is the point of trade-off
+        equilibrium, giving the optimal $\deltar$.
 
     \end{flushleft}
 \end{figure}
