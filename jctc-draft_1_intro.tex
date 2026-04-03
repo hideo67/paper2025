@@ -25,8 +25,8 @@ Eigensolver (VQE)-based algorithms utilizing second quantization are the
 mainstream of quantum chemistry research \cite{peruzzo2014variational}. VQE
 combines a quantum computer with a classical computer to reduce the required
 number of qubits and circuit depth, making it executable on NISQ devices as it
-can tolerate the presence of noise. However, once FTQC is realized—mitigating
-the impact of noise and relaxing qubit constraints—a broader range of algorithms
+can tolerate the presence of noise. However, once FTQC is realized---mitigating
+the impact of noise and relaxing qubit constraints---a broader range of algorithms
 is expected to be researched and put into practical use.
 
 The grid-based approach, a representative method for quantum chemistry
@@ -39,7 +39,7 @@ and the wave function's amplitude at each grid point is stored as the register's
 amplitude to calculate the time evolution of the wave function. While algorithms
 based on the Suzuki-Trotter decomposition are widely known for time evolution
 calculations, algorithms employing more sophisticated approaches have also been
-proposed \cite{Berry2015.PhysRevLett.114.090502, Babbush_2019,
+proposed \cite{Berry2015.PhysRevLett.114.090502, Babbush_2018c,
 YuanSu.PRXQuantum.2.040332}. Nevertheless, because all of these grid-based
 algorithms generally require a large number of qubits and significant circuit
 depth, and cannot tolerate computational errors, reports of their operational
@@ -68,8 +68,8 @@ computational model to fit within the emulator's constraints, targeting 1D and
 2D models of a single hydrogen atom with fixed nuclear coordinates. For the
 Coulomb potential calculation, in addition to a method based on binary
 arithmetic operations, we utilize Uniformly Controlled Rotation Z (UCRZ)
-circuits \cite{Mottonen2004.PhysRevLett.93.130502}—which are similar to QROM
-\cite{Babbush_2018b.PhysRevX.8.041015}—to reduce the required number of qubits.
+circuits \cite{Mottonen2004.PhysRevLett.93.130502}---which are similar to QROM
+\cite{Babbush_2018b.PhysRevX.8.041015}---to reduce the required number of qubits.
 The standard Suzuki-Trotter decomposition is employed for the time evolution
 calculation \cite{Zalka-rspa.1998.0162}. Through this, we provide an example of
 a circuit configuration executable on an emulator, which will serve as a

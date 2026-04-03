@@ -262,15 +262,23 @@ Statevector法を採用した。
 
 
 \subsubsection{使用した計算環境}
-シミュレーション計算に使用した計算機ハードウェアとソフトウェアは以下の通りである。
-\begin{itemize}
-    \item CPU:AMD Ryzen 9 7950X 16 Core × 1
-    \item メモリ: 128GB
-    \item GPU: NVIDIA GeForce RTX 4090 × 1
-    \item OS: Ubuntu 22.04.4 LTS
-    \item Quantum SDK: Qiskit 1.4.0, qiskit-aer-gpu 0.15.1
-    \item 量子化学シミュレータソフトウェア: Chemical Reaction Simulator Q (crsQ) \cite{website:crsq}
-\end{itemize}
+シミュレーション計算に使用した計算機ハードウェアとソフトウェアを表\ref{tab:computing-environment}に示す。
+
+\begin{table}[ht]
+    \centering
+    \caption{使用した計算環境}
+    \begin{tabular}{ll}
+        項目 & 説明 \\
+        \hline
+        CPU & AMD Ryzen 9 7950X 16 Core × 1 \\
+        メモリ & 128GB \\
+        GPU & NVIDIA GeForce RTX 4090 × 1 \\
+        OS & Ubuntu 22.04.4 LTS \\
+        Quantum SDK & Qiskit 1.4.0, qiskit-aer-gpu 0.15.1 \\
+        量子化学シミュレータソフトウェア & Chemical Reaction Simulator Q (crsQ) \cite{website:crsq}
+    \end{tabular}
+    \label{tab:computing-environment}
+\end{table}
 
 \subsection{シミュレータ回路の構成}
 \label{sec:simulator-circuit-configuration}
