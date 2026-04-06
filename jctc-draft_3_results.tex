@@ -72,9 +72,9 @@ resources among them.
 
 \subsubsection{Circuit Configuration Using UCRZ Circuits}
 \label{subsubsec:ucrz-circuit-configuration-results}
-On the other hand, the configuration using UCRZ (Uniformly Controlled Rotation
-Z) circuits for calculating the Coulomb potential stayed within the emulator's
-limits for the 1D and 2D models, but did not fit for the 3D model.
+The configuration using UCRZ (Uniformly Controlled Rotation Z) circuits for
+calculating the Coulomb potential stayed within the emulator's limits for the 1D
+and 2D models, but did not fit for the 3D model.
 
 Figure \ref{fig:circuit-2d-ucrz} shows the configuration of the simulator using
 the UCRZ circuit for the 2D hydrogen atom model. Unlike the arithmetic circuit,
@@ -103,10 +103,11 @@ circuit $\PsiSD$ for the wave function requires the most qubits.
 \subsubsection{Evaluation of Circuit Size}
 \label{subsec:circuit-size-evaluation-results}
 In the computing environment (emulator) used in this study, the realistic
-operational limits are a maximum of 27 qubits and roughly $10^7$ gates. Under
-these constraints, circuits were generated using both arithmetic gate and UCRZ
-gate implementations, and the scaling of the circuit size (number of qubits and
-number of gates) against dimensionality and coordinate resolution was evaluated.
+operational limits are a maximum of 27 qubits and roughly $10^7$ gates without
+considering parallelization. Under these constraints, circuits were generated
+using both arithmetic gate and UCRZ gate implementations, and the scaling of the
+circuit size (number of qubits and number of gates) against dimensionality and
+coordinate resolution was evaluated.
 
 Figure \ref{fig:hamiltonian-gatecount} shows a comparison of the number of
 qubits and 2-qubit gates (assuming 1000 time evolution steps) depending on the
@@ -135,17 +136,17 @@ circuit requires fewer gates than the UCRZ circuit across all bit counts.
     \label{fig:hamiltonian-gatecount}
     \begin{flushleft}\small
 
-    (a),(b),(c) Required number of qubits in 1D-3D models. The arithmetic circuit stays
-    within the limit (red horizontal line) only in 1D (7 bits or less), while the
-    UCRZ circuit stays within the limit up to 3D (8 bits). The sharp increase in
-    qubits for arithmetic circuits in 2D/3D is due to the complexity of norm
-    calculations. 
+    (a),(b),(c) Required number of qubits in 1D-3D models for 1D, 2D, and 3D
+     models, respectively. The arithmetic circuit stays within the limit (red
+     horizontal line) only in 1D (7 bits or less), while the UCRZ circuit stays
+     within the limit up to 3D (8 bits). The sharp increase in qubits for
+     arithmetic circuits in 2D/3D is due to the complexity of norm calculations. 
     
-    (d),(e),(f) Number of 2-qubit gates required for 1000 steps of time evolution.
-    The arithmetic circuit shows moderate growth against dimensionality, whereas
-    the UCRZ circuit increases exponentially against input bits, making the
-    arithmetic circuit more advantageous in terms of gate counts in a 3D
-    environment.
+    (d),(e),(f) Number of 2-qubit gates required for 1000 steps of time
+    evolution for 1D, 2D, and 3D models, respectively. The arithmetic circuit
+    shows moderate growth against dimensionality, whereas the UCRZ circuit
+    increases exponentially against input bits, making the arithmetic circuit
+    more advantageous in terms of gate counts in a 3D environment.
     \end{flushleft}
 \end{figure}
 
@@ -195,7 +196,10 @@ calculation errors will be described in the following subsections.
         ``\verb|+|'' indicates the case where the nuclear positions are fixed
         (Born-Oppenheimer approximation). ``\verb|x|'' indicates values based on
         the estimation formula by Kassal et al.
-        \cite{kassal2008.pnas.0808245105}.
+        \cite{kassal2008.pnas.0808245105}. The constant offset from our results
+        is due to the fact that the estimation formula does not include
+        auxiliary qubits required for the arithmetic circuit and the state
+        preparation circuit.
     \end{flushleft}
 \end{figure}
 
@@ -217,7 +221,7 @@ potential and the soft-core potential, respectively.
 \label{subsubsec:local-average-potential-results}
 
 In the local average potential $\Hla(r)$ defined in Equation \eqref{eq:Halr}, we
-set the effective radius to $\reff = \deltar/a$ and evaluated the calculated
+set the effective distance to $\reff = \deltar/a$ and evaluated the calculated
 energy values against multiple qubit numbers $\nb$ while varying the coefficient
 $a$ in the range of $1 \le a \le 8$. Note that since this evaluation includes
 parameters that exceed the emulator's limits (qubit upper limit), the
@@ -332,8 +336,8 @@ discretization error caused by coarse spatial resolution.
 Figures \ref{fig:dq-tradeoff}(b) and (c) show the results for the 2D model wave
 functions $\PsiTwoD_{0,0}$ and $\PsiTwoD_{1,0}$, respectively. It can be
 confirmed that the optimal range for appropriate $\deltar$ varies significantly
-depending on the difference in the target states (spatial spread of the wave
-functions).
+depending on the difference in the target states (spatial spread and shape of the
+wave functions).
 
 \begin{figure}[ht]
     \centering
@@ -367,7 +371,7 @@ simulation error $\xiN{\gamma}$ when varying the number of Suzuki-Trotter
 divisions $\nT$ ($\gamma=1,2$ indicates the Trotter order). Note that
 considering the time evolution period of the wave function $\PsiTwoD_{1,0}$ is
 $2\pi/E_2 \approx 28.27$, the evaluation results at $t=30$, which corresponds to
-about one period, are deferred to the supplementary material
+about one period, are shown in the supplementary material
 \ref{smsec:parameter-selection-for-minimum-error-analysis-details}.
 
 Each graph indicates the lower limits of $\nT$ based on the sampling theorem,
@@ -376,23 +380,25 @@ energy, but the norm of the difference in wave function amplitudes defined in
 Equations \eqref{eq:observed-trotter-error-1st} and
 \eqref{eq:observed-trotter-error-2nd}.
 
-What is noteworthy is the difference in the effect of the Trotter order
-depending on the quantum number of the target state. In the results for
-$\PsiTwoD_{0,0}$ and $\PsiTwoD_{1,0}$ with an azimuthal quantum number of $m=0$
-(Figure \ref{fig:trotter-error-t1-part1}(a) to (d)), no distinct difference in accuracy due
-to the difference in the Trotter order $\gamma$ was observed. This is
-consistent---despite the difference in dimensions---with the findings reported
-by Burgarth et al. \cite{Burgarth2024.PhysRevResearch.6.043155}, who stated that
-for 3D hydrogen atom models, increasing the Trotter order for eigenfunctions
-with an azimuthal quantum number of 0 does not yield accuracy improvements.
+A notable finding is the varying effect of the Trotter order depending on the
+quantum numbers of the target states. For the states $\PsiTwoD_{0,0}$ and
+$\PsiTwoD_{1,0}$ with the azimuthal quantum number $m=0$ (Figs.
+\ref{fig:trotter-error-t1-part1}(a)–(d)), no clear difference in accuracy was
+observed between different Trotter orders $\gamma$. Burgarth et al. recently
+reported for the 3D hydrogen atom model that states with $m=0$ exhibit a cusp at
+the origin, leading to the divergence of higher moments of the kinetic energy
+and thus the loss of the theoretical advantage of higher-order Trotter
+decompositions \cite{Burgarth2024.PhysRevResearch.6.043155}. The results
+obtained for our 2D model are consistent with this finding.
 
-On the other hand, in the results for $\PsiTwoD_{1,1}$ having an azimuthal
-quantum number of $m=1$ (Figure \ref{fig:trotter-error-t1-part2}(a) and (b)), a clear difference in accuracy between
-the 1st-order ($\xiN{1}$) and 2nd-order ($\xiN{2}$) Trotter decompositions can
-be confirmed in the region where the number of divisions $\nT$ is small. This is
-thought to be because the non-commutativity of kinetic energy and potential
-energy has a stronger impact on states with angular momentum, causing the error
-improvement effect of higher-order decomposition to appear more prominently.
+In contrast, for $\PsiTwoD_{1,1}$ with the azimuthal quantum number $m=1$ (Figs.
+\ref{fig:trotter-error-t1-part2}(a)–(b)), a distinct difference in accuracy
+between the first-order ($\xiN{1}$) and second-order ($\xiN{2}$) Trotter
+decompositions is observed in the regime where the number of Trotter steps $\nT$
+is small. Because states with non-zero angular momentum are smooth at the origin
+and lack a cusp, the divergence of the higher moments is avoided. Consequently,
+the inherent error-reduction benefit of the higher-order decomposition functions
+as expected, manifesting as the significant difference in accuracy observed.
 
 As a general trend, under all conditions, the errors $\xiN{1}$ and $\xiN{2}$
 decrease as the number of divisions $\nT$ increases, but the reduction saturates
@@ -407,11 +413,17 @@ Therefore, under the conditions shown here, it can be said that setting the
 number of divisions to far exceed the lower limit $\nTkminTwoD$ derived from the
 sampling theorem only increases computational costs and does not contribute to
 improving the overall error. Regarding the relationship with the spatial error,
-this is evident, for example, when comparing Figure
-\ref{fig:trotter-error-t1-part1}(a) ($\nb=6$) and Figure
-\ref{fig:trotter-error-t1-part1}(b) ($\nb=9$). It can be confirmed that by
-increasing the spatial resolution $\nb$, the floor of the residual error after
-the Trotter error has saturated is significantly reduced to about 1/10.
+this is evident, when comparing Figures for three states $\PsiTwoD_{0,0}$,
+$\PsiTwoD_{1,0}$, and $\PsiTwoD_{1,1}$. $\PsiTwoD_{0,0}$ with $\nb=6$ and
+$\nb=9$ is shown in Figures \ref{fig:trotter-error-t1-part1}(a) ($\nb=6$) and
+(b) ($\nb=9$), $\PsiTwoD_{1,0}$ with $\nb=6$ and $\nb=9$ is shown in Figures
+\ref{fig:trotter-error-t1-part1}(c) ($\nb=6$) and (d) ($\nb=9$), and
+$\PsiTwoD_{1,1}$ with $\nb=6$ and $\nb=9$ is shown in Figures
+\ref{fig:trotter-error-t1-part2}(a) ($\nb=6$) and (b) ($\nb=9$).
+
+It can be confirmed that Trotter error saturates around $\nT = \nTkminTwoD$ in
+all cases, and the error floor after saturation is reduced by a factor of about
+$1/2^3$ when the spatial resolution $\nb$ is increased 3 bits from 6 to 9.
 
 \begin{figure}[ht]
     \centering

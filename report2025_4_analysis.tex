@@ -44,7 +44,7 @@ challenge.
 
 \subsection{Handling the Pole of the Coulomb Potential}
 \label{sec:coulomb-potential-handling-analysis}
-\subsubsection{Reason Why the Effective Radius is $\deltar$/4}
+\subsubsection{Reason Why the effective distance is $\deltar$/4}
 As shown in Figure \ref{fig:Ha1-vs-delta1}, the optimal value for the effective
 radius $\reff=\deltar/a$ used in the local average potential was obtained at
 $a=4$ for the 2D model. That is, setting $\reff=\deltar/4$ most effectively
@@ -116,7 +116,7 @@ analytically as follows.
       \left[ -\frac{1}{2}r^2 \right]_{0}^{R} 
     = -\frac{3}{2R} = -\frac{3}{\deltar}=-\frac{1}{\reff}
 \end{equation}
-Therefore, the effective radius for avoiding divergence at the singularity in
+Therefore, the effective distance for avoiding divergence at the singularity in
 the 3D model is derived as $\reff = \deltar/3$.
 
 To verify this theoretical prediction, numerical calculations for a 3D hydrogen
@@ -126,7 +126,7 @@ classical simulation program that performs time evolution operations equivalent
 to quantum circuits was used for this evaluation.
 
 The results are shown in Figure \ref{fig:Ha1-vs-delta1-3d} of Appendix
-\ref{sec:appendix_a_3d-evaluation}. Setting the effective radius as
+\ref{sec:appendix_a_3d-evaluation}. Setting the effective distance as
 $r_{\mathrm{eff}} = \deltar/a$, the coefficient $a$ was varied from $1$ to $5$,
 and the energy expectation value of the ground state was evaluated after
 executing time evolution for a sufficient period under conditions of spatial
@@ -136,7 +136,7 @@ hydrogen atom model ($-0.5\ \mathrm{a.u.}$) when $a=3$ (i.e., $r_{\mathrm{eff}}
 = \deltar/3$) under all $\nb$ conditions.
 
 This fact indicates that the approach of the local average potential, which
-determines the effective radius using the geometric spatial average of a minute
+determines the effective distance using the geometric spatial average of a minute
 region containing the singularity, is effective regardless of the
 dimensionality. This suggests that when fault-tolerant quantum computers (FTQC)
 with a sufficient number of qubits are realized in the future, and

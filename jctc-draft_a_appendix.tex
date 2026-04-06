@@ -1,14 +1,13 @@
 \documentclass[jctc-draft.tex]{subfiles}
 \begin{document}
 \appendix
-\section{Derivation of the Effective Radius for the Local Average Potential}
+\section{Derivation of the effective distance for the Local Average Potential}
 \label{chap:appendix_derivation_derivation}
 \subsection{Derivation from the Equivalence of Energy Expectation Values}
 We present the derivation of the parameter $\reff$ in the approximation formula
 $\Hla(r)$ described in Section \ref{sec:coulomb-potential-handling}.
 
-First, the derivation of Equation \eqref{eq:delta-1-0-0} regarding
-$\PsiTwoD_{0,0}$ is shown.
+First, we derive Eq.~\eqref{eq:delta-1-0-0} for $\PsiTwoD_{0,0}$.
 
 The integral $W_{0,0}$ is given by,
 \begin{align}
@@ -18,19 +17,19 @@ The integral $W_{0,0}$ is given by,
       \Hep(r)\abs{\PsiTwoD_{0,0}(r)}^2r dr\notag\\
    &= 2\pi
       \int_{r=0}^{\deltar/2}
-      -\frac{1}{r}\left(\frac{q_0^3(0-\abs{0})!}{\pi(0+\abs{0})!}\right)
+      (-1)\frac{1}{r}\left(\frac{q_0^3(0-\abs{0})!}{\pi(0+\abs{0})!}\right)
       (2q_0r)^{2\abs{0}}\exp(-2q_0r)
       \left[L_{0-\abs{0}}^{2\abs{0}}(2q_0r)\right]^2 r dr\notag\\
    &= -2\pi\int_{r=0}^{\deltar/2}\frac{q_0^3}{\pi}\frac{1}{r}e^{-2q_0r}r\ dr=-2q_0^3
       \left[-\frac{1}{2q_0}e^{-2q_0r}\right]_{0}^{\deltar/2}\notag\\
    &=-q_0^2(-e^{-q_0\deltar}+1)
 \end{align}
-On the other hand, $W_{0,0}^\prime$ is given by,
+$W_{0,0}^\prime$ is given by,
 \begin{align}
     W_{0,0}^\prime
     &=\pi\left(\frac{\deltar}{2}\right)^2
        \Hla(0)\abs{\PsiTwoD_{0,0}(0)}^2\notag\\
-    &=\frac{\pi\deltar^2}{4}\left(-\frac{1}{\reff}\right)
+    &=\frac{\pi\deltar^2}{4}(-1)-\frac{1}{\reff}
     \left(\frac{q_0^3(0-\abs{0})!}{\pi(0+\abs{0})!}\right)
     (0)^{2\abs{0}}\exp(0)\left[L_{0-\abs{0}}^{2\abs{0}}(0)\right]^2\notag\\
     &= -\frac{\pi\deltar^2q_0^3}{4\pi\reff}\notag\\
@@ -46,7 +45,7 @@ Solving $W_{0,0}=W_{0,0}^\prime$ yields,
 &=\frac{\deltar}{4}
 \end{align}
 
-Next, the derivation of Equation \eqref{eq:delta-1-1-0} regarding $\PsiTwoD_{1,0}$ is shown.
+Next, we derive Eq.~\eqref{eq:delta-1-1-0} for $\PsiTwoD_{1,0}$.
 
 Calculating $W_{1,0}$ and $W_{1,0}^\prime$ respectively, $W_{1,0}$ is given by,
 \begin{align}
@@ -54,37 +53,37 @@ Calculating $W_{1,0}$ and $W_{1,0}^\prime$ respectively, $W_{1,0}$ is given by,
    &= \int_{\theta=0}^{2\pi}d\theta
       \int_{r=0}^{\deltar/2}\Hep(r)\abs{\PsiTwoD_{1,0}(r)}^2r dr\notag\\
    &= 2\pi\int_{r=0}^{\deltar/2}
-      -\frac{1}{r}\left(\frac{q_0^3(1-\abs{0})!}{\pi(1+\abs{0})!}\right)
+      (-1)\frac{1}{r}\left(\frac{q_0^3(1-\abs{0})!}{\pi(1+\abs{0})!}\right)
       (2q_0r)^{2\abs{0}}\exp(-2q_0r)
-      \left[L_{1-\abs{0}}^{2\abs{0}}(2q_0r)\right]^2 rd\theta dr\notag\\
+      \left[L_{1-\abs{0}}^{2\abs{0}}(2q_0r)\right]^2 r dr\notag\\
    &= -2\pi\int_{r=0}^{\deltar/2}\frac{q_0^3}{\pi}e^{-2q_0r}(1-2q_0r)^2dr\notag\\
-   &= -2q_0^3\left[\left(-\frac{1}{2q_0}+2q_0r^2\right)e^{-2q_0r}\right]_{0}^{\deltar/2} \notag\\
-   &= -2q_0^3\left\{\left(-\frac{1}{2q_0}+\frac{q_0\deltar^2}{2}\right)e^{-q_0\deltar}+\frac{1}{2q_0}\right\}\notag\\
-   &= q_0^2\left\{\left(1-q_0^2\deltar^2\right)e^{-q_0\deltar}-1\right\}
+   &= -2q_0^3\left[\left(-\frac{1}{2q_0}-2q_0r^2\right)e^{-2q_0r}\right]_{0}^{\deltar/2} \notag\\
+   &= -2q_0^3\left\{\left(-\frac{1}{2q_0}-\frac{q_0\deltar^2}{2}\right)e^{-q_0\deltar}+\frac{1}{2q_0}\right\}\notag\\
+   &= q_0^2\left\{\left(1+q_0^2\deltar^2\right)e^{-q_0\deltar}-1\right\}
 \end{align}
-On the other hand, $W_{1,0}^\prime$ is given by,
+$W_{1,0}^\prime$ is given by,
 \begin{align}
     W_{1,0}^\prime
     &=\pi\left(\frac{\deltar}{2}\right)^2
          \Hla(0)\abs{\PsiTwoD_{1,0}(0)}^2\notag\\
-    &=\frac{\pi\deltar^2}{4}\left(-\frac{1}{\reff}\right)
+    &=\frac{\pi\deltar^2}{4}(-1)\frac{1}{\reff}
     \left(\frac{q_0^3(1-\abs{0})!}{\pi(1+\abs{0})!}\right)
     (0)^{2\abs{0}}\exp(0)\left[L_{1-\abs{0}}^{2\abs{0}}(0)\right]^2\notag\\
     &= -\frac{\pi\deltar^2q_0^3}{4\pi\reff}\notag\\
     &= -\frac{\deltar^2q_0^3}{4\reff}
 \end{align}
-Solving $W_{1,0}=W_{1,0}^\prime$ yields,
+Solving $W_{1,0}=W_{1,0}^\prime$ yields $\reff$ as follows.
 \begin{equation}
-q_0^2\left\{\left(1-q_0^2\deltar^2\right)e^{-q_0\deltar}-1\right\}
+q_0^2\left\{\left(1+q_0^2\deltar^2\right)e^{-q_0\deltar}-1\right\}
 =-\frac{\deltar^2q_0^3}{4\reff}
 \end{equation}
 \begin{align}
-\reff&=\frac{\deltar^2q_0}{4\left\{\left(1-q_0^2\deltar^2\right)e^{-q_0\deltar}-1\right\}}\notag\\
-&\simeq-\frac{\deltar^2q_0}{4\left\{\left(1-q_0^2\deltar^2\right)(1-q_0\deltar)-1\right\}}\notag\\
+\reff&=-\frac{\deltar^2q_0}{4\left\{\left(1+q_0^2\deltar^2\right)e^{-q_0\deltar}-1\right\}}\notag\\
+&\simeq-\frac{\deltar^2q_0}{4\left\{\left(1+q_0^2\deltar^2\right)(1-q_0\deltar)-1\right\}}\notag\\
 &=-\frac{\deltar^2q_0}{4\left(1-q_0^2\deltar^2-q_0\deltar+q_0^3\deltar^3-1\right)}\notag\\
+&=-\frac{\deltar}{4(-1+q_0\deltar-q_0^2\deltar^2)}\notag\\
 &\simeq\frac{\deltar}{4}
 \end{align}
-is obtained.
 
 \subsection{Derivation from the Geometric Average}
 The derivation of the parameter $\reff$ in the approximation formula $\Hla(r)$
@@ -105,7 +104,7 @@ By solving $\bar{V}=-1/\reff$, $\reff$ can be determined as $\reff=\deltar/4$.
 \label{sec:appendix_a_3d-evaluation}
 We present the results of evaluating the energy error by applying the local
 average potential to the 3D hydrogen atom model, performing time evolution
-simulations, and varying the effective radius.
+simulations, and varying the effective distance.
 
 \begin{figure}[ht]
     \centering

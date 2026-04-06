@@ -97,9 +97,9 @@ energy term $\Hep$ of the Hamiltonian for the 1D and 2D models are expressed as
 follows, respectively:
 
 \begin{align}
-   \HekOneD(\bm{k}) = -\frac{(\hbar\kx)^2}{2}, \qquad &
+   \HekOneD(\bm{k}) = \frac{(\hbar\kx)^2}{2}, \qquad &
    \HepOneD(\bm{r}) = -\frac{1}{\abs{x}} \label{eq:HkHp1D}\\
-   \HekTwoD(\bm{k}) = -\frac{(\hbar\kx)^2 + (\hbar\ky)^2}{2}, \qquad &
+   \HekTwoD(\bm{k}) = \frac{(\hbar\kx)^2 + (\hbar\ky)^2}{2}, \qquad &
    \HepTwoD(\bm{r}) = -\frac{1}{\sqrt{x^2+y^2}}. \label{eq:HkHp2D}
 \end{align}
 
@@ -120,9 +120,8 @@ Schrödinger equation (stationary solutions) for the 1D and 2D hydrogen atom
 models as initial values. When time evolution is performed using these solutions
 as initial values, the absolute value of the amplitude remains constant over
 time, and only the phase changes in a time-dependent manner. Since the rate of
-this phase change is also exactly obtained as the energy eigenvalue of the
-solution, it is highly suitable as a criterion for evaluating simulation
-accuracy.
+this phase change is also determined by the energy eigenvalue of the solution,
+it is suitable as a criterion for evaluating simulation accuracy.
 
 When the solution to 
 \begin{equation}
@@ -141,13 +140,17 @@ We use this equation as the reference for comparing simulation results.
 
 The analytical solutions for each dimensional model to be evaluated are shown below.
 
-For the 1D model, we use the analytical solution by Loudon
-\cite{Loudon1959.10.1119/1.1934950}. According to Loudon, the solution for the
-ground state (principal quantum number $n=0$) is a delta function. For solutions
-with $n>0$, both even and odd function solutions are presented. In this paper,
-we focus on the odd function solution, which is easier to handle with the
-Fourier transform. The odd function solution for quantum number
-$n\in\{1,2,\ldots\}$ is denoted by $\psi_n^{\mathrm{1D}}$.
+For the one-dimensional (1D) model, we employ the analytical solutions derived
+by Loudon \cite{Loudon1959.10.1119/1.1934950}. According to Loudon, the ground
+state (principal quantum number $n = 0$) is represented by a delta function. For
+the states with $n > 0$, both even- and odd-parity solutions exist. However,
+because the even-parity solutions exhibit a cusp at the origin, they require
+high spatial resolution when evaluated on a finite grid. Therefore, to clearly
+evaluate the fundamental behavior of the simulation algorithm using a small
+number of qubits, we adopt the odd-parity solutions in this study. These
+solutions are smooth at the origin and impose less stringent requirements on the
+grid resolution. The odd-parity solution for the quantum number $n \in \{1, 2,
+\dots\}$ is denoted by $\psi_n^{\mathrm{1D}}$.
 
 \begin{equation}
 \psi_n^{\mathrm{1D}}(x)=\sqrt{\frac{2}{a_0^3n^5(n!)^2}}
@@ -225,12 +228,13 @@ Fig. \ref{subfig:initial-wavefunction-2d-1-1}, respectively.
     \label{fig:initial-wavefunction-2d-00_10}
     \begin{flushleft}\small 
 
-        (a) Ground state $\PsiTwoD_{0,0}$ with principal quantum number $n=0$
-        and azimuthal quantum number $m=0$ (Eq.
-        \eqref{eq:psi2D00-wave-function}). (b) Excited state $\PsiTwoD_{1,0}$
-        with $n=1, m=0$ (Eq. \eqref{eq:psi2D10-wave-function}). In both, the
-        upper row shows the real part of the wave function in real-space, and
-        the lower row shows the real part in k-space. Both (a) and (b) have
+        (a) Real part of the wave function for the ground state $\PsiTwoD_{0,0}$
+        with principal quantum number $n=0$ and azimuthal quantum number $m=0$
+        (Eq. \eqref{eq:psi2D00-wave-function}). (b) Real part of the Fourier
+        transform of the wave function for the same state. (c) Real part of the
+        wave function for the excited state $\PsiTwoD_{1,0}$ with $n=1, m=0$
+        (Eq. \eqref{eq:psi2D10-wave-function}). (d) Real part of the Fourier
+        transform of the wave function for the same state. Both (a) and (c) have
         non-zero wave function values at the origin.
     \end{flushleft}
 \end{figure}
@@ -258,7 +262,7 @@ utilized the emulator provided as part of the Qiskit SDK
 
 The emulator holds the state vector of the qubits in the classical computer's
 memory and executes quantum gate operations by expanding them as matrix
-multiplications on the state vector. There are several methods for representing
+operations on the state vector. There are several methods for representing
 the state. The simplest Statevector method holds the state vector of $N$ qubits
 as an array of $2^N$ elements in memory. On the other hand, when quantum
 entanglement between qubits is local, the Matrix Product State (MPS) method
@@ -394,23 +398,24 @@ In this study, we focused on the Uniformly Controlled Rotation (UCR) circuit
 as a means to drastically reduce the number of ancilla qubits, which is fatal
 for small-scale models.
 
-A UCRZ circuit, a variation of the UCR circuit, outputs a phase rotation angle
-around the Z-axis for a target qubit depending on the state of an input
-register. Because the potential term of the time evolution operator is defined
-exactly as a phase rotation for each state, the operation of the UCRZ circuit
-can be directly utilized as the Coulomb potential application process. This
-makes it possible to pre-compute the inter-particle distance and its inverse
-square root and embed them into the rotation angle parameters of a single UCRZ
-circuit, thereby reducing the large number of ancilla qubits---essential in
-arithmetic circuits---down to just one target qubit.
+A UCRZ circuit, a variation of the UCR circuit, rotates the target qubit around
+the Z-axis depending on the state of an input register. Because the potential
+term of the time evolution operator is defined exactly as a phase rotation for
+each state, the operation of the UCRZ circuit can be directly utilized as the
+Coulomb potential application process. This makes it possible to pre-compute the
+inter-particle distance and its inverse square root and embed them into the
+rotation angle parameters of a single UCRZ circuit, thereby reducing the large
+number of ancilla qubits---essential in arithmetic circuits---down to just one
+target qubit.
 
 However, since the number of gates in a UCRZ circuit increases exponentially
 with the number of bits in the control register, its application to large-scale
 registers is impractical. Still, in verifying small-scale models where the total
-number of qubits is strictly limited, it serves as an extremely effective option
-capable of securing spatial resolution (qubit count) at the expense of increased
-gate depth. By adopting this UCRZ circuit, we achieved a complete quantum
-circuit simulation of a 2D model on an emulator in this study.
+number of qubits is strictly limited, it serves as an extremely effective means
+to increase the number of qubits available for the coordinate register by
+reducing the number of ancilla qubits. By adopting this UCRZ circuit, we
+achieved a complete quantum circuit simulation of a 2D model on an emulator in
+this study.
 
 The action of a UCR circuit is generally described as follows:
 \begin{equation}
@@ -423,7 +428,16 @@ The action of a UCR circuit is generally described as follows:
     \caption{Example of a 3-bit input UCRZ circuit}
     \label{fig:ucrz-n3}
     \begin{flushleft}\small
-    For a 3-bit input register $b_2b_1b_0$, there are 8 possible states, and 8 Rz gates act on the target qubit $t$ to provide the corresponding phase rotation for each state. $\mathrm{R}_k$ denotes $\mathrm{Rz}(\theta_k)$. CX (C-NOT) gates placed before and after each Rz gate invert the sign of the Rz gate's rotation depending on the bit string of the input register.
+
+    For a 3-bit input register $b_2b_1b_0$, there are 8 possible states, and 8
+    Rz gates act on the target qubit $t$ to provide the corresponding phase
+    rotation for each state. $\mathrm{R}_k$ denotes $\mathrm{Rz}(\theta_k)$. CX
+    (C-NOT) gates placed before and after each Rz gate invert the sign of the Rz
+    gate's rotation depending on the bit string of the input register. The map
+    between the desired output angle $\alpha_b$ for input $b=b_2b_1b_0$ and the
+    rotation angle $\theta_k$ is simplified by treating the bit string
+    $b_2b_1b_0$ as a binary number in gray code.
+
 \end{flushleft}
 \end{figure}
 
@@ -484,9 +498,10 @@ qubits.
 When calculating the Coulomb potential via quantum circuits in
 first-quantization-based simulations, avoiding divergence at the singularity
 (pole, $r=0$) is an inevitable challenge. Because the potential energy term of
-the time evolution calculation computes the product of the potential $-1/r$ and
-the wave function $\psi$ at each grid point, the value diverges at the point
-where the coordinates of the nucleus and the electron coincide.
+the time evolution calculation advances the phase of the wave function by an
+angle proportional to the potential energy $-1/r$ at each grid point, the value
+diverges at the point where the coordinates of the nucleus and the electron
+coincide.
 
 Approaches to address this divergence are broadly classified into the following
 two categories: (a) methods that introduce approximation or regularization into
@@ -524,7 +539,7 @@ the former states).
 
 The first method, the local average potential $\Hla$, uses the original Coulomb
 potential at coordinates other than the singularity and replaces it with a
-finite value based on the effective radius $\reff$ only at the singularity
+finite value based on the effective distance $\reff$ only at the singularity
 ($r=0$).
 
 \begin{equation}
@@ -538,7 +553,7 @@ Because this function can be realized simply by a division denominator
 replacement circuit based on the condition check for $r=0$, it has the advantage
 of keeping the implementation cost low as a quantum circuit.
 
-The appropriate value of the effective radius $\reff$ in this approximation can
+The appropriate value of the effective distance $\reff$ in this approximation can
 be derived from geometric consistency as follows. In the potential term
 calculation using the grid method, the value at the center coordinate of each
 grid cell is taken as a representative value, and spatial integration is
@@ -573,8 +588,8 @@ Solving for states $(n,m)=(0,0)$ and $(1,0)$ so that these values match
     \reffnm{0,0} &=\frac{q_0\deltar^2}{4(-e^{-q_0\deltar}+1)}
     \simeq \frac{q_0\deltar^2}{4(-1+q_0\deltar+1)}=\frac{\deltar}{4}
     \label{eq:delta-1-0-0}\\
-    \reffnm{1,0} &=\frac{q_0\deltar^2}{4((-1+q_0^2\deltar^2)e^{-q_0\deltar}+1)}
-    \simeq \frac{q_0\deltar^2}{4((-1+q_0^2\deltar^2)(1-q_0\deltar)+1)}
+    \reffnm{1,0} &=\frac{q_0\deltar^2}{4((-1-q_0^2\deltar^2)e^{-q_0\deltar}+1)}
+    \simeq \frac{q_0\deltar^2}{4((-1-q_0^2\deltar^2)(1-q_0\deltar)+1)}
     \simeq\frac{\deltar}{4}
     \label{eq:delta-1-1-0}
 \end{align}
@@ -602,37 +617,42 @@ potential are discussed in Section
 
 \subsubsection{Approximation Formula Using Soft-core Potential}
 
-The second method, the soft-core potential $\Hsc$, is a function that adds a
-minute offset constant $\Delta$ to the norm calculation for determining
-distance, smoothly avoiding divergence throughout space, and is defined as
-follows \cite{Kivlichan_2017}:
+The second method, the soft-core potential $\Hsc$, smoothly avoids divergence
+throughout the space by introducing a small offset constant $\Delta$ into the
+norm calculation used for the distance. It is defined as follows
+\cite{Kivlichan_2017}:
 
 \begin{equation}
 \Hsc(r) = -\frac{1}{\sqrt{r^2+\Delta^2}}
 \label{eq:Hsc2r}
 \end{equation}
 
-This formula has been widely analyzed for the purpose of preventing the
-divergence of the Coulomb term in Hamiltonian simulations
-\cite{Childs2022quantumsimulationof} and for modeling physical systems where the
-direction of electron motion is constrained \cite{Hall2009.PhysRevA.80.032507,
-Fernandez_1991, LiChen2021.doi:10.1021/acs.jpca.1c00698}.
+The soft-core potential is widely used in Hamiltonian simulations to model
+physical systems where the direction of electron motion is constrained
+\cite{Hall2009.PhysRevA.80.032507, Fernandez_1991,
+LiChen2021.doi:10.1021/acs.jpca.1c00698}, as well as to prevent the divergence
+of the Coulomb term \cite{Childs2022quantumsimulationof}.
 
-There are mainly two contexts for determining the parameter $\Delta$. One aims
-to correct energy in dimensionally reduced models. For instance, it is known
-that setting $\Delta=\sqrt{2}$ in a 1D hydrogen atom model yields the same
-energy eigenvalue of $-0.5\ \mathrm{a.u.}$ as the ground state of a 3D hydrogen
-atom \cite{Eberly1991.PhysRevA.44.5997}. However, in this context, the
-regularization of the singularity is merely a byproduct, and in a true 3D space,
-$\Delta=0$, leaving the divergence problem unresolved.
+The method for determining the parameter $\Delta$ varies depending on the
+purpose of using the soft-core potential.
 
-The primary objective in this study is the pure regularization of the
-singularity. To the best of the authors' knowledge, there is no precedent that
-analytically derives a physically valid $\Delta$ aligned with this objective. In
-contrast, we propose setting $\Delta = \deltar/4$ so that the value of the
-soft-core potential at the singularity ($r=0$) matches the value of the local
-average potential analytically derived in the previous section. That is, the
-soft-core potential used for calculation is defined as follows:
+The first method applies when the soft-core potential is used to correct the
+energy in reduced-dimensional models representing physical systems with
+constrained motion. For instance, it is known that setting $\Delta=\sqrt{2}$ in
+a 1D hydrogen atom model yields the ground-state energy eigenvalue of $-0.5\
+\mathrm{a.u.}$, which is identical to that of the 3D hydrogen atom
+\cite{Eberly1991.PhysRevA.44.5997}. In this context, however, the regularization
+of the singularity is merely a byproduct; in a 3D model where no energy
+correction is required, $\Delta=0$, leaving the divergence problem unresolved.
+
+The second method applies when the soft-core potential is used purely to avoid
+the divergence at the singularity, which aligns with the focus of this study. To
+the best of the authors' knowledge, there is no clearly established method in
+the literature for determining $\Delta$ with a rational basis in this scenario.
+Therefore, we propose setting $\Delta = \deltar/4$ so that the value of the
+soft-core potential at the singularity ($r=0$) matches the analytically derived
+local average potential discussed in the previous section. That is, the
+soft-core potential used in our calculations is defined as follows:
 
 \begin{equation}
 \Hsc(r) = - \frac{1}{\sqrt{r^2+(\deltar/4)^2}}
@@ -702,7 +722,7 @@ applying periodic boundary conditions, with a side length of $L=2^{\nb}\deltar$
 $\deltar$ is the grid spacing). The center of this space is set as the origin of
 the coordinate system, where the nucleus is placed.
 
-Wave function components that fall outside the coordinate range $[-L/2, L/2]$
+Wave function components that fall outside the coordinate range $[-L/2, L/2)$
 are forcibly cut off. Decreasing $\deltar$ reduces the spatial discretization
 error $\errdisc$; however, because the number of qubits $\nb$ is fixed, the
 domain size $L$ simultaneously shrinks, resulting in an increase in the
@@ -772,7 +792,7 @@ introduced in Section \ref{sec:coulomb-potential-handling}:
 Because $\abs{\HlaOneD}$ is maximized at the pole ($\chij=0$), the condition becomes:
 
 \begin{equation}
-\max_{j}\abs{\Hep(\chij)} = \frac{2\deltat}{\deltar\hbar}<\pi
+\max_{j}\abs{\Hep(\chij)\frac{\deltat}{\hbar}} = \frac{2\deltat}{\deltar\hbar}<\pi
 \end{equation}
 
 Solving this for $\deltat$ and using $L=2^{\nb}\deltar$ yields the upper limit $\deltatPmaxOneD$:

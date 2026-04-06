@@ -13,10 +13,10 @@ larger constant term and slope. On the other hand, looking at the number of
 exponentially with respect to the input (dimensionality $\times$ number of
 coordinate qubits), whereas the arithmetic circuit shows only a moderate
 increase. However, in small-scale models, the smallness of the constant term for
-the UCRZ gate is dominant. Therefore, a trade-off was confirmed: direct state
-preparation using UCRZ gates is advantageous for small-scale, low-dimensional
-systems, while arithmetic operations will be superior in terms of depth when
-performing large-scale, high-resolution simulations in the future.
+the UCRZ gate is dominant. Therefore, direct phase manipulation using UCRZ gates
+is advantageous for small-scale, low-dimensional systems, while arithmetic
+operations will be superior in terms of depth when performing large-scale,
+high-resolution simulations in the future.
 
 \subsubsection{Utility of UCRZ Gates in Quantum Emulators}
 In quantum emulators on classical computers, the simulatable state vector space
@@ -34,17 +34,16 @@ particular, promising error correction schemes like the Surface code require
 enormous physical resources, such as magic state distillation, to execute
 non-Clifford gates compared to Clifford gates. The CC-NOT gates in arithmetic
 circuits and arbitrary Rz rotation gates in UCRZ circuits fall precisely into
-this category. Ultimately, the bottleneck lies in how many T gates these can be
-approximated and decomposed into (T-count / T-depth). In particular, the Rz
-rotation in the UCRZ gate significantly fluctuates in T-gate consumption
-depending on the required accuracy. Therefore, for application to real devices,
-a quantitative comparison of the gate implementation costs of both methods,
-taking into account the overhead of error correction, will be a future
-challenge.
+this category. Ultimately, the problem lies in the number of T gates these can
+be approximated and decomposed into. In particular, the Rz rotation in the UCRZ
+gate significantly fluctuates in T-gate consumption depending on the required
+accuracy. Therefore, for application to real devices, a quantitative comparison
+of the gate implementation costs of both methods, taking into account the
+overhead of error correction, will be a future challenge.
 
 \subsection{Handling the Pole of the Coulomb Potential}
 \label{sec:coulomb-potential-handling-analysis}
-\subsubsection{Reason Why the Effective Radius is $\deltar$/4}
+\subsubsection{Reason Why the effective distance is $\deltar$/4}
 As shown in Figure \ref{fig:Ha1-vs-delta1}, the optimal value for the effective
 radius $\reff=\deltar/a$ used in the local average potential was obtained at
 $a=4$ for the 2D model. That is, setting $\reff=\deltar/4$ most effectively
@@ -116,7 +115,7 @@ analytically as follows.
       \left[ -\frac{1}{2}r^2 \right]_{0}^{R} 
     = -\frac{3}{2R} = -\frac{3}{\deltar}=-\frac{1}{\reff}
 \end{equation}
-Therefore, the effective radius for avoiding divergence at the singularity in
+Therefore, the effective distance for avoiding divergence at the singularity in
 the 3D model is derived as $\reff = \deltar/3$.
 
 To verify this theoretical prediction, numerical calculations for a 3D hydrogen
@@ -126,7 +125,7 @@ classical simulation program that performs time evolution operations equivalent
 to quantum circuits was used for this evaluation.
 
 The results are shown in Figure \ref{fig:Ha1-vs-delta1-3d} of Appendix
-\ref{sec:appendix_a_3d-evaluation}. Setting the effective radius as
+\ref{sec:appendix_a_3d-evaluation}. Setting the effective distance as
 $r_{\mathrm{eff}} = \deltar/a$, the coefficient $a$ was varied from $1$ to $5$,
 and the energy expectation value of the ground state was evaluated after
 executing time evolution for a sufficient period under conditions of spatial
@@ -136,7 +135,7 @@ hydrogen atom model ($-0.5\ \mathrm{a.u.}$) when $a=3$ (i.e., $r_{\mathrm{eff}}
 = \deltar/3$) under all $\nb$ conditions.
 
 This fact indicates that the approach of the local average potential, which
-determines the effective radius using the geometric spatial average of a minute
+determines the effective distance using the geometric spatial average of a minute
 region containing the singularity, is effective regardless of the
 dimensionality. This suggests that when fault-tolerant quantum computers (FTQC)
 with a sufficient number of qubits are realized in the future, and
@@ -160,11 +159,12 @@ highest possible excited state simultaneously with the ground state, it is
 desirable to set the value of $\deltar$ as large as possible within a range that
 does not hinder the representation of the ground state. At that time, the
 maximum quantum number that can be represented without being affected by the
-cutoff error is determined, and the range from the ground state to that maximum
-quantum number becomes the representable range of this simulation, that is, the
-"dynamic range." This serves as a powerful guideline for estimating the
-representable state space in advance when executing simulations with limited
-quantum resources.
+cutoff error--- which is caused by the truncation of the computational domain---
+is determined, and the range from the ground state to that maximum quantum
+number becomes the representable range of this simulation, that is, the "dynamic
+range." This serves as a powerful guideline for estimating the representable
+state space in advance when executing simulations with limited quantum
+resources.
 
 \subsubsection{Increase in $\nb$ and the Plateau of Optimal Parameters}
 Looking at Figure \ref{fig:dq-tradeoff}, it was confirmed that as $\nb$

@@ -174,7 +174,7 @@ grid-based time evolution calculations, including the Coulomb potential,
 entirely as a quantum circuit and to confirm its operation on an emulator.
 
 Regarding the handling of the Coulomb potential singularity, we proposed a
-method using $\reff=\deltar/4$ as the effective radius to determine the
+method using $\reff=\deltar/4$ as the effective distance to determine the
 effective potential at the grid point containing the singularity in the 2D
 model. Numerical experiments confirmed not only that this value minimizes the
 energy error of the system, but also that it coincides with the value derived
@@ -184,8 +184,10 @@ validity of this approach in a discretized space.
 Furthermore, we established a procedure for determining simulation parameters
 that minimize errors under a given number of qubits ($\nb$). We demonstrated
 that the spatial grid spacing $\deltar$ can be determined as the optimal value
-and the dynamic range of the simulation by balancing the tradeoff between
-spatial discretization error and domain truncation error. 
+by balancing the tradeoff between spatial discretization error and domain
+truncation error. This value determines the range starting at the ground state
+up to the maximum quantum number that can be represented, which is the
+representable dynamic range of the simulation.
 
 Moreover, regarding the time step $\deltat$ of the Trotter decomposition, we
 numerically confirmed that it can be determined not from the formal upper bound

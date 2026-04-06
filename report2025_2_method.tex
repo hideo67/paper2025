@@ -501,7 +501,7 @@ the former states).
 
 The first method, the local average potential $\Hla$, uses the original Coulomb
 potential at coordinates other than the singularity and replaces it with a
-finite value based on the effective radius $\reff$ only at the singularity
+finite value based on the effective distance $\reff$ only at the singularity
 ($r=0$).
 
 \begin{equation}
@@ -515,7 +515,7 @@ Because this function can be realized simply by a division denominator
 replacement circuit based on the condition check for $r=0$, it has the advantage
 of keeping the implementation cost low as a quantum circuit.
 
-The appropriate value of the effective radius $\reff$ in this approximation can
+The appropriate value of the effective distance $\reff$ in this approximation can
 be derived from geometric consistency as follows. In the potential term
 calculation using the grid method, the value at the center coordinate of each
 grid cell is taken as a representative value, and spatial integration is
@@ -679,7 +679,7 @@ applying periodic boundary conditions, with a side length of $L=2^{\nb}\deltar$
 $\deltar$ is the grid spacing). The center of this space is set as the origin of
 the coordinate system, where the nucleus is placed.
 
-Wave function components that fall outside the coordinate range $[-L/2, L/2]$
+Wave function components that fall outside the coordinate range $[-L/2, L/2)$
 are forcibly cut off. Decreasing $\deltar$ reduces the spatial discretization
 error $\errdisc$; however, because the number of qubits $\nb$ is fixed, the
 domain size $L$ simultaneously shrinks, resulting in an increase in the

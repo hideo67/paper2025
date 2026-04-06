@@ -163,8 +163,16 @@ convert \
 	+append "$output4"
 
 convert \
-	\( "$input9" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$label_pointsize" -annotate "$label_offset" "(a)" \) \
-	\( "$input10" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$label_pointsize" -annotate "$label_offset" "(b)" \) \
+	\( "$input9" -background white -gravity west -splice "$label_splice" \
+		\( -clone 0 -gravity north -crop x50%+0+0 +repage -gravity northwest -fill black -pointsize "$label_pointsize" -annotate +100+40 "(a)" \) \
+		\( -clone 0 -gravity south -crop x50%+0+0 +repage -gravity northwest -fill black -pointsize "$label_pointsize" -annotate +100+40 "(b)" \) \
+		-delete 0 -append \
+	\) \
+	\( "$input10" -background white -gravity west -splice "$label_splice" \
+		\( -clone 0 -gravity north -crop x50%+0+0 +repage -gravity northwest -fill black -pointsize "$label_pointsize" -annotate +100+40 "(c)" \) \
+		\( -clone 0 -gravity south -crop x50%+0+0 +repage -gravity northwest -fill black -pointsize "$label_pointsize" -annotate +100+40 "(d)" \) \
+		-delete 0 -append \
+	\) \
 	+append "$output5"
 
 mkdir -p "$(dirname "$output8")"
@@ -182,17 +190,17 @@ convert \
 		+append \
 	\) \
 	\( \
+		\( "$input18" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$label_pointsize" -annotate "$label_offset" "(c)" \) \
+		\( "$input19" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$label_pointsize" -annotate "$label_offset" "(d)" \) \
+		+append \
+	\) \
+	-append "$output9"
 
 mkdir -p "$(dirname "$output10")"
 convert \
 	\( "$input20" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$label_pointsize" -annotate "$label_offset" "(a)" \) \
 	\( "$input21" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$label_pointsize" -annotate "$label_offset" "(b)" \) \
 	+append "$output10"
-		\( "$input18" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$label_pointsize" -annotate "$label_offset" "(c)" \) \
-		\( "$input19" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$label_pointsize" -annotate "$label_offset" "(d)" \) \
-		+append \
-	\) \
-	-append "$output9"
 
 mkdir -p "$(dirname "$output6")"
 if command -v pdftocairo >/dev/null 2>&1; then
