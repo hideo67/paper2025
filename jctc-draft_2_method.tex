@@ -9,12 +9,11 @@
 \section{Method}
 \label{sec:method}
 In this section, we first outline the configuration of the simulator circuit
-evaluated in this study and the hydrogen atom models targeted for simulation
-(Section \ref{subsec:simulator-model}). Subsequently, we detail the specific
-methodologies for the three main challenges addressed in this paper: (1) a
-circuit configuration executable on an emulator, (2) the handling of the
-singularity (pole) of the Coulomb potential, and (3) a method for determining
-simulation parameters that minimize errors.
+evaluated in this study and the hydrogen atom models targeted for simulation .
+Subsequently, we detail the specific methodologies for the three main challenges
+addressed in this paper: (1) a circuit configuration executable on an emulator,
+(2) the handling of the singularity (pole) of the Coulomb potential, and (3) a
+method for determining simulation parameters that minimize errors.
 
 \subsection{Overview of the Simulator and Computational Model}
 \label{subsec:simulator-model}
@@ -24,16 +23,15 @@ report and the hydrogen atom models targeted for simulation.
 In this study, simulator circuits are generated using Chemical Reaction
 Simulator Q (crsQ) \cite{website:crsq}, a quantum chemistry simulator software
 for quantum computers developed by the authors. crsQ features the ability to
-allow users to flexibly specify and generate quantum circuit configurations
-according to the target model and simulation conditions. The models addressed in
-this paper are single hydrogen atom models, where the nucleus is treated as
-stationary at the origin of the coordinate system. We consider spatial
-dimensions of 1D and 2D.
+generate quantum circuit for a wide range of configurations according to the
+target model and simulation conditions. The models addressed in this paper are
+single hydrogen atom models, where the nucleus is treated as stationary at the
+origin of the coordinate system. We consider spatial dimensions of 1D and 2D.
 
 \subsubsection{Variables}
-In the mathematical derivations of this paper, we use atomic units (a.u.), where
-the elementary charge, electron mass, Bohr radius, and Planck's constant are all
-set to 1. The main variables used from this section onwards are listed in Table
+In the derivations of this paper, we use atomic units (a.u.), where the
+elementary charge, electron mass, Bohr radius, and Planck's constant are all set
+to 1. The main variables used from this section onwards are listed in Table
 \ref{tab:variables}.
 
 \begin{table}
@@ -54,29 +52,29 @@ set to 1. The main variables used from this section onwards are listed in Table
 \end{table}
 
 \subsubsection{Wave Function Storage Method}
-Let the position basis $\{\ket{j}\}$ be an orthogonal basis corresponding to the
-discrete grid points $\{\chij\}$, satisfying
+Let the position basis, $\{\ket{j}\}$ be an orthogonal basis corresponding to the
+discrete grid points, $\{\chij\}$, satisfying
 \begin{equation}
 \braket{i|j}=\delta_{ij}.
 \end{equation}
 
 In this case, the state vector in the position coordinate representation,
-$\ketPsiRS$, is expressed using the wave function amplitude
-$\Psi_j=\Psi(\chij\deltar)$ at grid point $j$ with discretized coordinate
+$\ketPsiRS$, is expressed using the wave function amplitude,
+$\Psi_j=\Psi(\deltar\chij)$ at grid point $j$ with discretized coordinate,
 $\chij$ as:
 \begin{equation}
 \ketPsiRS = \sum_{j}\Psi_j\ket{j}.
 \end{equation}
 On the other hand, the state vector in the wavenumber representation,
-$\ketPsiKS$, is expressed using the plane wave basis function
+$\ketPsiKS$, is expressed using the plane wave basis function,
 $W_{\ell}(\bm{r})=e^{i\bm{k}_{\ell}\cdot\bm{r}}/\sqrt{L^d}$ and the wave
-function component $\tilde{\Psi}_{\ell}$ having the wavenumber of that basis as:
+function component, $\tilde{\Psi}_{\ell}$ having the wavenumber of that basis as:
 \begin{equation}
 \Psi(\bm{r})=\sum_{\ell} \tilde{\Psi}_{\ell}W_{\ell}(\bm{r})\leftrightarrow
 \ketPsiKS = \sum_{\ell}\tilde{\Psi}_{\ell}\ket{\ell}.
 \end{equation}
 
-The action of the one-step time evolution circuit $\Thetae$ in a system where
+The action of the one-step time evolution circuit, $\Thetae$ in a system where
 only electrons are treated quantum mechanically is to perform a one-step time
 evolution operation based on the Suzuki-Trotter decomposition. Using the
 first-order formula, this is expressed as follows:
@@ -92,8 +90,8 @@ first-order formula, this is expressed as follows:
 The kinetic energy term of the time evolution operator is calculated in the
 wavenumber representation, while the potential energy term is calculated in the
 position representation. Using atomic units and placing the nucleus at the
-origin of the coordinate system, the kinetic energy term $\Hek$ and potential
-energy term $\Hep$ of the Hamiltonian for the 1D and 2D models are expressed as
+origin of the coordinate system, the kinetic energy term, $\Hek$ and potential
+energy term, $\Hep$ of the Hamiltonian for the 1D and 2D models are expressed as
 follows, respectively:
 
 \begin{align}
@@ -103,9 +101,9 @@ follows, respectively:
    \HepTwoD(\bm{r}) = -\frac{1}{\sqrt{x^2+y^2}}. \label{eq:HkHp2D}
 \end{align}
 
-The simulator circuit consists of a qubit initialization circuit $\PsiSD$ and a
+The simulator circuit consists of a qubit initialization circuit, $\PsiSD$ and a
 time evolution circuit, which is constructed by repeating the one-step time
-evolution circuit $\Thetae$ for the required number of steps. The role of the
+evolution circuit, $\Thetae$ for the required number of steps. The role of the
 initialization circuit is to store the initial value of the wave function into
 the qubits:
 \begin{equation}
@@ -189,8 +187,8 @@ in Fig. \ref{fig:initial-wavefunction-1d}.
 
 For the 2D model, we use the analytical solution by Parfitt
 \cite{Parfitt2002.10.1063/1.1503868}. This model restricts an electron moving
-under the Coulomb potential $-1/\sqrt{x^2+y^2}$ to a 2D plane. The wave function
-has two quantum numbers $n\in\{0,\ldots\}$ and $m\in\{-n,\ldots,0,\ldots,n\}$ as
+under the Coulomb potential, $-1/\sqrt{x^2+y^2}$ to a 2D plane. The wave function
+has two quantum numbers, $n\in\{0,\ldots\}$ and $m\in\{-n,\ldots,0,\ldots,n\}$ as
 parameters and is expressed as follows:
 
 \begin{equation}
@@ -291,7 +289,7 @@ custom-implemented classical program designed to operate mathematically
 equivalently to the quantum circuit. The combinations of parameters actually
 executed on the emulator are shown in Table
 \ref{tab:emulator-circuit-configurations} in Section
-\ref{subsec:circuit-size-evaluation-results}.
+\nameref{subsec:circuit-size-evaluation-results}.
 
 \subsubsection{Computing Environment}
 The computer hardware and software used for the simulation calculations are
@@ -320,7 +318,7 @@ emulator, which is the first of the three main challenges addressed in this
 study. To realize a simulation that fits within an emulator with a limited
 number of qubits, in addition to simplifying the computational model itself
 (restricting it to 1D and 2D and fixing the nucleus, as described in Section
-\ref{subsec:simulator-model}), significant simplification of the quantum circuit
+\nameref{subsec:simulator-model}), significant simplification of the quantum circuit
 is essential. This section focuses particularly on the implementation techniques
 for the Coulomb potential calculation circuit, which accounts for the majority
 of the circuit size.
@@ -328,7 +326,7 @@ of the circuit size.
 A standard approach to quantum circuit design in quantum chemistry simulation
 starts with the size and acceptable error of the target molecular model to
 estimate the required number of qubits and gates. In contrast, this study takes
-a practical approach: starting with the severely restricted number of qubits
+a reversed approach: starting with the severely restricted number of qubits
 currently available (or emulatable) and exploring/determining a circuit
 configuration that can operate under that constraint. Therefore, we actively
 adopt methods that can minimize the constant overhead (especially the number of
@@ -480,12 +478,12 @@ hardware gate can be uniquely determined by calculating the inverse matrix.
 
 In our application to the Coulomb potential term circuit, we set the qubits
 corresponding to the spatial coordinates of the particle as the input register
-of the UCRZ circuit. Based on the potential energy $\Hp(\bm{\chi}_b)$ at the
-discretized coordinate $\bm{\chi}_b$ corresponding to state $\ket{b}$, we
+of the UCRZ circuit. Based on the potential energy $\Hep(\deltar\bm{\chi}_b)$ at
+the discretized coordinate $\bm{\chi}_b$ corresponding to state $\ket{b}$, we
 specify the phase rotation angle $\alpha_b$ to be applied as follows:
 
 \begin{equation}
-\alpha_b = -\frac{\Hp(\bm{\chi}_b)\deltat}{\hbar}
+\alpha_b = -\frac{\Hep(\deltar\bm{\chi}_b)\deltat}{\hbar}
 \end{equation}
 
 By constructing a UCRZ circuit using the $\theta_k$ obtained through this
@@ -604,18 +602,46 @@ rewriting Eq. \eqref{eq:Halr} using this value, the local average potential is
 determined as follows:
 
 \begin{equation}
-\Hla(r) = \begin{cases}
+\HlaTwoD(r) = \begin{cases}
 -\frac{1}{r} & (r>0) \\
 -\frac{4}{\deltar} & (r=0)
 \end{cases}
 \label{eq:Hlar2d-fixed}
 \end{equation}
 
-The evaluation results of energy values in time evolution simulations using this
-potential are discussed in Section
-\ref{subsubsec:local-average-potential-results}.
 
-\subsubsection{Approximation Formula Using Soft-core Potential}
+A similar derivation cannot be applied to the 1D model. This is because, in the
+1D case, the power of the distance in the volume element is zeroth order, which
+fails to cancel out the divergence of the Coulomb potential. However, because
+the solution for the 1D model has zero amplitude at the origin, assigning any
+arbitrary finite potential value at the singularity does not affect the
+calculated energy expectation value. Therefore, for the 1D model, we adopt a
+value that leads to the simplest circuit implementation.
+
+When a division by zero occurs in the division circuit employed in this study,
+all bits of the output value become 1. In the circuit for the 1D model, where
+the binary representation has a single digit for the integer part, this yields
+the value $1.11111\dots_{(2)} \simeq 2_{(10)}$. From a practical standpoint,
+choosing this value allows us to handle the singularity without requiring any
+additional circuitry. Since the coordinates processed by the circuit are
+discretized, the quotient $2_{(10)}$ corresponds to $2/\deltar$. This is
+equivalent to setting $\reff = \deltar/2$. We adopt this value as the effective
+distance for the 1D model. Accordingly, the local average potential for the 1D
+model is defined as follows:
+
+\begin{equation}
+\HlaOneD(r) = \begin{cases}
+-\frac{1}{r} & (r>0) \\
+-\frac{2}{\deltar} & (r=0)
+\end{cases}
+\label{eq:Hlar1d-fixed}
+\end{equation}
+
+The evaluation results of the energy values obtained from the time evolution
+simulations using these potentials are discussed in Section
+\nameref{subsubsec:local-average-potential-results}.
+
+\subsubsection{Method Using the Soft-core Potential}
 
 The second method, the soft-core potential $\Hsc$, smoothly avoids divergence
 throughout the space by introducing a small offset constant $\Delta$ into the
@@ -660,7 +686,7 @@ soft-core potential used in our calculations is defined as follows:
 \end{equation}
 
 The evaluation results from time evolution simulations using this model are also
-discussed in Section \ref{subsubsec:local-average-potential-results}, comparing
+discussed in Section \nameref{subsubsec:local-average-potential-results}, comparing
 them with the results of the local average potential.
 
 \subsection{Simulation Parameters for Minimizing Error}
@@ -716,11 +742,11 @@ determine a value that comprehensively satisfies these constraints.
 \subsubsection{Method for Determining Grid Spacing}
 \label{subsec:delta-r-selection-method}
 
-In this study, the simulation target is a rectangular (or square) domain
-applying periodic boundary conditions, with a side length of $L=2^{\nb}\deltar$
-(where $\nb$ is the number of coordinate qubits for each dimension, and
-$\deltar$ is the grid spacing). The center of this space is set as the origin of
-the coordinate system, where the nucleus is placed.
+In this study, the simulation target is a cubic domain applying periodic
+boundary conditions, with a side length of $L=2^{\nb}\deltar$ (where $\nb$ is
+the number of coordinate qubits for each dimension, and $\deltar$ is the grid
+spacing). The center of this space is set as the origin of the coordinate
+system, where the nucleus is placed.
 
 Wave function components that fall outside the coordinate range $[-L/2, L/2)$
 are forcibly cut off. Decreasing $\deltar$ reduces the spatial discretization
@@ -737,6 +763,9 @@ outside the domain, as follows:
 S_1 &= \int_{x,y,z=-L/2}^{L/2}\Psi(\bm{r})^{\ast}\Psi(\bm{r}) d\bm{r} \\
 S_2 &= 1 - S_1
 \end{align}
+
+This is for the case of a 3D model, but the definitions for 1D and 2D models are
+similarly given by integrating over the corresponding dimensions.
 
 Meanwhile, let $S_d$ be the approximate calculation value on the discretized
 coordinates corresponding to $S_1$:
@@ -780,19 +809,19 @@ First, we consider the case of the 1D model. When evaluating the inequality
 \eqref{eq:nyqist-limit-by-hep} for the potential term, the true Coulomb
 potential diverges at the pole. Therefore, we evaluate it using the
 approximation formula for the local average potential ($\reff=\deltar/2$)
-introduced in Section \ref{sec:coulomb-potential-handling}:
+introduced in Section \nameref{sec:coulomb-potential-handling}:
 
 \begin{equation}
-\HlaOneD(\chij) = \begin{cases}
--\frac{1}{\abs{\chij}} & (\chij\neq0) \\
--\frac{2}{\deltar} & (\chij=0)
+\HlaOneD(r) = \begin{cases}
+-\frac{1}{\abs{r}} & (r\neq0) \\
+-\frac{2}{\deltar} & (r=0)
 \end{cases}
 \end{equation}
 
-Because $\abs{\HlaOneD}$ is maximized at the pole ($\chij=0$), the condition becomes:
+Because $\abs{\HlaOneD}$ is maximized at the pole ($r=0$), the condition becomes:
 
 \begin{equation}
-\max_{j}\abs{\Hep(\chij)\frac{\deltat}{\hbar}} = \frac{2\deltat}{\deltar\hbar}<\pi
+\max_{j}\abs{\Hep(\deltar\chij)\frac{\deltat}{\hbar}} = \frac{2\deltat}{\deltar\hbar}<\pi
 \end{equation}
 
 Solving this for $\deltat$ and using $L=2^{\nb}\deltar$ yields the upper limit $\deltatPmaxOneD$:
@@ -941,14 +970,14 @@ according to Eqs. \eqref{eq:observed-trotter-error-bound-1st} and
 errors due to other factors such as spatial discretization are dominant,
 increasing $N$ will not yield significant improvement in the overall error.
 
-Synthesizing the above, the absolute upper limit of the time step $\deltat$ is
+Combining the above, the absolute upper limit of the time step $\deltat$ is
 dictated by the requirement of the sampling theorem (avoidance of aliasing), and
 within that range, the number of divisions must be selected so that the Trotter
 error falls within an acceptable limit. From the perspective of computational
 cost (quantum circuit depth), it is desirable to adopt the largest possible
-value for $\deltat$ (smallest $N$). Therefore, adopting the minimum number of
-divisions within the range that contributes to the improvement of the overall
-error, while assessing the balance with other error components, is the optimal
-parameter determination strategy in this method.
+value for $\deltat$ (smallest $N$). Therefore, the strategy to determine the
+optimal parameter in this method is to adopt the minimum number of divisions
+within the range that contributes to the improvement of the overall error, while
+assessing the balance with other error components.
 
 \end{document}
