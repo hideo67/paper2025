@@ -2,13 +2,13 @@
 \begin{document}
 \section{Results}
 In this section, we present the results of the numerical evaluation based on the
-method formulated in Section \ref{sec:method}. First, in Section
+method formulated in Sec. \ref{sec:method}. First, in Section
 \ref{subsec:circuit-configuration-results}, we describe the evaluation results
 regarding the implementation forms of the proposed simulator circuit (arithmetic
 circuits and UCRZ circuits) and their circuit scale. Next, in Section
 \ref{subsec:coulomb-potential-handling-results}, we perform a comparative
 evaluation on how to handle the singularity of the Coulomb potential. Finally,
-in Section \ref{subsec:parameter-selection-for-minimum-error-results}, we show
+in Sec. \ref{subsec:parameter-selection-for-minimum-error-results}, we show
 the results concerning the method for determining the simulation parameters that
 minimize the error.
 
@@ -175,7 +175,7 @@ environment.
 Under the conditions in Table \ref{tab:emulator-circuit-configurations}, by
 applying the Coulomb potential singularity treatment formulated in Section
 \ref{sec:coulomb-potential-handling} and setting the optimal simulation
-parameters derived in Section \ref{sec:parameter-selection-for-minimum-error},
+parameters derived in Sec. \ref{sec:parameter-selection-for-minimum-error},
 the expected time evolution of the wave function was confirmed using either the
 arithmetic circuit or the UCRZ circuit. Detailed analyses of the obtained
 calculation errors will be described in the following subsections.
@@ -210,7 +210,7 @@ particles in the system (sum of electrons and nuclei).
 \label{subsec:coulomb-potential-handling-results}
 In this subsection, we present energy evaluation results for the divergence
 avoidance methods at the singularity (pole) of the Coulomb potential formulated
-in Section \ref{sec:coulomb-potential-handling}, using the local average
+in Sec. \ref{sec:coulomb-potential-handling}, using the local average
 potential and the soft-core potential, respectively.
 
 \subsubsection{Method Using Local Average Potential}
@@ -234,7 +234,7 @@ respectively).
 At any resolution (number of bits), the sign of the error reverses around $a=4$,
 confirming that the optimal condition is common and independent of the number of
 bits. This strongly supports the validity of the theoretical approximation in
-Section \ref{sec:coulomb-potential-handling}, which derived $\reff \approx
+Sec. \ref{sec:coulomb-potential-handling}, which derived $\reff \approx
 \deltar/4$ from the consistency of the integral value in a minute region.
 
 \begin{figure}[ht]
@@ -297,7 +297,7 @@ functions as the optimal parameter.
 \label{subsec:parameter-selection-for-minimum-error-results}
 In this subsection, we present the results of specific numerical evaluations
 regarding the parameter determination method for minimizing errors discussed in
-Section \ref{sec:parameter-selection-for-minimum-error}. First, we describe the
+Sec. \ref{sec:parameter-selection-for-minimum-error}. First, we describe the
 optimization of the grid spacing based on the trade-off between spatial
 discretization error and cutoff error, and then we show the evaluation results
 of the time parameter (number of divisions) based on the sampling theorem and

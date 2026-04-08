@@ -72,7 +72,7 @@
 %% Many journals require that sections are unnumbered: this 
 %% is activated here
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\setcounter{secnumdepth}{-1}
+% \setcounter{secnumdepth}{-1}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Place any additional macros here.  Please use \newcommand* where
@@ -120,29 +120,30 @@ Tokyo, 116-8523, Japan}
 
 \begin{abstract}
 
-In this study, we constructed a quantum circuit for a first-quantization-based
-Hamiltonian simulator capable of operating on a small-scale quantum computer
-emulator with fewer than 30 qubits.
+A quantum circuit for a first-quantization-based Hamiltonian simulator capable
+of operating on a small-scale quantum computer emulator with fewer than 30
+qubits was constructed.
 
 To construct the circuit within limited quantum resources (number of qubits), we
 applied Uniformly Controlled Rotation (UCR) circuits to calculate the Coulomb
 potential. Furthermore, as a guideline for obtaining highly accurate
 computational results, we established a method for handling the singularity
 (pole) of the Coulomb potential and optimizing the discretization parameters.
+
 Regarding the singularity of the Coulomb potential, we demonstrated that
 divergence can be avoided and errors minimized by determining an effective value
 from a simple geometric average of the potential within a minute circular region
 centered on the pole.
 
-Additionally, under the constraint of a given number of qubits, we proposed a
-method to determine the optimal spatial grid spacing by evaluating the tradeoff
-between the spatial discretization error caused by grid coarseness and the
-domain truncation error due to a finite domain length. For the time evolution
-step size, rather than relying on the formal Trotter error bound that assumes
-the worst-case scenario, we clarified the conditions required to maintain
-sufficient accuracy while avoiding an unnecessary increase in quantum circuit
-depth. This was achieved based on the sampling theorem, focusing on the maximum
-frequency component of the wave function.
+Additionally, we proposed a method to determine the optimal spatial grid spacing
+for a given number of qubits for coordinates, by evaluating the tradeoff between
+the spatial discretization error caused by grid coarseness and the domain
+truncation error due to a finite domain length. For the time evolution step
+size, rather than relying on the formal Trotter error bound that assumes the
+worst-case scenario, we clarified the conditions required to maintain sufficient
+accuracy while avoiding an unnecessary increase in quantum circuit depth. This
+was achieved based on the sampling theorem, focusing on the maximum frequency
+component of the wave function.
 
 \end{abstract}
 
@@ -160,8 +161,9 @@ frequency component of the wave function.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subfile{jctc-draft_1_intro.tex}
 \subfile{jctc-draft_2_method.tex}
-\subfile{jctc-draft_3_results.tex}
-\subfile{jctc-draft_4_analysis.tex}
+\subfile{jctc-draft_34_results_discussions.tex}
+% \subfile{jctc-draft_3_results.tex}
+% \subfile{jctc-draft_4_analysis.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% The conclusion section
@@ -196,7 +198,7 @@ of the Trotter error assuming the worst case, but from the requirement of the
 sampling theorem (half-period condition) based on the maximum frequency
 component of the wave function. Particularly when targeting states near the
 ground state, we demonstrated that within the range satisfying this condition,
-the spatial error becomes dominant over the time error (i.e., the error
+the spatial error becomes dominant over the temporal error (i.e., the error
 saturates), providing a guideline to avoid unnecessary increases in quantum
 circuit depth.
 

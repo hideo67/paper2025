@@ -1,6 +1,6 @@
 %
 %
-% report_2025_2_method.tex
+% jc-draft_2_method.tex
 %
 %
 %
@@ -17,19 +17,16 @@ method for determining simulation parameters that minimize errors.
 
 \subsection{Overview of the Simulator and Computational Model}
 \label{subsec:simulator-model}
-We describe the configuration of the simulator circuit to be evaluated in this
-report and the hydrogen atom models targeted for simulation.
-
 In this study, simulator circuits are generated using Chemical Reaction
 Simulator Q (crsQ) \cite{website:crsq}, a quantum chemistry simulator software
 for quantum computers developed by the authors. crsQ features the ability to
-generate quantum circuit for a wide range of configurations according to the
+generate quantum circuits for a wide range of configurations according to the
 target model and simulation conditions. The models addressed in this paper are
 single hydrogen atom models, where the nucleus is treated as stationary at the
 origin of the coordinate system. We consider spatial dimensions of 1D and 2D.
 
-\subsubsection{Variables}
-In the derivations of this paper, we use atomic units (a.u.), where the
+\subsubsection{Variable Definitions}
+In the derivations of this study, we use atomic units (a.u.), where the
 elementary charge, electron mass, Bohr radius, and Planck's constant are all set
 to 1. The main variables used from this section onwards are listed in Table
 \ref{tab:variables}.
@@ -37,7 +34,7 @@ to 1. The main variables used from this section onwards are listed in Table
 \begin{table}
     \centering
     \caption{Variables used in this section}
-    \begin{tabular}{cc}
+    \begin{tabular}{cl}
         Variable & Description \\
         \hline
         $d$ & Spatial dimension \\
@@ -46,12 +43,13 @@ to 1. The main variables used from this section onwards are listed in Table
         $\deltar$ & Grid spacing in real-space (position coordinate space) \\
         $\deltak$ & Grid spacing in k-space (wavenumber space) \\
         $\deltat$ & Time step for time evolution \\
-        $\chij$ & Discretized coordinate of grid point $j$
+        $\chij$ & Discretized coordinate of grid point $j$ in real-space\\
+        $\kapl$ & Discretized wavenumber of grid point $\ell$ in k-space
     \end{tabular}
     \label{tab:variables}
 \end{table}
 
-\subsubsection{Wave Function Storage Method}
+\subsubsection{Wave Function Storage and Time Evolution}
 Let the position basis, $\{\ket{j}\}$ be an orthogonal basis corresponding to the
 discrete grid points, $\{\chij\}$, satisfying
 \begin{equation}
@@ -239,15 +237,15 @@ Fig. \ref{subfig:initial-wavefunction-2d-1-1}, respectively.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.45\columnwidth]{paper2025_figs/classic2D/6b_n1_m1/t_00.000_3d-qp.png}
+    \includegraphics[width=0.45\columnwidth]{paper2025_figs/classic2D/initial-wavefunction-2d-11.png}
     \caption{Wave function $\PsiTwoD_{1,1}$}
     \label{subfig:initial-wavefunction-2d-1-1}
     \begin{flushleft}\small
 
         Excited state $\PsiTwoD_{1,1}$ with $n=1, m=1$ (Eq.
-        \eqref{eq:psi2D11-wave-function}). The upper row shows the real part of
-        the wave function in real-space, and the lower row shows the real part
-        in k-space. The wave function value at the origin is zero.
+        \eqref{eq:psi2D11-wave-function}). (a) the real part of the wave
+        function in real-space. (b) the real part of the wave function in
+        k-space. The wave function value at the origin is zero.
     \end{flushleft}
 \end{figure}
 
@@ -288,8 +286,8 @@ emulator's execution limits, such as finer grid spacings, we concurrently used a
 custom-implemented classical program designed to operate mathematically
 equivalently to the quantum circuit. The combinations of parameters actually
 executed on the emulator are shown in Table
-\ref{tab:emulator-circuit-configurations} in Section
-\nameref{subsec:circuit-size-evaluation-results}.
+\ref{tab:emulator-circuit-configurations} in Sec.
+\ref{subsec:circuit-size-evaluation-results}.
 
 \subsubsection{Computing Environment}
 The computer hardware and software used for the simulation calculations are
@@ -311,37 +309,37 @@ shown in Table \ref{tab:computing-environment}.
     \label{tab:computing-environment}
 \end{table}
 
-\subsection{Simulator Circuit Configuration}
-\label{sec:simulator-circuit-configuration}
+\subsection{Design of Potential Calculation Circuits that fits on an Emulator}
+\label{subsec:design-of-potential-calculation}
 This section describes the design of a circuit configuration executable on an
 emulator, which is the first of the three main challenges addressed in this
 study. To realize a simulation that fits within an emulator with a limited
 number of qubits, in addition to simplifying the computational model itself
-(restricting it to 1D and 2D and fixing the nucleus, as described in Section
-\nameref{subsec:simulator-model}), significant simplification of the quantum circuit
+(restricting it to 1D and 2D and fixing the nucleus, as described in Sec.
+\ref{subsec:simulator-model}), significant simplification of the quantum circuit
 is essential. This section focuses particularly on the implementation techniques
 for the Coulomb potential calculation circuit, which accounts for the majority
 of the circuit size.
 
 A standard approach to quantum circuit design in quantum chemistry simulation
-starts with the size and acceptable error of the target molecular model to
-estimate the required number of qubits and gates. In contrast, this study takes
-a reversed approach: starting with the severely restricted number of qubits
-currently available (or emulatable) and exploring/determining a circuit
-configuration that can operate under that constraint. Therefore, we actively
-adopt methods that can minimize the constant overhead (especially the number of
-ancilla qubits) to the utmost limit for small-scale models, even if they are
-unsuitable for large-scale models from an asymptotic scaling perspective.
+starts with the size of the target molecular model and the amount of acceptable
+error to estimate the required number of qubits and gates. In contrast, this
+study takes a reversed approach: starting with the number of qubits available
+(or emulatable) to the circuit and exploring/determining a circuit configuration
+that can operate under that constraint. Therefore, we adopt methods that can
+minimize the constant overhead (especially the number of ancilla qubits) to the
+utmost limit for small-scale models, even if they are unsuitable for large-scale
+models from an asymptotic scaling perspective.
 
 In the fundamental approach based on the Suzuki-Trotter decomposition in first
 quantization, the target space is divided into equally spaced grids, grid
 indices are mapped to qubit registers, and arithmetic circuits are used to
 calculate the Coulomb potential \cite{Zalka-rspa.1998.0162}. Because the number
 of qubits and gates in this method scales polynomially with the number of
-particles, it is exponentially more efficient than classical computers. However,
-while asymptotically efficient, the constant coefficients for the number of
-ancilla qubits and gates associated with arithmetic operations are by no means
-small.
+particles, it is exponentially more efficient than algorithms on classical
+computers. However, while asymptotically efficient, the constant coefficients
+for the number of ancilla qubits and gates associated with arithmetic operations
+are by no means small.
 
 In previous studies of first-quantization simulations, methods combining QROM
 (Quantum Read-Only Memory) and the Newton-Raphson method to approximate the
@@ -356,8 +354,8 @@ opt against this method. Instead, we adopt and evaluate qubit-efficient
 implementation techniques using arithmetic circuits and UCRZ circuits, as
 described in the following subsections.
 
-\subsubsection{Potential Calculation Circuit Using Arithmetic Gates}
-\label{subsec:potential-circuit-by-arithmetic-gates}
+\subsubsection{Implementation Using Arithmetic Gates}
+\label{subsubsec:implementation-using-arithmetic-gates}
 
 The fundamental method for the Coulomb potential calculation circuit is based on
 arithmetic circuits \cite{Zalka-rspa.1998.0162}.
@@ -369,7 +367,16 @@ arithmetic circuits \cite{Zalka-rspa.1998.0162}.
     \caption{Example of the Coulomb potential term circuit $\Thetaep$ in a 3-electron system}
     \label{fig:theta-ep-multi-electron}
     \begin{flushleft}\small
-        $n_1, n_2, n_3$ are registers corresponding to the discretized coordinates of electrons 1, 2, and 3, respectively, each consisting of $\nb$ bits. The slash on the qubit line indicates a register consisting of multiple qubits rather than a single qubit. $tmp$ is an ancilla qubit register. The Coulomb potential calculation circuit $\Thetaep$ must be applied to each of the three electron pairs (1,2), (2,3), and (1,3), but a single ancilla qubit register can be reused if prepared once. A qubit line passing straight through a $\Thetaep$ circuit box indicates that the qubit is not manipulated during that circuit operation.
+
+        $n_1, n_2, n_3$ are registers corresponding to the discretized
+        coordinates of electrons 1, 2, and 3, respectively, each consisting of
+        $\nb$ bits. The slash on the qubit line indicates a register consisting
+        of multiple qubits rather than a single qubit. $tmp$ is an ancilla qubit
+        register. The Coulomb potential calculation circuit $\Thetaep$ must be
+        applied to each of the three electron pairs (1,2), (2,3), and (1,3), but
+        a single ancilla qubit register can be reused if prepared once. A qubit
+        line passing straight through a $\Thetaep$ circuit box indicates that
+        the qubit is not manipulated during that circuit operation.
     \end{flushleft}
 \end{figure}
 
@@ -388,8 +395,8 @@ the simulatable model size.
 
 \clearpage
 
-\subsubsection{Potential Calculation Circuit Using UCRZ Gates}
-\label{subsec:potential-circuit-by-ucrz-qubits}
+\subsubsection{Implementation Using UCRZ Gates}
+\label{subsubsec:implementation-using-ucrz-gates}
 
 In this study, we focused on the Uniformly Controlled Rotation (UCR) circuit
 \cite{Mottonen2004.PhysRevLett.93.130502}, which has an effect similar to QROM,
@@ -407,7 +414,7 @@ number of ancilla qubits---essential in arithmetic circuits---down to just one
 target qubit.
 
 However, since the number of gates in a UCRZ circuit increases exponentially
-with the number of bits in the control register, its application to large-scale
+with the number of bits in the input register, its application to large-scale
 registers is impractical. Still, in verifying small-scale models where the total
 number of qubits is strictly limited, it serves as an extremely effective means
 to increase the number of qubits available for the coordinate register by
@@ -486,13 +493,13 @@ specify the phase rotation angle $\alpha_b$ to be applied as follows:
 \alpha_b = -\frac{\Hep(\deltar\bm{\chi}_b)\deltat}{\hbar}
 \end{equation}
 
-By constructing a UCRZ circuit using the $\theta_k$ obtained through this
-inverse transformation, the potential energy term $\Thetaep$ of the time
+By constructing a UCRZ circuit using the $\theta_k$ obtained through inverse
+transformation of these values, the potential energy term $\Thetaep$ of the time
 evolution operator can be strictly realized without consuming any ancilla
 qubits.
 
-\subsection{Handling the Pole of the Coulomb Potential}
-\label{sec:coulomb-potential-handling}
+\subsection{Regularization methods for the Coulomb Potential}
+\label{subsec:coulomb-potential-handling}
 When calculating the Coulomb potential via quantum circuits in
 first-quantization-based simulations, avoiding divergence at the singularity
 (pole, $r=0$) is an inevitable challenge. Because the potential energy term of
@@ -505,8 +512,8 @@ Approaches to address this divergence are broadly classified into the following
 two categories: (a) methods that introduce approximation or regularization into
 the potential function itself to prevent divergence even when the inter-particle
 distance becomes zero; and (b) methods that mathematically prevent the distance
-between the electron and the nucleus from strictly reaching zero by shifting
-their coordinate grids by a half-grid spacing ($\deltar/2$)
+between the electron and the nucleus from strictly reaching zero by shifting the
+coordinate of nuclei by a half-grid spacing ($\deltar/2$)
 \cite{Chan2023.sciadv.abo7484}.
 
 While method (b) is straightforward, the steep gradient of the potential near
@@ -533,12 +540,12 @@ rigorous prescription. Below, we derive appropriate regularization parameters
 targeting the latter states (the derived values are also directly applicable to
 the former states).
 
-\subsubsection{Method Using the Local Average Potential}
+\subsubsection{Formulation of the Local Average Potential}
 
-The first method, the local average potential $\Hla$, uses the original Coulomb
-potential at coordinates other than the singularity and replaces it with a
-finite value based on the effective distance $\reff$ only at the singularity
-($r=0$).
+As the first method, we define the local average potential $\Hla$, which uses
+the original Coulomb potential at coordinates other than the singularity and
+replaces it with a finite value based on the effective distance $\reff$ only at
+the singularity ($r=0$).
 
 \begin{equation}
 \Hla(r) = \begin{cases}
@@ -593,7 +600,7 @@ Solving for states $(n,m)=(0,0)$ and $(1,0)$ so that these values match
 \end{align}
 
 Here, the approximations are based on Taylor expansions assuming sufficient
-spatial resolution ($\deltar \ll 1$). The detailed derivation process is shown
+spatial resolution ($q_0\deltar \ll 1$). The detailed derivation process is shown
 in Appendix \ref{chap:appendix_derivation_derivation}.
 
 As shown in Eqs. \eqref{eq:delta-1-0-0} and \eqref{eq:delta-1-1-0}, a universal
@@ -608,7 +615,6 @@ determined as follows:
 \end{cases}
 \label{eq:Hlar2d-fixed}
 \end{equation}
-
 
 A similar derivation cannot be applied to the 1D model. This is because, in the
 1D case, the power of the distance in the volume element is zeroth order, which
@@ -638,10 +644,10 @@ model is defined as follows:
 \end{equation}
 
 The evaluation results of the energy values obtained from the time evolution
-simulations using these potentials are discussed in Section
-\nameref{subsubsec:local-average-potential-results}.
+simulations using these potentials are discussed in Sec.
+\ref{subsubsec:local-average-potential-results}.
 
-\subsubsection{Method Using the Soft-core Potential}
+\subsubsection{Deciding the Offset of the Soft-core Potential}
 
 The second method, the soft-core potential $\Hsc$, smoothly avoids divergence
 throughout the space by introducing a small offset constant $\Delta$ into the
@@ -686,11 +692,11 @@ soft-core potential used in our calculations is defined as follows:
 \end{equation}
 
 The evaluation results from time evolution simulations using this model are also
-discussed in Section \nameref{subsubsec:local-average-potential-results}, comparing
+discussed in Sec. \ref{subsubsec:local-average-potential-results}, comparing
 them with the results of the local average potential.
 
-\subsection{Simulation Parameters for Minimizing Error}
-\label{sec:parameter-selection-for-minimum-error}
+\subsection{Optimization of Simulation Parameters}
+\label{subsec:optimization-of-simulation-parameters}
 
 When executing Hamiltonian simulations, configuring the spatial resolution and
 time step to keep calculation errors within a desired range is crucial, and
@@ -739,8 +745,8 @@ for the temporal parameter ($\deltat$), a strict upper limit is required by the
 sampling theorem and the analytical evaluation of the Trotter error, so we
 determine a value that comprehensively satisfies these constraints.
 
-\subsubsection{Method for Determining Grid Spacing}
-\label{subsec:delta-r-selection-method}
+\subsubsection{Criteria for Grid Spacing}
+\label{subsec:criteria-for-grid-spacing}
 
 In this study, the simulation target is a cubic domain applying periodic
 boundary conditions, with a side length of $L=2^{\nb}\deltar$ (where $\nb$ is
@@ -787,9 +793,9 @@ numerical analysis results of this tradeoff using specific wave functions for
 the 1D and 2D models are presented in Section
 \ref{subsubsec:delta-r-selection-results}.
 
-\subsubsection{Conditions for Time Step Based on the Sampling Theorem}
+\subsubsection{Time Step Contraints from the Sampling Theorem}
 
-\label{subsubsec:deltat-selection-by-sampling-theorem}
+\label{subsubsec:time-step-constraints-from-sampling-theorem}
 
 The first condition that the time step $\deltat$ must satisfy is the avoidance
 of aliasing errors derived from the properties of the Discrete Fourier Transform
@@ -809,7 +815,7 @@ First, we consider the case of the 1D model. When evaluating the inequality
 \eqref{eq:nyqist-limit-by-hep} for the potential term, the true Coulomb
 potential diverges at the pole. Therefore, we evaluate it using the
 approximation formula for the local average potential ($\reff=\deltar/2$)
-introduced in Section \nameref{sec:coulomb-potential-handling}:
+introduced in Sec. \ref{subsec:coulomb-potential-handling}:
 
 \begin{equation}
 \HlaOneD(r) = \begin{cases}
@@ -821,7 +827,7 @@ introduced in Section \nameref{sec:coulomb-potential-handling}:
 Because $\abs{\HlaOneD}$ is maximized at the pole ($r=0$), the condition becomes:
 
 \begin{equation}
-\max_{j}\abs{\Hep(\deltar\chij)\frac{\deltat}{\hbar}} = \frac{2\deltat}{\deltar\hbar}<\pi
+\max_{j}\abs{\Hep(\deltar\chij)\deltat/\hbar} = \frac{2\deltat}{\deltar\hbar}<\pi
 \end{equation}
 
 Solving this for $\deltat$ and using $L=2^{\nb}\deltar$ yields the upper limit $\deltatPmaxOneD$:
@@ -901,8 +907,8 @@ The corresponding lower limits for the number of Trotter divisions are as follow
     \nTkminTwoD &= \frac{T}{\deltatKmaxTwoD}=\frac{2^{2\nb}\pi\hbar T}{L^2}
 \end{align}
 
-\subsubsection{Conditions for Time Step Based on Suzuki-Trotter Error}
-\label{subsec:deltat-selection-by-trotter-error}
+\subsubsection{Time Step Constraints from Suzuki-Trotter Error}
+\label{subsubsec:time-step-constraints-from-suzuki-trotter-error}
 
 Another condition regarding the time step $\deltat$ arises from the requirement
 of the approximation error $\errtrotter$ due to the Suzuki-Trotter
@@ -929,7 +935,9 @@ $g\in\mathbb{R}$ as follows \cite{Burgarth2024.PhysRevResearch.6.043155}:
     \label{eq:observed-trotter-error-1st}
 \end{equation}
 
-Here, $\SN{1}(t) = \left(e^{-i{tH}_1/N}e^{-itH_2/N}\right)^N$ is the first-order time evolution operator. The minimum value of the right side of Eq. \eqref{eq:observed-trotter-error-1st} is defined as $\BN{1}$:
+Here, $\SN{1}(t) = \left(e^{-i{tH}_1/N}e^{-itH_2/N}\right)^N$ is the first-order
+time evolution operator. The minimum value of the right side of Eq.
+\eqref{eq:observed-trotter-error-1st} is defined as $\BN{1}$:
 \begin{equation}
 \BN{1}(t;\phi)=\inf_{g\in\mathbb{R}}\frac{t^2}{2N}
     \left(\|(H_1-g)^2\phi\|+\|(H_2-h+g)^2\phi\|\right)

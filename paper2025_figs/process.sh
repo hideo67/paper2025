@@ -15,6 +15,8 @@ output4="compare_energy/compare_energy_h2D_TO2_rofs_combined.png"
 input9="classic2D/6b_n0_m0/t_00.000_3d-qp.png"
 input10="classic2D/6b_n1_m0/t_00.000_3d-qp.png"
 output5="classic2D/initial-wavefunction-2d-00_10.png"
+input22="classic2D/6b_n1_m1/t_00.000_3d-qp.png"
+output11="classic2D/initial-wavefunction-2d-11.png"
 input11="../jctc-draft_x_figs_arith.pdf"
 output6="quantikz/arith.png"
 input12="../jctc-draft_x_figs_ucrz.pdf"
@@ -84,6 +86,11 @@ fi
 
 if [[ ! -f "$input10" ]]; then
 	echo "Error: missing input file: $input10" >&2
+	exit 1
+fi
+
+if [[ ! -f "$input22" ]]; then
+	echo "Error: missing input file: $input22" >&2
 	exit 1
 fi
 
@@ -174,6 +181,14 @@ convert \
 		-delete 0 -append \
 	\) \
 	+append "$output5"
+
+convert \
+	\( "$input22" -background white -gravity west -splice "$label_splice" \
+		\( -clone 0 -gravity north -crop x50%+0+0 +repage -gravity northwest -fill black -pointsize "$label_pointsize" -annotate +100+40 "(a)" \) \
+		\( -clone 0 -gravity south -crop x50%+0+0 +repage -gravity northwest -fill black -pointsize "$label_pointsize" -annotate +100+40 "(b)" \) \
+		-delete 0 -append \
+	\) \
+	"$output11"
 
 mkdir -p "$(dirname "$output8")"
 convert \
