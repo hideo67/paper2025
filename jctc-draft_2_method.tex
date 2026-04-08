@@ -224,14 +224,14 @@ Fig. \ref{subfig:initial-wavefunction-2d-1-1}, respectively.
     \label{fig:initial-wavefunction-2d-00_10}
     \begin{flushleft}\small 
 
-        (a) Real part of the wave function for the ground state $\PsiTwoD_{0,0}$
-        with principal quantum number $n=0$ and azimuthal quantum number $m=0$
-        (Eq. \eqref{eq:psi2D00-wave-function}). (b) Real part of the Fourier
-        transform of the wave function for the same state. (c) Real part of the
-        wave function for the excited state $\PsiTwoD_{1,0}$ with $n=1, m=0$
-        (Eq. \eqref{eq:psi2D10-wave-function}). (d) Real part of the Fourier
-        transform of the wave function for the same state. Both (a) and (c) have
-        non-zero wave function values at the origin.
+        (a) Real part of the wave function in real-space for the ground state
+        $\PsiTwoD_{0,0}$ with principal quantum number $n=0$ and azimuthal
+        quantum number $m=0$ (Eq. \eqref{eq:psi2D00-wave-function}). (b) Real
+        part of the wave function in k-space for the same state. (c) Real part
+        of the wave function in real-space for the excited state
+        $\PsiTwoD_{1,0}$ with $n=1, m=0$ (Eq. \eqref{eq:psi2D10-wave-function}).
+        (d) Real part of the wave function in k-space for the same state. Both
+        (a) and (c) have non-zero wave function values at the origin.
     \end{flushleft}
 \end{figure}
 
@@ -313,9 +313,8 @@ shown in Table \ref{tab:computing-environment}.
 \label{subsec:design-of-potential-calculation}
 This section describes the design of a circuit configuration executable on an
 emulator, which is the first of the three main challenges addressed in this
-study. To realize a simulation that fits within an emulator with a limited
-number of qubits, in addition to simplifying the computational model itself
-(restricting it to 1D and 2D and fixing the nucleus, as described in Sec.
+study. To achieve this goal, in addition to simplifying the computational model
+itself (restricting it to 1D and 2D and fixing the nucleus, as described in Sec.
 \ref{subsec:simulator-model}), significant simplification of the quantum circuit
 is essential. This section focuses particularly on the implementation techniques
 for the Coulomb potential calculation circuit, which accounts for the majority
@@ -416,11 +415,10 @@ target qubit.
 However, since the number of gates in a UCRZ circuit increases exponentially
 with the number of bits in the input register, its application to large-scale
 registers is impractical. Still, in verifying small-scale models where the total
-number of qubits is strictly limited, it serves as an extremely effective means
-to increase the number of qubits available for the coordinate register by
-reducing the number of ancilla qubits. By adopting this UCRZ circuit, we
-achieved a complete quantum circuit simulation of a 2D model on an emulator in
-this study.
+number of qubits is modest, it serves as an extremely effective means to
+increase the number of qubits available for the coordinate register by reducing
+the number of ancilla qubits. By adopting the UCRZ circuit, we achieved a
+complete quantum circuit simulation of a 2D model on an emulator in this study.
 
 The action of a UCR circuit is generally described as follows:
 \begin{equation}
@@ -494,8 +492,8 @@ specify the phase rotation angle $\alpha_b$ to be applied as follows:
 \end{equation}
 
 By constructing a UCRZ circuit using the $\theta_k$ obtained through inverse
-transformation of these values, the potential energy term $\Thetaep$ of the time
-evolution operator can be strictly realized without consuming any ancilla
+transformation of these values, the potential energy term, $\Thetaep$, of the
+time evolution operator can be strictly realized without consuming any ancilla
 qubits.
 
 \subsection{Regularization methods for the Coulomb Potential}
