@@ -136,17 +136,17 @@ We use this equation as the reference for comparing simulation results.
 
 The analytical solutions for each dimensional model to be evaluated are shown below.
 
-For the one-dimensional (1D) model, we employ the analytical solutions derived
-by Loudon \cite{Loudon1959.10.1119/1.1934950}. According to Loudon, the ground
-state (principal quantum number $n = 0$) is represented by a delta function. For
-the states with $n > 0$, both even- and odd-parity solutions exist. However,
-because the even-parity solutions exhibit a cusp at the origin, they require
-high spatial resolution when evaluated on a finite grid. Therefore, to clearly
-evaluate the fundamental behavior of the simulation algorithm using a small
-number of qubits, we adopt the odd-parity solutions in this study. These
-solutions are smooth at the origin and impose less stringent requirements on the
-grid resolution. The odd-parity solution for the quantum number $n \in \{1, 2,
-\dots\}$ is denoted by $\psi_n^{\mathrm{1D}}$.
+For the 1D model, we utilize the analytical solutions provided by Loudon
+\cite{Loudon1959.10.1119/1.1934950}. According to his work, the ground state
+(principal quantum number $n=0$) is given by a delta function, while the states
+for $n>0$ can be categorized into even- and odd-parity solutions. The
+even-parity solutions exhibit a cusp at the origin, requiring high spatial
+resolution on a finite grid. Conversely, the odd-parity solutions are smooth at
+the origin, placing less stringent demands on the grid resolution. Because this
+study aims to assess the foundational behavior of the simulation algorithm using
+a limited number of qubits, we adopt the odd-parity solutions. The odd-parity
+solution for the quantum number $n \in \{1, 2, \dots\}$ is denoted by
+$\psi_n^{\mathrm{1D}}$.
 
 \begin{equation}
 \psi_n^{\mathrm{1D}}(x)=\sqrt{\frac{2}{a_0^3n^5(n!)^2}}
@@ -412,13 +412,14 @@ rotation angle parameters of a single UCRZ circuit, thereby reducing the large
 number of ancilla qubits---essential in arithmetic circuits---down to just one
 target qubit.
 
-However, since the number of gates in a UCRZ circuit increases exponentially
-with the number of bits in the input register, its application to large-scale
-registers is impractical. Still, in verifying small-scale models where the total
-number of qubits is modest, it serves as an extremely effective means to
-increase the number of qubits available for the coordinate register by reducing
-the number of ancilla qubits. By adopting the UCRZ circuit, we achieved a
-complete quantum circuit simulation of a 2D model on an emulator in this study.
+However, because the gate count of the UCRZ circuit increases exponentially with
+the number of bits in the control register, its application to large-scale
+registers is impractical. Nevertheless, in the verification of small-scale
+models where the total number of qubits is strictly limited, it becomes an
+extremely effective approach. The reduction in ancillary qubits allows for a
+corresponding increase in the number of qubits allocated to the coordinate
+register. By adopting this UCRZ circuit in this study, we achieved a complete
+quantum circuit simulation of the 2D model on an emulator.
 
 The action of a UCR circuit is generally described as follows:
 \begin{equation}
@@ -432,14 +433,14 @@ The action of a UCR circuit is generally described as follows:
     \label{fig:ucrz-n3}
     \begin{flushleft}\small
 
-    For a 3-bit input register $b_2b_1b_0$, there are 8 possible states, and 8
-    Rz gates act on the target qubit $t$ to provide the corresponding phase
-    rotation for each state. $\mathrm{R}_k$ denotes $\mathrm{Rz}(\theta_k)$. CX
-    (C-NOT) gates placed before and after each Rz gate invert the sign of the Rz
-    gate's rotation depending on the bit string of the input register. The map
-    between the desired output angle $\alpha_b$ for input $b=b_2b_1b_0$ and the
-    rotation angle $\theta_k$ is simplified by treating the bit string
-    $b_2b_1b_0$ as a binary number in gray code.
+    For the three-bit input register $b_2b_1b_0$, there are eight possible
+    states. To apply the corresponding phase rotation for each state, eight Rz
+    gates act on the target qubit $t$, where $\mathrm{R}_k$ denotes
+    $\mathrm{Rz}(\theta_k)$. The CX (CNOT) gates placed before and after each Rz
+    gate flip the sign of the rotation depending on the bit string of the input
+    register. This sign-flipping mechanism relies on the property of the Gray
+    code, in which the Hamming distance between adjacent codewords is always
+    one.
 
 \end{flushleft}
 \end{figure}
@@ -498,13 +499,12 @@ qubits.
 
 \subsection{Regularization methods for the Coulomb Potential}
 \label{subsec:coulomb-potential-handling}
-When calculating the Coulomb potential via quantum circuits in
-first-quantization-based simulations, avoiding divergence at the singularity
-(pole, $r=0$) is an inevitable challenge. Because the potential energy term of
-the time evolution calculation advances the phase of the wave function by an
-angle proportional to the potential energy $-1/r$ at each grid point, the value
-diverges at the point where the coordinates of the nucleus and the electron
-coincide.
+In first-quantization-based simulations, evaluating the Coulomb potential on a
+quantum circuit inevitably requires addressing the divergence at the singularity
+(the pole, $r=0$). The potential energy term in the time evolution operator
+alters the phase of the wave function $\psi$ at each grid point by an angle
+proportional to $-1/r$. Thus, the phase diverges at the point where the nuclear
+and electronic coordinates coincide.
 
 Approaches to address this divergence are broadly classified into the following
 two categories: (a) methods that introduce approximation or regularization into
@@ -668,9 +668,9 @@ purpose of using the soft-core potential.
 
 The first method applies when the soft-core potential is used to correct the
 energy in reduced-dimensional models representing physical systems with
-constrained motion. For instance, it is known that setting $\Delta=\sqrt{2}$ in
-a 1D hydrogen atom model yields the ground-state energy eigenvalue of $-0.5\
-\mathrm{a.u.}$, which is identical to that of the 3D hydrogen atom
+constrained motion. For instance, setting $\Delta=\sqrt{2}$ in a 1D hydrogen
+atom model yields the ground-state energy eigenvalue of $-0.5\ \mathrm{a.u.}$,
+which is identical to that of the 3D hydrogen atom
 \cite{Eberly1991.PhysRevA.44.5997}. In this context, however, the regularization
 of the singularity is merely a byproduct; in a 3D model where no energy
 correction is required, $\Delta=0$, leaving the divergence problem unresolved.
