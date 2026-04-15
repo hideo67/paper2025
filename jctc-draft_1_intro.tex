@@ -35,13 +35,13 @@ simulation based on first quantization, is one of the ultimate targets in this
 field because it can directly handle electron interactions without depending on
 the choice of basis functions. However, it requires more computational resources
 than VQE \cite{kassal2008.pnas.0808245105}. In the grid method, the indices of
-equally spaced grid points are mapped to the computational basis states of a
-quantum register, formed by the tensor products of individual qubits. The values
-of the wave function at these grid points are then stored as the amplitudes of
-the corresponding state vector to simulate its time evolution. While algorithms
-based on the Suzuki-Trotter decomposition are widely known for time evolution
-calculations, algorithms employing more sophisticated approaches have also been
-proposed \cite{Berry2015.PhysRevLett.114.090502, Babbush_2018,
+equally spaced grid points are mapped to the tensor product of computational
+basis states of multi-qubit registers each corresponding to spatial coordinates.
+The values of the wave function at these grid points are then stored as the
+amplitudes of the corresponding basis to simulate its time evolution. While
+algorithms based on the Suzuki-Trotter decomposition are widely known for time
+evolution calculations, algorithms employing more sophisticated approaches have
+also been proposed \cite{Berry2015.PhysRevLett.114.090502, Babbush_2018,
 YuanSu.PRXQuantum.2.040332}. Nevertheless, because all of these grid-based
 algorithms generally require a large number of qubits and significant circuit
 depth, and cannot tolerate computational errors, reports of their operational

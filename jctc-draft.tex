@@ -123,18 +123,15 @@ Tokyo, 116-8523, Japan}
 A quantum circuit for a first-quantization-based Hamiltonian simulator capable
 of operating on a small-scale quantum computer emulator with fewer than 30
 qubits was constructed.
-
 To construct the circuit within limited quantum resources (number of qubits), we
 applied Uniformly Controlled Rotation (UCR) circuits to calculate the Coulomb
 potential. Furthermore, as a guideline for obtaining highly accurate
 computational results, we established a method for handling the singularity
 (pole) of the Coulomb potential and optimizing the discretization parameters.
-
 Regarding the singularity of the Coulomb potential, we demonstrated that
 divergence can be avoided and errors minimized by determining an effective value
 from a simple geometric average of the potential within a minute circular region
 centered on the pole.
-
 Additionally, we proposed a method to determine the optimal spatial grid spacing
 for a given number of qubits for coordinates, by evaluating the tradeoff between
 the spatial discretization error caused by grid coarseness and the domain
@@ -213,20 +210,13 @@ limited quantum resources.
 
 \section*{Acknowledgements}
 
-Please use ``The authors thank \ldots'' rather than ``The authors would like to
-thank \ldots''.
+This research was partially supported by UTokyo Quantum Initiative.
 
 \section*{Supporting information}
 
-A listing of the contents of each file supplied as Supporting Information
-should be included. For instructions on what should be included in the
-Supporting Information as well as how to prepare this material for
-publications, refer to the journal's Instructions for Authors.
-
-The following files are available free of charge.
+As supporting information, the following files are available free of charge.
 \begin{itemize}
-  \item Filename-1: brief description
-  \item Filename-2: brief description
+  \item \texttt{error-evaluation-si.pdf}: Error evaluation results for longer time evolution periods.
 \end{itemize}
 
 \subfile{jctc-draft_a_appendix.tex}
@@ -235,19 +225,8 @@ The following files are available free of charge.
 
 \rule{0.05in}{1.75in}%
 \begin{minipage}[b][1.75in]{3.25in}
-  \sffamily
-  \frenchspacing
-
-  Some journals require a graphical entry for the Table of Contents. This
-  should be laid out ``print ready'' so that the sizing of the text is correct.
-
-  The space available depends on the journal: J. Am. Chem. Soc. allows 3.25 in
-  by 1.75 in and requires sanserif text. Some journals want different sizes:
-  you can easily adjust here.
-  
-  The two rules either side of the content are there to help judge the height
-  of your material: they may be deleted once not required.
-  
+  \centering
+  \includegraphics[width=\linewidth,height=1.75in,keepaspectratio]{paper2025_figs/toc_graphics/TOC_Graphic.png}
 \end{minipage}%
 \rule{0.05in}{1.75in}
 

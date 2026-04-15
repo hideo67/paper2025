@@ -513,8 +513,8 @@ upper bound of the error $\BN{\gamma}(\psi;t)$ and the actually observed
 simulation error $\xiN{\gamma}$ when varying the number of Suzuki-Trotter
 divisions $\nT$ ($\gamma=1,2$ indicates the Trotter order). Note that
 considering the time evolution period of the wave function $\PsiTwoD_{1,0}$ is
-$2\pi/E_2 \approx 28.27$, the evaluation results at $t=30$, which corresponds to
-about one period, are shown in the supplementary material
+$2\pi/E_1^{\mathrm{2D}} \approx 28.27$, the evaluation results at $t=30$, which
+corresponds to about one period, are shown in the supplementary material
 \ref{smsec:parameter-selection-for-minimum-error-analysis-details}.
 
 Each graph indicates the lower limits of $\nT$ based on the sampling theorem,
@@ -527,13 +527,12 @@ A notable finding is the varying effect of the Trotter order depending on the
 quantum numbers of the target states. For the states $\PsiTwoD_{0,0}$ and
 $\PsiTwoD_{1,0}$ with the azimuthal quantum number $m=0$ (Figs.
 \ref{fig:trotter-error-t1-part1}(a)--(d)), no clear difference in accuracy was
-observed between different Trotter orders $\gamma$.
-For the 3D hydrogen atom model, Burgarth et al. recently reported that states
-with $m=0$ exhibit a cusp at the origin, leading to the divergence of higher
-moments of the kinetic energy and thus the loss of the theoretical advantage of
-higher-order Trotter decompositions
-\cite{Burgarth2024.PhysRevResearch.6.043155}. The results obtained for our 2D
-model are consistent with this finding.
+observed between different Trotter orders $\gamma$. For the 3D hydrogen atom
+model, Burgarth et al. reported that states with $m=0$ exhibit a cusp at the
+origin, leading to the divergence of higher moments of the kinetic energy and
+thus the loss of the theoretical advantage of higher-order Trotter
+decompositions \cite{Burgarth2024.PhysRevResearch.6.043155}. The results
+obtained for our 2D model are consistent with this finding.
 
 In contrast, for $\PsiTwoD_{1,1}$ with the azimuthal quantum number $m=1$ (Figs.
 \ref{fig:trotter-error-t1-part2}(a)--(b)), a distinct difference in accuracy
@@ -566,8 +565,14 @@ $\PsiTwoD_{1,1}$ with $\nb=6$ and $\nb=9$ is shown in Figures
 \ref{fig:trotter-error-t1-part2}(a) ($\nb=6$) and (b) ($\nb=9$).
 
 It can be confirmed that Trotter error saturates around $\nT = \nTkminTwoD$ in
-all cases, and the error floor after saturation is reduced by a factor of about
-$1/2^3$ when the spatial resolution $\nb$ is increased 3 bits from 6 to 9.
+all cases, and the error floor after saturation is reduced when the spatial
+resolution $\nb$ is increased 3 bits from 6 to 9. The amount of reduction is a
+factor of about $1/2^3$ for $\PsiTwoD_{0,0}$ and $\PsiTwoD_{1,0}$, which have
+cusps at the origin, and a factor of about $1/2^6$ for $\PsiTwoD_{1,1}$, which
+is smooth at the origin. This is consistent with the fact that the spatial
+discretization error $\errdisc$ is expected to decrease exponentially with
+respect to $\nb$ for smooth wave functions, while it decreases only polynomially
+for wave functions with cusps.
 
 \begin{figure}[ht]
     \centering

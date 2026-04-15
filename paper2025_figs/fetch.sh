@@ -29,3 +29,18 @@ for f in "${FILES[@]}"; do
         chmod 644 $DEST_DIR/$f
     fi
 done
+
+SRC_ROOT=~/work/py/crsq/crsq-papers/2025/notebooks/output/diagrams
+FILES=(
+    TOC_Graphic.png
+)
+DEST_DIR=toc_graphics
+
+mkdir -p $DEST_DIR
+for f in "${FILES[@]}"; do
+    if [ ! -f $DEST_DIR/$f ]; then
+        cp -v $SRC_ROOT/$f $DEST_DIR
+        chmod 644 $DEST_DIR/$f
+    fi
+done
+

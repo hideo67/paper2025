@@ -299,9 +299,9 @@ shown in Table \ref{tab:computing-environment}.
     \begin{tabular}{ll}
         item & description \\
         \hline
-        CPU & AMD Ryzen 9 7950X 16 Core × 1 \\
+        CPU & AMD Ryzen 9 7950X 16 Core $\times$ 1 \\
         Memory & 128GB \\
-        GPU & NVIDIA GeForce RTX 4090 × 1 \\
+        GPU & NVIDIA GeForce RTX 4090 $\times$ 1 \\
         OS & Ubuntu 22.04.4 LTS \\
         Quantum SDK & Qiskit 1.4.0, qiskit-aer-gpu 0.15.1 \\
         Quantum Chemistry Simulator Software & Chemical Reaction Simulator Q (crsQ) \cite{website:crsq}
@@ -322,7 +322,7 @@ of the circuit size.
 
 A standard approach to quantum circuit design in quantum chemistry simulation
 starts with the size of the target molecular model and the amount of acceptable
-error to estimate the required number of qubits and gates. In contrast, this
+error to calculate the required number of qubits and gates. In contrast, this
 study takes a reversed approach: starting with the number of qubits available
 (or emulatable) to the circuit and exploring/determining a circuit configuration
 that can operate under that constraint. Therefore, we adopt methods that can
@@ -673,19 +673,20 @@ atom model yields the ground-state energy eigenvalue of $-0.5\ \mathrm{a.u.}$,
 which is identical to that of the 3D hydrogen atom
 \cite{Eberly1991.PhysRevA.44.5997}. In this context, however, the regularization
 of the singularity is merely a byproduct; in a 3D model where no energy
-correction is required, $\Delta=0$, leaving the divergence problem unresolved.
+correction is required, $\Delta$ is set to $0$, leaving the divergence problem
+unresolved.
 
 The second method applies when the soft-core potential is used purely to avoid
 the divergence at the singularity, which aligns with the focus of this study. To
 the best of the authors' knowledge, there is no clearly established method in
 the literature for determining $\Delta$ with a rational basis in this scenario.
-Therefore, we propose setting $\Delta = \deltar/4$ so that the value of the
-soft-core potential at the singularity ($r=0$) matches the analytically derived
-local average potential discussed in the previous section. That is, the
-soft-core potential used in our calculations is defined as follows:
+Therefore, we propose setting $\Delta = \deltar/4$ for the 2D modelso that the
+value of the soft-core potential at the singularity ($r=0$) matches the
+analytically derived local average potential discussed in the previous section.
+That is, the 2D soft-core potential used in our calculations is defined as follows:
 
 \begin{equation}
-\Hsc(r) = - \frac{1}{\sqrt{r^2+(\deltar/4)^2}}
+\HscTwoD(r) = - \frac{1}{\sqrt{r^2+(\deltar/4)^2}}
 \label{eq:Hsc2r-fixed}
 \end{equation}
 
