@@ -45,7 +45,7 @@
 % package options, e.g. "doi = true"; see the biblatex manual for
 % details of adjusting the number of authors printed, e.g.
 % "maxnames = 15" to print no more than 15 authors.
-\usepackage[style = chem-acs]{biblatex}
+\usepackage[style = chem-acs, articletitle=true, url=true, sorting=none]{biblatex}
 \addbibresource{quantum.bib}
 % If you are using classical BibTeX, remove the above lines and 
 % uncomment:
@@ -79,13 +79,11 @@
 %% possible, and avoid layout-changing macros (which are not used
 %% when typesetting).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{subfiles}
+\usepackage{subfiles} % split manuscript into subfiles
 \usepackage{amsmath, amssymb, braket} % AMS math
 \usepackage{lmodern} % Font for math
 \usepackage{bm} % Bold math
-\usepackage{subcaption} % Captions for figures
-\usepackage{nameref} % For cross-referencing sections
-\usepackage{xr}
+\usepackage{xr} % external document reference for labels in SI
 \externaldocument{jctc-draft_si}
 
 \newcommand*\mycommand[1]{\texttt{\emph{#1}}}
