@@ -6,12 +6,11 @@
 \section{Derivation of the effective distance for the Local Average Potential}
 \label{chap:appendix_derivation_derivation}
 \subsection{Derivation from the Equivalence of Energy Expectation Values}
-We present the derivation of the parameter $\reff$ in the approximation formula
+We derive the parameter $\reff$ in the approximated formula
 $\Hla(r)$ described in Sec. \ref{subsec:coulomb-potential-handling}.
 
 First, we derive Eq.~\eqref{eq:delta-1-0-0} for $\PsiTwoD_{0,0}$.
-
-The integral $W_{0,0}$ is given by,
+The integral $W_{0,0}$ is given by
 \begin{align}
   W_{0,0}
    &= \int_{\theta=0}^{2\pi}d\theta
@@ -24,9 +23,10 @@ The integral $W_{0,0}$ is given by,
       \left[L_{0-\abs{0}}^{2\abs{0}}(2q_0r)\right]^2 r dr\notag\\
    &= -2\pi\int_{r=0}^{\deltar/2}\frac{q_0^3}{\pi}\frac{1}{r}e^{-2q_0r}r\ dr=-2q_0^3
       \left[-\frac{1}{2q_0}e^{-2q_0r}\right]_{0}^{\deltar/2}\notag\\
-   &=-q_0^2(-e^{-q_0\deltar}+1)
+   &=-q_0^2(-e^{-q_0\deltar}+1) .
 \end{align}
-$W_{0,0}^\prime$ is given by,
+
+$W_{0,0}^\prime$ is given by
 \begin{align}
     W_{0,0}^\prime
     &=\pi\left(\frac{\deltar}{2}\right)^2
@@ -35,21 +35,21 @@ $W_{0,0}^\prime$ is given by,
     \left(\frac{q_0^3(0-\abs{0})!}{\pi(0+\abs{0})!}\right)
     (0)^{2\abs{0}}\exp(0)\left[L_{0-\abs{0}}^{2\abs{0}}(0)\right]^2\notag\\
     &= -\frac{\pi\deltar^2q_0^3}{4\pi\reff}\notag\\
-    &= -\frac{\deltar^2q_0^3}{4\reff}
+    &= -\frac{\deltar^2q_0^3}{4\reff} .
 \end{align}
-Solving $W_{0,0}=W_{0,0}^\prime$ yields,
+
+Solving $W_{0,0}=W_{0,0}^\prime$ yields
 \begin{equation}
 -q_0^2\left(-e^{-q_0\deltar}+1\right)=-\frac{\deltar^2q_0^3}{4\reff}
 \end{equation}
 \begin{align}
 \reff&=\frac{\deltar^2q_0}{4\left(-e^{-q_0\deltar}+1\right)}\notag\\
 &\simeq\frac{\deltar^2q_0}{4\left(-(1-q_0\deltar)+1\right)}\notag\\
-&=\frac{\deltar}{4}
+&=\frac{\deltar}{4} .
 \end{align}
 
 Next, we derive Eq.~\eqref{eq:delta-1-1-0} for $\PsiTwoD_{1,0}$.
-
-Calculating $W_{1,0}$ and $W_{1,0}^\prime$ respectively, $W_{1,0}$ is given by,
+$W_{1,0}$ is given by
 \begin{align}
   W_{1,0}
    &= \int_{\theta=0}^{2\pi}d\theta
@@ -61,9 +61,10 @@ Calculating $W_{1,0}$ and $W_{1,0}^\prime$ respectively, $W_{1,0}$ is given by,
    &= -2\pi\int_{r=0}^{\deltar/2}\frac{q_0^3}{\pi}e^{-2q_0r}(1-2q_0r)^2dr\notag\\
    &= -2q_0^3\left[\left(-\frac{1}{2q_0}-2q_0r^2\right)e^{-2q_0r}\right]_{0}^{\deltar/2} \notag\\
    &= -2q_0^3\left\{\left(-\frac{1}{2q_0}-\frac{q_0\deltar^2}{2}\right)e^{-q_0\deltar}+\frac{1}{2q_0}\right\}\notag\\
-   &= q_0^2\left\{\left(1+q_0^2\deltar^2\right)e^{-q_0\deltar}-1\right\}
+   &= q_0^2\left\{\left(1+q_0^2\deltar^2\right)e^{-q_0\deltar}-1\right\} .
 \end{align}
-$W_{1,0}^\prime$ is given by,
+
+$W_{1,0}^\prime$ is given by
 \begin{align}
     W_{1,0}^\prime
     &=\pi\left(\frac{\deltar}{2}\right)^2
@@ -72,9 +73,10 @@ $W_{1,0}^\prime$ is given by,
     \left(\frac{q_0^3(1-\abs{0})!}{\pi(1+\abs{0})!}\right)
     (0)^{2\abs{0}}\exp(0)\left[L_{1-\abs{0}}^{2\abs{0}}(0)\right]^2\notag\\
     &= -\frac{\pi\deltar^2q_0^3}{4\pi\reff}\notag\\
-    &= -\frac{\deltar^2q_0^3}{4\reff}
+    &= -\frac{\deltar^2q_0^3}{4\reff} .
 \end{align}
-Solving $W_{1,0}=W_{1,0}^\prime$ yields $\reff$ as follows.
+
+Solving $W_{1,0}=W_{1,0}^\prime$ yields $\reff$ as follows:
 \begin{equation}
 q_0^2\left\{\left(1+q_0^2\deltar^2\right)e^{-q_0\deltar}-1\right\}
 =-\frac{\deltar^2q_0^3}{4\reff}
@@ -88,14 +90,14 @@ q_0^2\left\{\left(1+q_0^2\deltar^2\right)e^{-q_0\deltar}-1\right\}
 \end{align}
 
 \subsection{Derivation from the Geometric Average}
-The derivation of the parameter $\reff$ in the approximation formula $\Hla(r)$
+The derivation of the parameter $\reff$ in the approximated formula $\Hla(r)$
 described in Sec. \ref{subsec:coulomb-potential-handling} is shown
 using a method that determines it from the simple geometric average of the
 potential in a minute circular region centered on the singularity of the Coulomb
 potential. The geometric average of the potential in a circular region of radius
 $R=\deltar/2$ centered on the singularity of the Coulomb potential is given by,
 \begin{align}
-    \bar{V} &= \frac{1}{\pi R^2}\int_{r=0}^{R} -\frac{1}{r} 2\pi r dr\notag\\
+    \bar{V} &= \frac{1}{\pi R^2}\int_{r=0}^{R} \left(-\frac{1}{r}\right) 2\pi r dr\notag\\
     &=-\frac{1}{\pi R^2}\times 2\pi R \notag\\
     &=-\frac{2}{R}\notag\\
     &=-\frac{4}{\deltar}
@@ -111,11 +113,15 @@ simulations, and varying the effective distance.
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.6\columnwidth]{paper2025_figs/compare_energy/compare_energy_h3D_TO2_r0lim_1_0_0.png}
-    \caption{Changes in energy values when varying $\reff$ in the approximation formula $\Hla(r)$ for the 3D hydrogen atom model}
+    \caption{Changes in energy values when varying $\reff$ in the approximated formula $\Hla(r)$ for the 3D hydrogen atom model}
     \label{fig:Ha1-vs-delta1-3d}
     \begin{flushleft}\small
       
-        Graph for the state $\PsiThreeD_{1,0,0}$, setting $\reff=\deltar/a$ and varying $a$. Across all bit counts, the expectation value of the Hamiltonian $\Hk+\Hp$ shows a value close to the analytical solution of $-0.5$ when $a=3$ ($\reff=\deltar/3$).
+        Graph for the state $\PsiThreeD_{1,0,0}$, setting $\reff=\deltar/a$ and
+        varying $a$. The time evolution period $t=12.6\approx 2\pi/|E_1|$.
+        Across all bit counts, the expectation value of the Hamiltonian
+        $\Hk+\Hp$ shows a value close to the analytical solution of $-0.5$a.u. when
+        $a=3$ ($\reff=\deltar/3$).
     \end{flushleft}
 \end{figure}
 

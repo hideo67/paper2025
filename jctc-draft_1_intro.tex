@@ -26,18 +26,19 @@ quantization are the mainstream of quantum chemistry research
 \cite{peruzzo2014variational}. VQE combines a quantum computer with a classical
 computer to reduce the required number of qubits and circuit depth, making it
 executable on NISQ devices as it can tolerate the presence of noise. However,
-once FTQC is realized---mitigating the impact of noise and relaxing qubit
-constraints---a broader range of algorithms is expected to be researched and put
-into practical use.
+once FTQC is realized---mitigating the impact of noise--- and qubit count
+constraints being relaxed, a broader range of algorithms is expected to be
+researched and put into practical use.
 
 The grid-based approach, a representative method for quantum chemistry
 simulation based on first quantization, is one of the ultimate targets in this
-field because it can directly handle electron interactions without depending on
-the choice of basis functions. However, it requires more computational resources
-than VQE \cite{kassal2008.pnas.0808245105}. In the grid method, the indices of
-equally spaced grid points are mapped to the tensor product of computational
-basis states of multi-qubit registers each corresponding to spatial coordinates.
-The values of the wave function at these grid points are then stored as the
+field because it can directly handle electron interactions and also handle
+electron structure dynamics because nuclei-centered orbital basis functions are
+not used. However, it requires more computational resources than VQE
+\cite{kassal2008.pnas.0808245105}. In the grid method, the indices of equally
+spaced grid points are mapped to the tensor product of computational basis
+states of multi-qubit registers each corresponding to spatial coordinates. The
+values of the wave function at these grid points are then stored as the
 amplitudes of the corresponding basis to simulate its time evolution. While
 algorithms based on the Suzuki-Trotter decomposition are widely known for time
 evolution calculations, algorithms employing more sophisticated approaches have
@@ -69,33 +70,36 @@ emulator with a limited number of qubits. In this study, we simplify the
 computational model to fit within the emulator's constraints, targeting 1D and
 2D models of a single hydrogen atom with fixed nuclear coordinates. For the
 Coulomb potential calculation, in addition to a method based on binary
-arithmetic operations, we utilize Uniformly Controlled Rotation Z (UCRZ)
-circuits \cite{Mottonen2004.PhysRevLett.93.130502}---which are similar to QROM
-\cite{Babbush_2018b.PhysRevX.8.041015}---to reduce the required number of qubits.
-The standard Suzuki-Trotter decomposition is employed for the time evolution
-calculation \cite{Zalka-rspa.1998.0162}. Through this, we provide an example of
-a circuit configuration executable on an emulator, which will serve as a
-foundation for basic evaluations on early-stage FTQCs.
+arithmetic operations, we utilize the Uniformly Controlled Rotation Z (UCRZ)
+circuit \cite{Mottonen2004.PhysRevLett.93.130502} to reduce the required number
+of qubits. The effect of UCRZ circuits is analogous to QROMs where UCRZ applies
+a Z-rotation on the target qubit based on the input control qubits, while QROMs
+produce bit-strings on the output register
+\cite{Babbush_2018b.PhysRevX.8.041015}. For the time evolution calculation, the
+standard Suzuki-Trotter decomposition is employed \cite{Zalka-rspa.1998.0162}.
+Through this, we provide an example of a circuit configuration executable on an
+emulator, which may serve as a foundation for basic evaluations on early-stage
+FTQCs.
 
 The second challenge is to determine the handling of the singularity (pole) of
 the Coulomb potential. In the grid method, it is necessary to calculate the
 potential energy for all possible combinations of coordinates for all particles
-and update the phase of the wave function by an angle proportional to that
-value. The point where the coordinates of the nucleus and the electron coincide
-is a singularity of the Coulomb potential function, where the value diverges if
-left unaddressed. In this study, we propose a method to determine an effective
-potential value based on the geometric average of the potential within a minute
-local region containing the singularity, and we verify its validity through
-numerical evaluation.
+and update the phase of the wave function, that is proportional to the energy.
+The point where the coordinates of the nucleus and the electron coincide is a
+singularity of the Coulomb potential, where the value diverges if left
+unaddressed. In this study, we propose a method to determine an effective
+potential value based on the geometric average of the potential within the grid
+cell containing the singularity, and we verify its validity through numerical
+evaluation.
 
 The third challenge is to establish a method for determining simulation
 parameters that minimize errors within a given number of qubits. In the grid
 method, it is first necessary to determine the spatial resolution (grid spacing)
 and the size of the simulation domain as simulation parameters. Furthermore,
 when using the Suzuki-Trotter decomposition, the step size for time evolution
-must also be defined. In this study, we present an integrated approach that
-optimizes spatial parameters based on the tradeoff between spatial
+must also be determined. In this study, we present an integrated approach that
+optimizes spatial parameters, based on the tradeoff between spatial
 discretization error and domain truncation error, and determines the temporal
-parameters based on the requirements of the sampling theorem.
+parameters, based on the requirements of the sampling theorem.
 
 \end{document}

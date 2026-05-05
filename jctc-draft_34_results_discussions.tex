@@ -14,7 +14,7 @@ parameters that minimize the error.
 We first present the evaluation results of the characteristics when the Coulomb
 potential calculation circuit is implemented with an arithmetic circuit and a
 UCRZ circuit, as well as the scaling of the circuit size (number of qubits and
-number of gates) according to the dimensionality.
+number of gates) for 1D to 3D models.
 
 \subsubsection{Executable Model Size Range for Arithmetic Circuits}
 \label{subsubsec:arithmetic-circuit-configuration-results}
@@ -25,14 +25,13 @@ exceeded the limits for models in 2D and above.
 Figure \ref{fig:circuit-1d-arith} (a) shows the overall view of the simulator
 circuit for the 1D model using arithmetic circuits and the internal structure,
 and (b) shows the time evolution circuit, $\Thetae$. The simulator consists of a
-state preparation circuit, $\PsiSD$ and a time evolution circuit, and it is
-evident that the total number of qubits is dominated by the time evolution
-circuit. Furthermore, the time evolution circuit is composed of a potential
-energy term circuit, $\Thetaep$, an inverse QFT circuit, a kinetic energy term
-circuit, $\Thetaek$, and a QFT circuit. Figure
-\ref{subfig:potential-energy-circuit-1d-arith} shows the internal structure of
-$\Thetaep$ (the circuit for calculating $1/|x|$), which consumes the most
-resources among them.
+state preparation circuit, $\PsiSD$, and a time evolution circuit. It is evident
+that the total number of qubits is dominated by the time evolution circuit. The
+time evolution circuit is composed of a potential energy term circuit,
+$\Thetaep$, an inverse QFT circuit, a kinetic energy term circuit, $\Thetaek$,
+and a QFT circuit. Figure \ref{subfig:potential-energy-circuit-1d-arith} shows
+the internal structure of $\Thetaep$ (the circuit for calculating $1/|x|$),
+which consumes the most resources among them.
 
 \begin{figure}
     \centering
@@ -46,7 +45,7 @@ resources among them.
         $\Thetae$. (b) Internal configuration of the time evolution circuit
         $\Thetae$. It consists of a potential energy term circuit $\Thetaep$, an
         inverse QFT circuit, a kinetic energy term circuit $\Thetaek$, and a QFT
-        circuit. The number of qubits in $\Thetaep$ (23 qubits) dictates the
+        circuit. The number of qubits in $\Thetaep$ (20 qubits) dictates the
         total number of qubits in the entire circuit.
     \end{flushleft}
 \end{figure}
@@ -62,8 +61,8 @@ resources among them.
         implemented using arithmetic operation gates. It calculates $1/|x|$ in
         binary via arithmetic operations and changes the phase with a P gate
         according to the weight of the resulting bit string. The number of
-        qubits in the division gate (udiv7) is dominant, and the total number of
-        auxiliary qubits is 17.
+        qubits in the division gate (udiv(6,6)) is dominant, and the total
+        number of auxiliary qubits is 20.
     \end{flushleft}
 \end{figure}
 
@@ -78,7 +77,7 @@ the UCRZ circuit for the 2D hydrogen atom model. Unlike the arithmetic circuit,
 the number of qubits for the potential calculation circuit, $\Thetaepucr$ is kept
 down to 13, and it is no longer the determining factor for the total number of
 qubits in the overall circuit. In this configuration, the state preparation
-circuit, $\PsiSD$ for the wave function requires the most qubits.
+circuit, $\PsiSD$ for the wavefunction requires the most qubits.
 
 \begin{figure}[ht]
     \centering
@@ -100,11 +99,11 @@ circuit, $\PsiSD$ for the wave function requires the most qubits.
 \subsubsection{Comparative Evaluation of Circuit Sizes}
 \label{subsec:circuit-size-evaluation-results}
 In the computing environment (emulator) used in this study, the realistic
-operational limits are a maximum of 27 qubits and roughly $10^7$ gates without
-considering parallelization. Under these constraints, circuits were generated
+operational limits are a maximum of 27 qubits and roughly $10^7$ gates
+regardless of parallelization. Under these constraints, circuits were generated
 using both arithmetic gate and UCRZ gate implementations, and the scaling of the
-circuit size (number of qubits and number of gates) against dimensionality and
-coordinate resolution was evaluated.
+circuit size (number of qubits and number of gates) versus coordinate resolution
+was evaluated for each dimension.
 
 Figure \ref{fig:hamiltonian-gatecount} shows a comparison of the number of
 qubits and 2-qubit gates (assuming 1000 time evolution steps) depending on the
@@ -122,10 +121,10 @@ On the other hand, focusing on the number of gates (lower row), the trend
 reverses. While the number of gates in the arithmetic circuit increases only
 moderately as dimensionality increases, the number of gates in the UCRZ circuit
 increases exponentially with respect to the number of input bits (dimensionality
-$\times$ coordinate bits). Consequently, the UCRZ circuit has fewer gates for 1D
-models and 2D models with 6 or fewer coordinate bits, but for 3D models, the
-arithmetic circuit requires fewer gates than the UCRZ circuit across all bit
-counts.
+$\times$ coordinate bits). Consequently, the UCRZ circuit is constructed from
+fewer gates for 1D models and 2D models with 6 or fewer coordinate bits, but for
+3D models, the arithmetic circuit requires fewer gates than the UCRZ circuit
+across all bit counts.
 
 \begin{figure}[ht]
     \centering
@@ -143,18 +142,17 @@ counts.
     (d),(e),(f) Number of 2-qubit gates required for 1000 steps of time
     evolution for 1D, 2D, and 3D models, respectively. The arithmetic circuit
     shows moderate growth against dimensionality, whereas the UCRZ circuit
-    increases exponentially against input bits, making the arithmetic circuit
+    increases exponentially with input bits, making the arithmetic circuit
     more advantageous in terms of gate counts in a 3D environment.
     \end{flushleft}
 \end{figure}
 
 From these evaluations, it was shown that when actually running circuits on a
 quantum computer (or emulator), it is necessary to select the optimal
-implementation method by considering the trade-off between the dimensionality of
-the target model and the available number of qubits and gates.
-Table \ref{tab:emulator-circuit-configurations} summarizes the combinations of
-circuit configurations that were actually operable under this emulator
-environment.
+implementation method by considering the trade-off between the dimension of the
+target model and the available number of qubits and gates. Table
+\ref{tab:emulator-circuit-configurations} summarizes the combinations of circuit
+configurations that were actually operable under this emulator environment.
 
 \begin{table}[ht]
 \centering
@@ -172,10 +170,10 @@ environment.
 \end{table}
 
 Under the conditions in Table \ref{tab:emulator-circuit-configurations}, by
-applying the Coulomb potential singularity treatment formulated in the
-\ref{subsec:coulomb-potential-handling} section and setting the optimal simulation
-parameters derived in Sec. \ref{subsec:optimization-of-simulation-parameters},
-the expected time evolution of the wave function was confirmed using either the
+applying the Coulomb potential singularity treatment formulated in 
+Sec.\ref{subsec:coulomb-potential-handling} and setting the optimal simulation
+parameters derived in Sec.\ref{subsec:optimization-of-simulation-parameters},
+time evolution of the wavefunction was evaluated using either the
 arithmetic circuit or the UCRZ circuit. Detailed analyses of the obtained
 calculation errors will be described in the following subsections.
 
@@ -194,8 +192,8 @@ calculation errors will be described in the following subsections.
         ``\verb|+|'' indicates the case where the nuclear positions are fixed
         (Born-Oppenheimer approximation). ``\verb|x|'' indicates values based on
         the estimation formula by Kassal et al.
-        \cite{kassal2008.pnas.0808245105}. The constant offset from our results
-        is due to the fact that the estimation formula does not include
+        \cite{kassal2008.pnas.0808245105}. The constant offset of ours from
+        Kassal's is due to the fact that the estimation formula does not include
         auxiliary qubits required for the arithmetic circuit and the state
         preparation circuit.
     \end{flushleft}
@@ -213,16 +211,15 @@ particles in the system (sum of electrons and nuclei).
 \subsubsection{Trade-off between Arithmetic Circuits and UCRZ Circuits}
 As shown in Figure \ref{fig:hamiltonian-gatecount}, the required number of
 qubits for both the arithmetic circuit and the UCRZ circuit increases linearly
-with the number of coordinate qubits. However, the arithmetic operation has a
-larger constant term and slope. On the other hand, looking at the number of
-2-qubit gates as a measure of circuit depth, the number of UCRZ gates increases
-exponentially with respect to the input (dimensionality $\times$ number of
-coordinate qubits), whereas the arithmetic circuit shows only a moderate
-increase. However, in small-scale models, the smallness of the constant term for
-the UCRZ gate is dominant. Therefore, direct phase manipulation using UCRZ gates
-is advantageous for small-scale, low-dimensional systems, while arithmetic
-operations will be superior in terms of depth when performing large-scale,
-high-resolution simulations in the future.
+with the number of coordinate qubits. Note that the arithmetic operation has a
+larger constant term and slope. Looking at the number of 2-qubit gates as a
+measure of circuit depth, the number for UCRZ gates increases exponentially with
+respect to the input (dimension $\times$ number of coordinate qubits), whereas
+the arithmetic circuit shows only a moderate increase. In small-scale models,
+the smallness of the constant term for the UCRZ gate is dominant. Thus, direct
+phase manipulation using UCRZ gates is advantageous for small-scale,
+low-dimensional systems, while arithmetic operations will be superior in terms
+of depth when performing large-scale, high-resolution simulations in the future.
 
 \subsubsection{Utility of UCRZ Gates in Quantum Emulators}
 In quantum emulators on classical computers, the simulatable state vector space
@@ -236,16 +233,16 @@ as the 2D hydrogen atom model in this study) to be executed on the emulator.
 \subsubsection{Prospects for Implementation Costs for FTQC Devices}
 While any operational gate can be executed at a uniform cost on an emulator, the
 situation is different for actual fault-tolerant quantum computers (FTQC). In
-particular, promising error correction schemes like the Surface code require
-enormous physical resources, such as magic state distillation, to execute
-non-Clifford gates compared to Clifford gates. The CC-NOT gates in arithmetic
-circuits and arbitrary Rz rotation gates in UCRZ circuits fall precisely into
-this category. Ultimately, the problem lies in the number of T gates these can
-be approximated and decomposed into. In particular, the Rz rotation in the UCRZ
-gate significantly fluctuates in T-gate consumption depending on the required
+particular, promising error correction schemes like the surface code require
+enormous physical resources, such as in magic state distillation, to execute
+non-Clifford gates. The CC-NOT gates in arithmetic circuits and arbitrary Rz
+rotation gates in UCRZ circuits fall precisely into this category. Ultimately,
+the problem lies in the number of T gates for approximating the desired gate and
+decomposing it into T-gates. In particular, the Rz rotation in the UCRZ gate
+significantly fluctuates in T-gate consumption depending on the required
 accuracy. Therefore, for application to real devices, a quantitative comparison
 of the gate implementation costs of both methods, taking into account the
-overhead of error correction, will be a future challenge.
+overhead of error correction, will be required as a future challenge.
 
 %%% discussions about the circuit configuration end here %%%
 
@@ -259,15 +256,15 @@ average potential and the soft-core potential, respectively.
 \subsubsection{Evaluation of the Local Average Potential}
 \label{subsubsec:local-average-potential-results}
 
-In the local average potential $\Hla(r)$ defined in Equation \eqref{eq:Halr}, we
-set the effective distance to $\reff = \deltar/a$ and evaluated the calculated
-energy values against multiple qubit numbers $\nb$ while varying the coefficient
-$a$ in the range of $1 \le a \le 8$. Note that since this evaluation includes
-parameters that exceed the emulator's limits (qubit upper limit), the
-calculations were performed using a classical simulation program that performs
-operations equivalent to the behavior of the quantum circuit.
+We set the effective distance to $\reff = \deltar/a$ in the local average
+potential $\Hla(r)$ defined in Equation \eqref{eq:Halr}, and we calculated the
+energy as a function of the coefficient $a$ in the range of $1 \le a \le 8$ for
+each qubit number $\nb$. Note that since this evaluation includes parameters
+that exceed the emulator's limits (qubit upper limit), the calculations were
+performed using a classical simulation program that performs operations
+equivalent to the behavior of the quantum circuit.
 
-The evaluation results for the 2D model wave functions $\PsiTwoD_{0,0}$ and
+The evaluation results for the 2D model wavefunctions $\PsiTwoD_{0,0}$ and
 $\PsiTwoD_{1,0}$ are shown in Figures \ref{fig:Ha1-vs-delta1}(a) and (b),
 respectively. As is clear from the graphs, for both states, when setting $a=4$,
 i.e., $\reff = \deltar/4$, the energy expectation values most closely matched
@@ -283,17 +280,17 @@ from the consistency of the integral value in a minute region.
 \begin{figure}
     \centering
     \includegraphics[width=0.95\columnwidth]{paper2025_figs/compare_energy/compare_energy_h2D_TO2_r0lim_combined.png}
-    \caption{Changes in energy values when varying $\reff$ in the approximation formula $\Hla(r)$}
+    \caption{Changes in energy when varying $\reff$ in the approximated formula $\Hla(r)$}
     \label{fig:Ha1-vs-delta1}
     \begin{flushleft}\small
 
         (a) Graph for state $\PsiTwoD_{0,0}$ setting $\reff=\deltar/a$ and
-        varying $a$. The horizontal axis $a$ is a geometric progression with a
-        ratio of $\sqrt{2}$. At all bit counts, when $a=4$ ($\reff=\deltar/4$),
-        the expectation value of the Hamiltonian $\Hk+\Hp$ closely approaches
-        the analytical solution of $-2.0$. (b) Results for state
-        $\PsiTwoD_{1,0}$. Similarly, the value is closest to the analytical
-        solution $-0.2222$ at $a=4$.
+        varying $a$. The value of the horizontal axis $a$ was chosen with a
+        geometric series with a ratio of $\sqrt{2}$. At all bit counts, when
+        $a=4$ ($\reff=\deltar/4$), the expectation value of the Hamiltonian
+        $\Hk+\Hp$ closely approaches the analytical solution of $-2.0$. (b)
+        Results for state $\PsiTwoD_{1,0}$. Similarly, the value is the closest
+        to the analytical solution $-0.2222$ at $a=4$.
     \end{flushleft}
 \end{figure}
 
@@ -301,8 +298,8 @@ from the consistency of the integral value in a minute region.
 \label{subsubsec:soft-core-potential-results}
 Next, for the soft-core potential $\Hsc(r)$ defined in Equation
 \eqref{eq:Hsc2r}, Figure \ref{fig:Ha2-vs-delta2} shows the calculated energy
-values when setting the offset constant to $\Delta = \deltar/a$ and varying $a$
-(the calculation method is the same as in the previous section).
+when setting the offset constant to $\Delta = \deltar/a$ and varying $a$ (the
+calculation method is the same as in the previous section).
 
 The soft-core potential takes exactly the same constant form at the singularity
 $r=0$ as $\Hsc(0)=-1/\Delta$, which is identical to the local average potential
@@ -315,57 +312,60 @@ Although there are differences in the functional forms in the region of $r \neq
 0$, the error in the energy expectation value is dominated by the behavior near
 the singularity, which is likely why no significant difference occurred in the
 overall calculated values. This result indicates that even when the soft-core
-potential is used for the purpose of regularizing the singularity, the boundary
-condition $\Delta = \deltar/4$ derived from the local average potential
-functions as the optimal parameter.
+potential is used for the purpose of regularizing the singularity, the value
+$\Delta = \deltar/4$ derived from the local average potential functions as the
+optimal parameter.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.95\columnwidth]{paper2025_figs/compare_energy/compare_energy_h2D_TO2_rofs_combined.png}
-    \caption{Changes in energy values when varying $\Delta$ in the approximation formula $\Hsc(r)$}
+    \caption{Changes in energy when varying $\Delta$ in the approximated formula $\Hsc(r)$}
     \label{fig:Ha2-vs-delta2}
     \begin{flushleft}\small
 
         (a) Graph for state $\PsiTwoD_{0,0}$ setting $\Delta=\deltar/a$ and
-        varying $a$ ($a$ is a geometric progression with a ratio of $\sqrt{2}$).
+        varying $a$ (the value of $a$ was chosen with a geometric series with a
+        ratio of $\sqrt{2}$). The time evolution period $t=4\approx 2\pi/|E_0|$.
         Across all bit counts, $\Hk+\Hp$ shows the closest value to the
         analytical solution $-2.0$ when $a=4$ ($\Delta=\deltar/4$). (b) Results
-        for state $\PsiTwoD_{1,0}$. Similarly, the energy expectation value is
-        closest to the analytical solution $-0.2222$ at $a=4$.
+        for state $\PsiTwoD_{1,0}$. The time evolution period $t=30\approx
+        2\pi/|E_1|$ Similarly, the energy expectation value is the closest to the
+        analytical solution $-0.2222$ at $a=4$.
     \end{flushleft}
 \end{figure}
 \clearpage
 
 %%% discussions about the handling of the Coulomb potential singularity start here %%%
 
-\subsubsection{Reason Why the effective distance is $\deltar$/4}
+\subsubsection{Reason why the effective distance is $\deltar$/4}
 As shown in Figure \ref{fig:Ha1-vs-delta1}, the optimal value for the effective
 radius $\reff=\deltar/a$ used in the local average potential was obtained at
 $a=4$ for the 2D model. That is, setting $\reff=\deltar/4$ most effectively
 regularized the divergence caused by the pole (singularity) of the Coulomb
-potential. This result was intriguing and differed from our initial intuition.
+potential.
 
-Initially, we focused on the energy expectation value $\braket{\psi|H|\psi}$
+Initially, we calculated the energy expectation value $\braket{\psi|H|\psi}$
 within a circular region of radius $\deltar/2$ centered on the singularity, and
 determined $\reff$ such that the integral value using the analytical solution
-matched the approximation formula using the representative value. The $\reff$
-derived by this method includes higher-order terms of the grid spacing $\deltar$
+matched the approximated value using the representative value. The $\reff$
+derived by this method includes higher-order terms of the grid spacing
+$\deltar$, as shown in Eqs.\eqref{eq:delta-1-0-0} and \eqref{eq:delta-1-1-0},
 and approaches $\reff=\deltar/4$ in the limit of $\deltar\rightarrow0$. Assuming
 that these higher-order terms could not be ignored under conditions of coarse
 coordinate resolution (e.g., $\nb=6$), we performed time evolution simulations
 using $\reff$ including the higher-order terms. However, comparative
-verification revealed that the system's energy value approached the analytical
-solution more closely when using $\deltar/4$, where the higher-order terms are
-truncated.
+verification revealed that the system's energy value after the time evolution
+for a period chosen based on the cycle time of the wavefunction ($t\approx
+2\pi/|E_n|$) approached the analytical solution more closely when using
+$\deltar/4$, where the higher-order terms are truncated.
 
 To investigate the cause of this, we re-evaluated $\reff$ so that the geometric
 regional average of the simple potential function $V(r)=-1/r$, without weighting
-by the wave function, matched the representative value. This directly derived
-$\reff=\deltar/4$ without higher-order terms. This fact suggests that in a
-finitely discretized grid space, adopting a simple mean field of the microscopic
-region represented by the lattice point serving as the singularity as the
-potential yields more accurate energy, rather than assuming higher-order changes
-of the wave function within the grid.
+by the wavefunction, matched the representative value. This directly derived
+$\reff=\deltar/4$ without higher-order terms. This fact suggests that since
+$\reff$ is used to approximate the potential function---rather than the energy
+expectation value---it is most accurately derived solely from values of the
+coordinates, without taking the wavefunction into account.
 
 \subsubsection{Validity of the Approximation Within a Circular Region}
 To obtain a local average centered on a lattice point, one method is to
@@ -378,17 +378,6 @@ singularity, and is isotropic. Therefore, the circular region is considered to
 capture the essential spatial scaling better. The fact that the energy value in
 the numerical experiment was optimal at the value ($a=4$) obtained from this
 approximation supports the validity of this approximation.
-
-\subsubsection{Reason Why Truncating Higher-Order Terms Improves Accuracy}
-As mentioned above, higher-order terms of $\deltar$ appear in a rigorous
-evaluation using $\braket{\psi|H|\psi}$, but applying this to the simulation
-ironically decreased the accuracy. This is presumed to be because, on a coarse
-grid with a finite grid spacing $\deltar$, the higher-order spatial changes
-(curvature) of the wave function around the lattice point cannot be fully
-expressed. As a result, it became clear that adopting a simple geometric average
-(truncating higher-order terms), which does not depend on minute shape changes
-of the wave function exceeding the grid resolution, provides the most stable
-regularization parameter.
 
 \subsubsection{Extension to 3D Models}
 \label{subsec:discussion-3d-extension}
@@ -405,7 +394,7 @@ Assuming the volume of the sphere of radius $R = \deltar/2$ is $V =
 \frac{4}{3}\pi R^3$, the average potential inside the sphere is obtained
 analytically as follows.
 \begin{equation}
-    \frac{1}{V} \int_{0}^{R} -\frac{1}{r} 4\pi r^2 dr 
+    \frac{1}{V} \int_{0}^{R} \left(-\frac{1}{r}\right) 4\pi r^2 dr 
     = \frac{1}{\frac{4}{3}\pi R^3} \cdot 4\pi
       \left[ -\frac{1}{2}r^2 \right]_{0}^{R} 
     = -\frac{3}{2R} = -\frac{3}{\deltar}=-\frac{1}{\reff}
@@ -422,11 +411,12 @@ The results are shown in Figure \ref{fig:Ha1-vs-delta1-3d} of Appendix
 \ref{sec:appendix_a_3d-evaluation}. Setting the effective distance as
 $r_{\mathrm{eff}} = \deltar/a$, the coefficient $a$ was varied from $1$ to $5$,
 and the energy expectation value of the ground state was evaluated after
-executing time evolution for a sufficient period under conditions of spatial
-resolution $\nb \in \{6, 7, 8\}$. As a result, similar to the 2D model, the
-energy expectation value matched the analytical ground state energy of the 3D
-hydrogen atom model ($-0.5\ \mathrm{a.u.}$) when $a=3$ (i.e., $r_{\mathrm{eff}}
-= \deltar/3$) under all $\nb$ conditions.
+executing time evolution for a period based on the cycle time of the
+wavefunction ($t\approx 2\pi/|E_n|$) under conditions of spatial resolution $\nb
+\in \{6, 7, 8\}$. As a result, similar to the 2D model, the energy expectation
+value matched the analytical ground state energy of the 3D hydrogen atom model
+($-0.5\ \mathrm{a.u.}$) when $a=3$ (i.e., $r_{\mathrm{eff}} = \deltar/3$) under
+all $\nb$ conditions.
 
 This fact indicates that the approach of the local average potential, which
 determines the effective distance using the geometric spatial average of a minute
@@ -452,35 +442,34 @@ the Suzuki-Trotter decomposition.
 \subsubsection{Grid Spacing Trade-off Results}
 \label{subsubsec:delta-r-selection-results}
 
-Fig.\ref{fig:dq-tradeoff}(a)--(c) shows the evaluation results of the relationship
-between the spatial discretization error $\errdisc = |S_d-S_1|$ and the cutoff
-error $\errcutoff = S_2$ at multiple qubit numbers $\nb$ for the 1D model wave
+Fig.\ref{fig:dq-tradeoff}(a)--(c) shows the evaluation results of the
+relationship between the spatial discretization error $\errdisc = |S_d-S_1|$ and
+the cutoff error $\errcutoff = S_2$ at qubit numbers $\nb$ for the 1D model wave
 function $\PsiOneD_1$.
 
 Focusing on the case with the smallest number of qubits, $\nb=6$, the curves for
 $\errcutoff$ and $\errdisc$ intersect around $\deltar \approx 0.22$ in
 Fig.\ref{fig:dq-tradeoff}(b). This point represents the equilibrium value for
 the trade-off between the two errors, corresponding to the optimal parameter
-where their sum in Fig.\ref{fig:dq-tradeoff}(c) takes the minimum value. At this
-time, the dimension of the simulation region is $L=14$. (In
-Fig.\ref{fig:dq-tradeoff}(a), the real part of the wave function amplitude and
-the boundary positions of $\pm L/2$ are indicated by vertical lines.)
+where their sum takes the minimum value in Fig.\ref{fig:dq-tradeoff}(c). The
+selection of $\deltar\approx0.22$ corresponds to $L=14$. In
+Fig.\ref{fig:dq-tradeoff}(a), the real part of the wavefunction is shown and the
+boundary positions of $\pm L/2$ are indicated by vertical lines.
 
-On the other hand, in the case of $\nb=8$ where the number of qubits is
-increased, Fig.\ref{fig:dq-tradeoff}(c) shows that the range of $\deltar$ where
-the sum of errors is minimized (almost zero) is wide and flat, from $0.07 \sim
-0.14$. This means that under conditions with ample computational resources such
-as qubit count, the selection range for the optimal parameter broadens. Note
-that outside this range, the sharp increase in error at $\deltar < 0.07$ is due
-to the manifestation of the cutoff error caused by shrinking the spatial size
-$L$, while the increase in error at $\deltar > 0.14$ is due to an increase in
-spatial discretization error caused by coarse spatial resolution.
+In the case of $\nb=8$ where the number of qubits is increased, as shown in
+Fig.\ref{fig:dq-tradeoff}(c) the range of $\deltar$ where the sum of errors is
+minimized (almost zero) is wide and flat, from $0.07$ to $0.14$. This means that
+with the ample number of qubits, the selection range for the optimal parameter
+broadens. Note outside this range; the sharp increase in error at $\deltar <
+0.07$ is due to the manifestation of the cutoff error caused by shrinking the
+spatial size $L$, while the increase in error at $\deltar > 0.14$ is due to an
+increase in spatial discretization error caused by coarse spatial resolution.
 
 Fig.\ref{fig:dq-tradeoff}(d)--(f) and (g)--(i) show the results for the 2D model wave
 functions $\PsiTwoD_{0,0}$ and $\PsiTwoD_{1,0}$, respectively. It can be
 confirmed that the optimal range for appropriate $\deltar$ varies significantly
 depending on the difference in the target states (spatial spread and shape of the
-wave functions).
+wavefunctions).
 
 \begin{figure}[ht]
     \centering
@@ -492,8 +481,8 @@ wave functions).
         (a) through (c) shows the evaluation results for the 1D model
         $\PsiOneD_1$, and (d) through (i) show the results for the 2D model's
         $\PsiTwoD_{0,0}$ and $\PsiTwoD_{1,0}$, respectively. (a), (d) and (g)
-        show the real part values of the wave function at the intercept $y=0$
-        and the computational domain boundaries ($\pm L/2$) corresponding to the
+        show the real part of the wavefunction; $y=0$ is chosen for the 2D case;
+        the computational domain boundaries ($\pm L/2$) are determined by the
         selected $\deltar$. (b), (e) and (h) plot the discretization error and
         cutoff error individually,  and (c), (f) and (i) show their sum. The
         point where this sum of errors is minimized is the point of trade-off
@@ -511,23 +500,22 @@ Fixing the time evolution period to $t=1.0\ \mathrm{a.u.}$ (about $24.19\
 \ref{fig:trotter-error-t1-part2} show the relationship between the theoretical
 upper bound of the error $\BN{\gamma}(\psi;t)$ and the actually observed
 simulation error $\xiN{\gamma}$ when varying the number of Suzuki-Trotter
-divisions $\nT$ ($\gamma=1,2$ indicates the Trotter order). Note that
-considering the time evolution period of the wave function $\PsiTwoD_{1,0}$ is
-$2\pi/E_1^{\mathrm{2D}} \approx 28.27$, the evaluation results at $t=30$, which
-corresponds to about one period, are shown in the supplementary material
-\ref{smsec:parameter-selection-for-minimum-error-analysis-details}.
+divisions $\nT$ ($\gamma=1,2$ indicates the Trotter order). The time evolution
+period of the wavefunction $\PsiTwoD_{1,0}$ is $2\pi/|E_1^{\mathrm{2D}}| \approx
+28.27$ from $E_1^{\mathrm{2D}}\approx-0.2222$ a.u. The evaluation results at
+$t=30$, which corresponds to about one period, are shown in the supplementary
+material \ref{smsec:parameter-selection-for-minimum-error-analysis-details}.
 
 Each graph indicates the lower limits of $\nT$ based on the sampling theorem,
 $\nTpminTwoD$ and $\nTkminTwoD$, with vertical lines. The vertical axis is not
-energy, but the norm of the difference in wave function amplitudes defined in
-Equations \eqref{eq:observed-trotter-error-1st} and
-\eqref{eq:observed-trotter-error-2nd}.
+energy, but error regarding wavefunction defined with the left hand side in
+Eq.\eqref{eq:observed-trotter-error-1st}.
 
-A notable finding is the varying effect of the Trotter order depending on the
-quantum numbers of the target states. For the states $\PsiTwoD_{0,0}$ and
-$\PsiTwoD_{1,0}$ with the azimuthal quantum number $m=0$ (Figs.
-\ref{fig:trotter-error-t1-part1}(a)--(d)), no clear difference in accuracy was
-observed between different Trotter orders $\gamma$. For the 3D hydrogen atom
+A notable finding is that the effect of the Trotter order depends on the quantum
+numbers of the target states. For the states $\PsiTwoD_{0,0}$ and
+$\PsiTwoD_{1,0}$ with the azimuthal quantum number $m=0$
+(Figs.\ref{fig:trotter-error-t1-part1}(a)--(d)), no clear difference in accuracy
+was observed between different Trotter orders $\gamma$. For the 3D hydrogen atom
 model, Burgarth et al. reported that states with $m=0$ exhibit a cusp at the
 origin, leading to the divergence of higher moments of the kinetic energy and
 thus the loss of the theoretical advantage of higher-order Trotter
@@ -544,35 +532,33 @@ the inherent error-reduction benefit of the higher-order decomposition functions
 as expected, manifesting as the significant difference in accuracy observed.
 
 As a general trend, under all conditions, the errors $\xiN{1}$ and $\xiN{2}$
-decrease as the number of divisions $\nT$ increases, but the reduction saturates
-near the lower limit for the kinetic energy term from the sampling theorem, $\nT
-= \nTkminTwoD$. For $\PsiTwoD_{1,1}$, although a slight decrease in error is
+decrease as the number of divisions $\nT$ increases, but reaches a lower bound
+near $\nT = \nTkminTwoD$, the lower limit for the kinetic energy term due to the
+sampling theorem. For $\PsiTwoD_{1,1}$, although a slight decrease in error is
 seen even in the region of $\nT > \nTkminTwoD$, the practical impact is small.
 This is because, upon reaching this region, the spatial discretization error
-$\errdisc$ caused by the spatial resolution becomes more dominant than the temporal
-error (Trotter error).
+$\errdisc$ caused by the spatial resolution becomes more dominant than the
+temporal error (Trotter error).
 
 Therefore, under the conditions shown here, it can be said that setting the
-number of divisions to far exceed the lower limit $\nTkminTwoD$ derived from the
-sampling theorem only increases computational costs and does not contribute to
-improving the overall error. Regarding the relationship with the spatial error,
-this is evident, when comparing Figures for three states $\PsiTwoD_{0,0}$,
-$\PsiTwoD_{1,0}$, and $\PsiTwoD_{1,1}$. $\PsiTwoD_{0,0}$ with $\nb=6$ and
-$\nb=9$ is shown in Figures \ref{fig:trotter-error-t1-part1}(a) ($\nb=6$) and
-(b) ($\nb=9$), $\PsiTwoD_{1,0}$ with $\nb=6$ and $\nb=9$ is shown in Figures
+number of divisions to far exceed the lower limit $\nTkminTwoD$, derived from
+the sampling theorem, only increases computational costs and does not contribute
+to improving the overall error. When the error is lower-limited with
+$\nTkminTwoD$, it is regulated with the spacial division, which is evident, when
+comparing Figures for three states $\PsiTwoD_{0,0}$, $\PsiTwoD_{1,0}$, and
+$\PsiTwoD_{1,1}$. $\PsiTwoD_{0,0}$ with $\nb=6$ and $\nb=9$ is shown in Figures
+\ref{fig:trotter-error-t1-part1}(a) ($\nb=6$) and (b) ($\nb=9$),
+$\PsiTwoD_{1,0}$ with $\nb=6$ and $\nb=9$ is shown in Figures
 \ref{fig:trotter-error-t1-part1}(c) ($\nb=6$) and (d) ($\nb=9$), and
 $\PsiTwoD_{1,1}$ with $\nb=6$ and $\nb=9$ is shown in Figures
 \ref{fig:trotter-error-t1-part2}(a) ($\nb=6$) and (b) ($\nb=9$).
 
-It can be confirmed that Trotter error saturates around $\nT = \nTkminTwoD$ in
-all cases, and the error floor after saturation is reduced when the spatial
+It can be confirmed that Trotter error reaches a lower bound around $\nT =
+\nTkminTwoD$ in all cases, and the lower bound is reduced when the spatial
 resolution $\nb$ is increased 3 bits from 6 to 9. The amount of reduction is a
 factor of about $1/2^3$ for $\PsiTwoD_{0,0}$ and $\PsiTwoD_{1,0}$, which have
 cusps at the origin, and a factor of about $1/2^6$ for $\PsiTwoD_{1,1}$, which
-is smooth at the origin. This is consistent with the fact that the spatial
-discretization error $\errdisc$ is expected to decrease exponentially with
-respect to $\nb$ for smooth wave functions, while it decreases only polynomially
-for wave functions with cusps.
+is smooth at the origin.
 
 \begin{figure}[ht]
     \centering
@@ -586,25 +572,27 @@ for wave functions with cusps.
         model. The time evolution period is fixed at $t=1.0$. $\xiN{1}$ and
         $\xiN{2}$ are the total observed errors (including spatial errors, etc.)
         from 1st- and 2nd-order Trotter decompositions, respectively. $\BN{1}$
-        and $\BN{2}$ are the theoretically upper bound values of the Trotter
-        error obtained analytically. The vertical lines $\nT=\nTpminTwoD$ and
-        $\nT=\nTkminTwoD$ indicate the theoretical lower limits of the number of
-        divisions for the potential term and kinetic energy term determined by
-        the requirements of the sampling theorem.
+        and $\BN{2}$ are the theoretical upper bounds of the Trotter error
+        obtained analytically. The vertical lines $\nT=\nTpminTwoD$ and
+        $\nT=\nTkminTwoD$ indicate the lower limits theoretically required for
+        the number of divisions for the potential term and kinetic energy term
+        from the sampling theorem.
     \end{flushleft}
 \end{figure}
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\columnwidth]{paper2025_figs/sdt_error/trotter_err_11_t1.png}
-    \caption{Upper bound $\BN{\gamma}$ and observed value $\xiN{\gamma}$ of the error with respect to the number of divisions $\nT$ at time evolution period $t=1.0$ (continued)}
+    \caption{Upper bound $\BN{\gamma}$ and observed value $\xiN{\gamma}$ of the
+    error with respect to the number of divisions $\nT$ at time evolution period
+    $t=1.0$ (continued)}
     \label{fig:trotter-error-t1-part2}
     \begin{flushleft}\small
 
-        Evaluation results for the wave function $\PsiTwoD_{1,1}$ with azimuthal
-        quantum number $m=1$. In the region where $\nT$ is small, a significant
-        difference in accuracy between the 1st- and 2nd-order Trotter
-        decompositions is evident.
+        Evaluation results for the wavefunction $\PsiTwoD_{1,1}$ with azimuthal
+        quantum number $m=1$. In the region where $\nT$ is small, a difference
+        in accuracy between the 1st- and 2nd-order Trotter decompositions is
+        evident.
     \end{flushleft}
 \end{figure}
 
@@ -612,33 +600,33 @@ for wave functions with cusps.
 %%% discussions about the parameter selection for minimum error start here %%%
 
 \subsubsection{Dynamic Range of Simulation at a Given Spatial Resolution}
-In general, the target system handled in a simulation is represented by a linear
-combination of multiple eigenstates with different quantum numbers, and these
-need to be represented simultaneously under a single spatial grid spacing
+In general, the target system handled in a simulation is described with a linear
+combination of multiple eigenstates with different quantum numbers, and the
+linearly combined amplitude is stored in each spatial grid with spacing
 $\deltar$.
 
-Based on the trade-off analysis between the spatial discretization error and the
-domain truncation error (cutoff error) with respect to $\deltar$ shown in Figure
-\ref{fig:dq-tradeoff}, the ground state, which has the narrowest wave function
-spread, requires the smallest $\deltar$. When attempting to represent up to the
-highest possible excited state simultaneously with the ground state, it is
-desirable to set the value of $\deltar$ as large as possible within a range that
-does not hinder the representation of the ground state. At that time, the
-maximum quantum number that can be represented without being affected by the
-cutoff error--- which is caused by the truncation of the computational domain---
-is determined, and the range from the ground state to that maximum quantum
-number becomes the representable range of this simulation, that is, the "dynamic
-range." This serves as a powerful guideline for estimating the representable
-state space in advance when executing simulations with limited quantum
-resources.
+Figures \ref{fig:dq-tradeoff}(f) and \ref{fig:dq-tradeoff}(i), which analyze the
+sum of the spatial discretization error and the domain truncation error (cutoff
+error) with respect to $\deltar$, suggest that the ground state, which has the
+narrowest wavefunction width, requires the smallest $\deltar$. When attempting
+to represent up to the highest possible excited state simultaneously with the
+ground state, it is desirable to set the value of $\deltar$ as large as possible
+within a range that does not hinder the representation of the ground state. At
+that time, the maximum quantum number that can be represented without being
+affected by the cutoff error--- which is caused by the truncation of the
+computational domain--- is determined, and the range from the ground state to
+that maximum quantum number becomes the representable range of this simulation,
+that is, the "dynamic range." This serves as a powerful guideline for estimating
+the representable state space in advance when executing simulations with limited
+quantum resources.
 
-\subsubsection{Spatial Resolution and the Plateau of Optimal Parameters}
+\subsubsection{Spatial Resolution and the Plateau regarding Optimal Parameters}
 Looking at Figure \ref{fig:dq-tradeoff}, it was confirmed that as $\nb$
-increases, the plateau (flat region) of $\deltar$ where both the spatial
-discretization error and the cutoff error are negligible expands. This means
-that as the number of available qubits increases, the system becomes more robust
-against parameter setting errors. In an environment where the hardware is
-immature and $\nb$ is small, strict tuning of $\deltar$ is required, but if
+increases, the plateau (flat region) with respect to $\deltar$, where both the
+spatial discretization error and the cutoff error are negligible, expands. This
+means that as the number of available qubits increases, the system becomes more
+robust with respect to parameter setting. In an environment where the hardware
+is immature and $\nb$ is small, strict tuning of $\deltar$ is required, but if
 $\nb$ increases in the future, it is expected that the simulation accuracy will
 become more tolerant to parameter selection.
 
@@ -657,17 +645,17 @@ steps.
 
 \subsubsection{Trade-off Between Spatial Error and Temporal Error}
 As shown in Figure \ref{fig:trotter-error-t1-part1}, the reduction of the
-system's energy error saturated when $\deltat$ was made finer than a certain
-threshold. This can be interpreted as the dominant error factor of the overall
-simulation shifting from the temporal error (Trotter error or sampling error) to
-the spatial error (mainly spatial discretization error) caused by the coarseness
-of the spatial grid $\deltar$. That is, there is a limit to the spatial accuracy
-that can be achieved with a certain combination of $\nb$ and $\deltar$, and
-making $\deltat$ disproportionately fine (i.e., making the quantum circuit
-deeper) leads to a waste of quantum resources. This analysis provides an
-integrated procedure for determining the spatial resolution $\deltar$ and the
-time step $\deltat$ in a well-balanced manner for a given number of qubits
-$\nb$.
+system's energy error reached a lower bound when $\deltat$ was made finer than a
+certain threshold. This can be interpreted as the dominant error factor of the
+overall simulation shifting from the temporal error (Trotter error or sampling
+error) to the spatial error (mainly spatial discretization error) caused by the
+coarseness of the spatial grid $\deltar$. That is, there is a limit to the
+spatial accuracy that can be achieved with a certain combination of $\nb$ and
+$\deltar$, and making $\deltat$ disproportionately fine (i.e., making the
+quantum circuit deeper) leads to a waste of quantum resources. This analysis
+provides an integrated procedure for determining the spatial resolution
+$\deltar$ and the time step $\deltat$ in a well-balanced manner for a given
+number of qubits $\nb$.
 
 %%% discussions about the parameter selection for minimum error end here %%%
 

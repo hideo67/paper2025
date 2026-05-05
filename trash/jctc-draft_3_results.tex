@@ -401,13 +401,13 @@ the inherent error-reduction benefit of the higher-order decomposition functions
 as expected, manifesting as the significant difference in accuracy observed.
 
 As a general trend, under all conditions, the errors $\xiN{1}$ and $\xiN{2}$
-decrease as the number of divisions $\nT$ increases, but the reduction saturates
-near the lower limit for the kinetic energy term from the sampling theorem, $\nT
-= \nTkminTwoD$. For $\PsiTwoD_{1,1}$, although a slight decrease in error is
-seen even in the region of $\nT > \nTkminTwoD$, the practical impact is small.
-This is because, upon reaching this region, the spatial discretization error
-$\errdisc$ caused by the spatial resolution becomes more dominant than the time
-error (Trotter error).
+decrease as the number of divisions $\nT$ increases, but the reduction reaches a
+lower bound near $\nT = \nTkminTwoD$, the lower limit for the kinetic energy
+term from the sampling theorem. For $\PsiTwoD_{1,1}$, although a slight decrease
+in error is seen even in the region of $\nT > \nTkminTwoD$, the practical impact
+is small. This is because, upon reaching this region, the spatial discretization
+error $\errdisc$ caused by the spatial resolution becomes more dominant than the
+time error (Trotter error).
 
 Therefore, under the conditions shown here, it can be said that setting the
 number of divisions to far exceed the lower limit $\nTkminTwoD$ derived from the
@@ -421,8 +421,8 @@ $\nb=9$ is shown in Figures \ref{fig:trotter-error-t1-part1}(a) ($\nb=6$) and
 $\PsiTwoD_{1,1}$ with $\nb=6$ and $\nb=9$ is shown in Figures
 \ref{fig:trotter-error-t1-part2}(a) ($\nb=6$) and (b) ($\nb=9$).
 
-It can be confirmed that Trotter error saturates around $\nT = \nTkminTwoD$ in
-all cases, and the error floor after saturation is reduced by a factor of about
+It can be confirmed that Trotter error reaches a lower bound around $\nT =
+\nTkminTwoD$ in all cases, and the error floor is reduced by a factor of about
 $1/2^3$ when the spatial resolution $\nb$ is increased 3 bits from 6 to 9.
 
 \begin{figure}[ht]

@@ -27,21 +27,21 @@ origin of the coordinate system. We consider spatial dimensions of 1D and 2D.
 
 \subsubsection{Variable Definitions}
 In the derivations of this study, we use atomic units (a.u.), where the
-elementary charge, electron mass, Bohr radius, and Planck's constant are all set
-to 1. The main variables used from this section onwards are listed in Table
+elementary charge, electron mass, and Bohr radius are all set to 1. The main
+variables used from this section onwards are listed in Table
 \ref{tab:variables}.
 
 \begin{table}
     \centering
-    \caption{Variables used in this section}
+    \caption{Variables used in this paper}
     \begin{tabular}{cl}
         Variable & Description \\
         \hline
         $d$ & Spatial dimension \\
         $\nb$ & Number of qubits in the coordinate register \\
-        $L$ & Length of one side of the simulation domain \\
-        $\deltar$ & Grid spacing in real-space (position coordinate space) \\
-        $\deltak$ & Grid spacing in k-space (wavenumber space) \\
+        $L$ & Length in one dimension of the computational unit cell \\
+        $\deltar$ & Grid spacing in real-space (position space) \\
+        $\deltak$ & Grid spacing in k-space \\
         $\deltat$ & Time step for time evolution \\
         $\chij$ & Discretized coordinate of grid point $j$ in real-space\\
         $\kapl$ & Discretized wavenumber of grid point $\ell$ in k-space
@@ -50,26 +50,25 @@ to 1. The main variables used from this section onwards are listed in Table
 \end{table}
 
 \subsubsection{Wave Function Storage and Time Evolution}
-Let the position basis, $\{\ket{j}\}$ be an orthogonal basis corresponding to the
+Let the position basis, $\{\ket{j}\}$, be an orthogonal basis corresponding to the
 discrete grid points, $\{\chij\}$, satisfying
 \begin{equation}
 \braket{i|j}=\delta_{ij}.
 \end{equation}
 
-In this case, the state vector in the position coordinate representation,
-$\ketPsiRS$, is expressed using the wave function amplitude,
-$\Psi_j=\Psi(\deltar\chij)$ at grid point $j$ with discretized coordinate,
-$\chij$ as:
+In this case, the state vector, $\ketPsi$, expanded with the position basis, is
+expressed using the wave function, $\Psi_j=\Psi(\deltar\chij)$, at grid point
+$j$ with discretized coordinate, $\chij$, as:
 \begin{equation}
-\ketPsiRS = \sum_{j}\Psi_j\ket{j}.
+\ketPsi = \sum_{j}\Psi_j\ket{j}.
 \end{equation}
-On the other hand, the state vector in the wavenumber representation,
-$\ketPsiKS$, is expressed using the plane wave basis function,
-$W_{\ell}(\bm{r})=e^{i\bm{k}_{\ell}\cdot\bm{r}}/\sqrt{L^d}$ and the wave
-function component, $\tilde{\Psi}_{\ell}$ having the wavenumber of that basis as:
+On the other hand, the state vector expanded with the wavenumber basis
+is expressed with the wave function, $\tilde{\Psi}_{\ell}$, in k-space
+such that
+$\Psi_j=\sum_{\ell} \tilde{\Psi}_{\ell}W_{\ell}(\bm{r})$ and
+$W_{\ell}(\bm{r})=e^{i\bm{k}_{\ell}\cdot\bm{r}}/\sqrt{L^d}$ as:
 \begin{equation}
-\Psi(\bm{r})=\sum_{\ell} \tilde{\Psi}_{\ell}W_{\ell}(\bm{r})\leftrightarrow
-\ketPsiKS = \sum_{\ell}\tilde{\Psi}_{\ell}\ket{\ell}.
+\ketPsi = \sum_{\ell}\tilde{\Psi}_{\ell}\ket{\ell}.
 \end{equation}
 
 The action of the one-step time evolution circuit, $\Thetae$ in a system where
@@ -86,10 +85,10 @@ first-order formula, this is expressed as follows:
 \end{align}
 
 The kinetic energy term of the time evolution operator is calculated in the
-wavenumber representation, while the potential energy term is calculated in the
-position representation. Using atomic units and placing the nucleus at the
-origin of the coordinate system, the kinetic energy term, $\Hek$ and potential
-energy term, $\Hep$ of the Hamiltonian for the 1D and 2D models are expressed as
+wavenumber basis, while the potential energy term is calculated in the
+position basis. Using atomic units and placing the nucleus at the
+origin of the coordinate system, the kinetic energy term, $\Hek$, and potential
+energy term, $\Hep$, of the Hamiltonian for the 1D and 2D models are expressed as
 follows, respectively:
 
 \begin{align}
@@ -99,9 +98,9 @@ follows, respectively:
    \HepTwoD(\bm{r}) = -\frac{1}{\sqrt{x^2+y^2}}. \label{eq:HkHp2D}
 \end{align}
 
-The simulator circuit consists of a qubit initialization circuit, $\PsiSD$ and a
+The simulator circuit consists of a qubit initialization circuit, $\PsiSD$, and a
 time evolution circuit, which is constructed by repeating the one-step time
-evolution circuit, $\Thetae$ for the required number of steps. The role of the
+evolution circuit, $\Thetae$, for the required number of steps. The role of the
 initialization circuit is to store the initial value of the wave function into
 the qubits:
 \begin{equation}
@@ -116,19 +115,15 @@ Schrödinger equation (stationary solutions) for the 1D and 2D hydrogen atom
 models as initial values. When time evolution is performed using these solutions
 as initial values, the absolute value of the amplitude remains constant over
 time, and only the phase changes in a time-dependent manner. Since the rate of
-this phase change is also determined by the energy eigenvalue of the solution,
-it is suitable as a criterion for evaluating simulation accuracy.
+this phase change is determined by the energy eigenvalue of the solution,
+the rate is suitable as a criterion for evaluating simulation accuracy.
 
-When the solution to 
-\begin{equation}
-H\psi(\bm{r})=E\psi(\bm{r})
-\end{equation}
-has multiple eigenvalues $E_n$ and eigenfunctions $\psi_n(\bm{r})$, i.e.,
+Using eigenvalue $E_n$ and eigenfunction $\psi_n(\bm{r})$ of the eigen value
+equation,
 \begin{equation}
 H\psi_n(\bm{r})=E_n\psi_n(\bm{r}),\quad n=1,2,\ldots
 \end{equation}
-the wave function of the system, with the eigenfunction corresponding to the
-eigenvalue $E_n$ as the initial value, is expressed as:
+the initial wave function of the system, is expressed as
 \begin{equation}
 \Psi_n(\bm{r},t)=\psi_n(\bm{r})\exp\left(-\frac{iE_nt}{\hbar}\right).
 \end{equation}
@@ -136,10 +131,10 @@ We use this equation as the reference for comparing simulation results.
 
 The analytical solutions for each dimensional model to be evaluated are shown below.
 
-For the 1D model, we utilize the analytical solutions provided by Loudon
+For the 1D model, we utilize the analytical solution provided by Loudon
 \cite{Loudon1959.10.1119/1.1934950}. According to his work, the ground state
 (principal quantum number $n=0$) is given by a delta function, while the states
-for $n>0$ can be categorized into even- and odd-parity solutions. The
+for $n>0$ can be categorized into even- and odd-parity solution. The
 even-parity solutions exhibit a cusp at the origin, requiring high spatial
 resolution on a finite grid. Conversely, the odd-parity solutions are smooth at
 the origin, placing less stringent demands on the grid resolution. Because this
@@ -295,7 +290,7 @@ shown in Table \ref{tab:computing-environment}.
 
 \begin{table}[ht]
     \centering
-    \caption{computing environment}
+    \caption{Computing environment}
     \begin{tabular}{ll}
         item & description \\
         \hline
@@ -399,18 +394,17 @@ the simulatable model size.
 
 In this study, we focused on the Uniformly Controlled Rotation (UCR) circuit
 \cite{Mottonen2004.PhysRevLett.93.130502}, which has an effect similar to QROM,
-as a means to drastically reduce the number of ancilla qubits, which is fatal
-for small-scale models.
+as a means to drastically reduce the number of ancilla qubits, which can make
+a significant difference in small-scale models.
 
 A UCRZ circuit, a variation of the UCR circuit, rotates the target qubit around
 the Z-axis depending on the state of an input register. Because the potential
-term of the time evolution operator is defined exactly as a phase rotation for
+term of the time evolution operator is defined exactly as a phase variation for
 each state, the operation of the UCRZ circuit can be directly utilized as the
 Coulomb potential application process. This makes it possible to pre-compute the
 inter-particle distance and its inverse square root and embed them into the
 rotation angle parameters of a single UCRZ circuit, thereby reducing the large
-number of ancilla qubits---essential in arithmetic circuits---down to just one
-target qubit.
+number of ancilla qubits---essential in arithmetic circuits---down to just one.
 
 However, because the gate count of the UCRZ circuit increases exponentially with
 the number of bits in the control register, its application to large-scale
@@ -434,11 +428,11 @@ The action of a UCR circuit is generally described as follows:
     \begin{flushleft}\small
 
     For the three-bit input register $b_2b_1b_0$, there are eight possible
-    states. To apply the corresponding phase rotation for each state, eight Rz
-    gates act on the target qubit $t$, where $\mathrm{R}_k$ denotes
+    states. To apply the corresponding rotation for each state, eight Rz gates
+    act on the target qubit $t$, where $\mathrm{R}_k$ denotes
     $\mathrm{Rz}(\theta_k)$. The CX (CNOT) gates placed before and after each Rz
     gate flip the sign of the rotation depending on the bit string of the input
-    register. This sign-flipping mechanism relies on the property of the Gray
+    register. This sign-flipping timing relies on the property of the Gray
     code, in which the Hamming distance between adjacent codewords is always
     one.
 
@@ -450,7 +444,7 @@ applied to the target qubit are arranged alternately $2^n$ times. An example of
 a 3-bit input UCRZ circuit is shown in Fig. \ref{fig:ucrz-n3}
 \cite{Mottonen2004.PhysRevLett.93.130502}.
 
-The $k$-th Rz gate $\mathrm{R}_k$ rotates the phase by a predetermined angle
+The $k$-th Rz gate $\mathrm{R}_k$ rotates the qubit by a predetermined angle
 $\theta_k$. In the absence of CX gates causing parity inversion, the overall
 rotation angle of the circuit is simply the sum of $\theta_k$. However, when a
 target CX gate is activated (control bit is 1), the relationship
@@ -478,7 +472,7 @@ rotation angle $\alpha_b$ acting on the state $\ket{b}$ is as follows:
 
 Here, $f_k(b)$ is the parity (0 or 1) determined by the state $b$ and the gate
 index $k$. Since the transformation from the vector of $\theta_k$ to the vector
-of $\alpha_b$ is an invertible linear transformation, once all the desired phase
+of $\alpha_b$ is an invertible linear transformation, once all the desired 
 rotation angles $\alpha_b$ are given, the rotation angle $\theta_k$ for each
 hardware gate can be uniquely determined by calculating the inverse matrix.
 
@@ -489,7 +483,7 @@ the discretized coordinate $\bm{\chi}_b$ corresponding to state $\ket{b}$, we
 specify the phase rotation angle $\alpha_b$ to be applied as follows:
 
 \begin{equation}
-\alpha_b = -\frac{\Hep(\deltar\bm{\chi}_b)\deltat}{\hbar}
+\alpha_b = \frac{\Hep(\deltar\bm{\chi}_b)\deltat}{\hbar}
 \end{equation}
 
 By constructing a UCRZ circuit using the $\theta_k$ obtained through inverse
@@ -503,10 +497,10 @@ In first-quantization-based simulations, evaluating the Coulomb potential on a
 quantum circuit inevitably requires addressing the divergence at the singularity
 (the pole, $r=0$). The potential energy term in the time evolution operator
 alters the phase of the wave function $\psi$ at each grid point by an angle
-proportional to $-1/r$. Thus, the phase diverges at the point where the nuclear
-and electronic coordinates coincide.
+proportional to $-1/r$. Thus, the phase diverges at the point where the
+coordinates of the nucleus and the electron coincide.
 
-Approaches to address this divergence are broadly classified into the following
+Approaches to avoid this divergence are broadly classified into the following
 two categories: (a) methods that introduce approximation or regularization into
 the potential function itself to prevent divergence even when the inter-particle
 distance becomes zero; and (b) methods that mathematically prevent the distance
@@ -527,23 +521,24 @@ representative value only at the singularity. The second is the soft-core
 potential, which is widely used in existing research.
 
 Note that a zero denominator in the Coulomb potential becomes a fatal
-computational problem only when the wave function amplitude at the singularity
-is non-zero. Among the analytical solutions handled in this paper, the odd
-function solution $\PsiOneD_1$ of the 1D model and the states of the 2D model
-where the azimuthal quantum number is $m \neq 0$ have zero amplitude at the
-origin; thus, the potential value at the pole can be any finite value. However,
-the $m=0$ solutions of the 2D model ($\Psi_{0,0}^{\mathrm{2D}}$ and
+computational problem only when the wave function at the singularity point is
+non-zero. Among the analytical solutions handled in this paper, the odd function
+solution $\PsiOneD_1$ of the 1D model and the states of the 2D model where the
+azimuthal quantum number is $m \neq 0$ have zero amplitude at the origin; thus,
+the potential value at the pole is allowed to be any finite value. However, the
+$m=0$ solutions of the 2D model ($\Psi_{0,0}^{\mathrm{2D}}$ and
 $\Psi_{1,0}^{\mathrm{2D}}$) have non-zero amplitudes at the origin, requiring a
 rigorous prescription. Below, we derive appropriate regularization parameters
-targeting the latter states (the derived values are also directly applicable to
-the former states).
+targeting the latter states.  We apply the same parameters also to the former
+states for simplicity of the software.
 
 \subsubsection{Formulation of the Local Average Potential}
+\label{subsubsec:formulation-of-local-average-potential}
 
 As the first method, we define the local average potential $\Hla$, which uses
-the original Coulomb potential at coordinates other than the singularity and
-replaces it with a finite value based on the effective distance $\reff$ only at
-the singularity ($r=0$).
+the original Coulomb potential at coordinates other than the singularity point
+and replaces it with a finite value based on the effective distance $\reff$ only
+at the singularity point ($r=0$).
 
 \begin{equation}
 \Hla(r) = \begin{cases}
@@ -552,26 +547,26 @@ the singularity ($r=0$).
 \end{cases}\label{eq:Halr}
 \end{equation}
 
-Because this function can be realized simply by a division denominator
-replacement circuit based on the condition check for $r=0$, it has the advantage
-of keeping the implementation cost low as a quantum circuit.
+Because this function can be realized simply by a denominator replacement
+circuit based on the condition check for $r=0$, it has the advantage of keeping
+the implementation cost low in a quantum circuit.
 
-The appropriate value of the effective distance $\reff$ in this approximation can
-be derived from geometric consistency as follows. In the potential term
+The appropriate value of the effective distance $\reff$ in this approximation
+can be derived from geometric consistency as follows. In the potential term
 calculation using the grid method, the value at the center coordinate of each
 grid cell is taken as a representative value, and spatial integration is
 approximated by multiplying it by the cell area. Although this representative
 value diverges for the cell containing the singularity, the exact spatial
-integral of the energy expectation value in a minute region near the singularity
-itself possesses a finite value without diverging in spaces of two or more
-dimensions. Therefore, we back-calculate $\reff$ so that the energy expectation
-value obtained by integration within the minute region matches the result of the
-approximate calculation using the representative value.
+integral for the energy expectation value within the grid cell containing the
+singularity point itself possesses a finite value without diverging in spaces of
+two or more dimensions. Therefore, we back-calculate $\reff$ so that the energy
+expectation value obtained by integration within the minute region matches the
+result of the approximate calculation using the representative value.
 
-Specifically, we consider a minute circle centered on the pole with a diameter
-equal to the grid spacing $\deltar$. Let $W_{n,m}$ be the expectation value of
-the energy calculated using the true Coulomb potential for this circular region,
-and let $W_{n,m}^\prime$ be the energy from the approximate calculation using
+Specifically, we consider a circle centered at the pole with the radius equal to
+half the grid spacing $\deltar/2$. Let $W_{n,m}$ be the expectation value of the
+energy calculated using the true Coulomb potential for this circular region, and
+let $W_{n,m}^\prime$ be the energy from the approximate calculation using
 $-1/\reff$ as the representative value at the pole.
 
 \begin{align}
@@ -614,21 +609,20 @@ determined as follows:
 \label{eq:Hlar2d-fixed}
 \end{equation}
 
-A similar derivation cannot be applied to the 1D model. This is because, in the
-1D case, the power of the distance in the volume element is zeroth order, which
-fails to cancel out the divergence of the Coulomb potential. However, because
-the solution for the 1D model has zero amplitude at the origin, assigning any
-arbitrary finite potential value at the singularity does not affect the
-calculated energy expectation value. Therefore, for the 1D model, we adopt a
-value that leads to the simplest circuit implementation.
+A derivation in the exact same manner cannot be applied to the 1D model. This is
+because, in the 1D case, the power of the distance in the volume element is
+zeroth order, which fails to cancel out the divergence of the Coulomb potential.
+However, because the solution for the 1D model wavefunction has zero amplitude
+at the origin, assigning any arbitrary finite potential value at the singularity
+does not affect the calculated energy expectation value. Therefore, for the 1D
+model, we adopt a value that leads to the simplest circuit implementation.
 
 When a division by zero occurs in the division circuit employed in this study,
 all bits of the output value become 1. In the circuit for the 1D model, where
 the binary representation has a single digit for the integer part, this yields
 the value $1.11111\dots_{(2)} \simeq 2_{(10)}$. From a practical standpoint,
 choosing this value allows us to handle the singularity without requiring any
-additional circuitry. Since the coordinates processed by the circuit are
-discretized, the quotient $2_{(10)}$ corresponds to $2/\deltar$. This is
+additional circuitry. Obtaining quotient $2_{(10)}$ as a result of $1/r$ is
 equivalent to setting $\reff = \deltar/2$. We adopt this value as the effective
 distance for the 1D model. Accordingly, the local average potential for the 1D
 model is defined as follows:
@@ -646,6 +640,7 @@ simulations using these potentials are discussed in Sec.
 \ref{subsubsec:local-average-potential-results}.
 
 \subsubsection{Deciding the Offset of the Soft-core Potential}
+\label{subsubsec:deciding-offset-of-soft-core-potential}
 
 The second method, the soft-core potential $\Hsc$, smoothly avoids divergence
 throughout the space by introducing a small offset constant $\Delta$ into the
@@ -657,8 +652,8 @@ norm calculation used for the distance. It is defined as follows
 \label{eq:Hsc2r}
 \end{equation}
 
-The soft-core potential is widely used in Hamiltonian simulations to model
-physical systems where the direction of electron motion is constrained
+The soft-core potential is widely used to perform Hamiltonian simulations for a
+physical system model where the direction of electron motion is constrained
 \cite{Hall2009.PhysRevA.80.032507, Fernandez_1991,
 LiChen2021.doi:10.1021/acs.jpca.1c00698}, as well as to prevent the divergence
 of the Coulomb term \cite{Childs2022quantumsimulationof}.
@@ -667,19 +662,18 @@ The method for determining the parameter $\Delta$ varies depending on the
 purpose of using the soft-core potential.
 
 The first method applies when the soft-core potential is used to correct the
-energy in reduced-dimensional models representing physical systems with
-constrained motion. For instance, setting $\Delta=\sqrt{2}$ in a 1D hydrogen
-atom model yields the ground-state energy eigenvalue of $-0.5\ \mathrm{a.u.}$,
-which is identical to that of the 3D hydrogen atom
-\cite{Eberly1991.PhysRevA.44.5997}. In this context, however, the regularization
-of the singularity is merely a byproduct; in a 3D model where no energy
+energy for physical systems with constrained motion. For instance, setting
+$\Delta=\sqrt{2}$ in a 1D hydrogen atom model yields the ground-state energy
+eigenvalue of $-0.5\ \mathrm{a.u.}$, which is identical to that of the 3D
+hydrogen atom \cite{Eberly1991.PhysRevA.44.5997}. In this context, however, the
+removal of singularity is merely a byproduct; in a 3D model where no energy
 correction is required, $\Delta$ is set to $0$, leaving the divergence problem
 unresolved.
 
 The second method applies when the soft-core potential is used purely to avoid
 the divergence at the singularity, which aligns with the focus of this study. To
 the best of the authors' knowledge, there is no clearly established method in
-the literature for determining $\Delta$ with a rational basis in this scenario.
+the literature for determining $\Delta$ rationally in this scenario.
 Therefore, we propose setting $\Delta = \deltar/4$ for the 2D modelso that the
 value of the soft-core potential at the singularity ($r=0$) matches the
 analytically derived local average potential discussed in the previous section.
@@ -692,7 +686,8 @@ That is, the 2D soft-core potential used in our calculations is defined as follo
 
 The evaluation results from time evolution simulations using this model are also
 discussed in Sec. \ref{subsubsec:local-average-potential-results}, comparing
-them with the results of the local average potential.
+them with the results for the local average potential described at the preceding
+section.
 
 \subsection{Optimization of Simulation Parameters}
 \label{subsec:optimization-of-simulation-parameters}
@@ -701,11 +696,10 @@ When executing Hamiltonian simulations, configuring the spatial resolution and
 time step to keep calculation errors within a desired range is crucial, and
 approaches to back-calculate the required number of qubits from a target
 accuracy have been widely studied \cite{FEIT1982412, Kivlichan_2017,
-Chan2023.sciadv.abo7484}. Conversely, under the premise that the number of
-qubits is given (and strictly limited), this study focuses on the constraints
-and tradeoff relationships that arise among each parameter, presenting a
-parameter determination method to extract the best accuracy within limited
-resources.
+Chan2023.sciadv.abo7484}. Conversely, this study focuses on the constraints and
+tradeoff relationships that arise among each parameter under the premise that
+the number of qubits is given (and strictly limited), presenting a parameter
+determination method to extract the best accuracy within limited resources.
 
 The results of time evolution simulations using the grid method and
 Suzuki-Trotter decomposition employed in this study inherently include the
@@ -722,7 +716,7 @@ the following components:
 
 \begin{align}
     \errspatial &\equiv \errdisc + \errcutoff \\
-    \errtemporal &\equiv \erralias + \errtrotter
+    \errtemporal &\leq \erralias + \errtrotter
 \end{align}
 $\errdisc$ is the spatial discretization error (error due to approximating
 continuous space with a grid), and $\errcutoff$ is the domain truncation error
@@ -748,24 +742,27 @@ determine a value that comprehensively satisfies these constraints.
 \label{subsec:criteria-for-grid-spacing}
 
 In this study, the simulation target is a cubic domain applying periodic
-boundary conditions, with a side length of $L=2^{\nb}\deltar$ (where $\nb$ is
-the number of coordinate qubits for each dimension, and $\deltar$ is the grid
-spacing). The center of this space is set as the origin of the coordinate
-system, where the nucleus is placed.
+boundary conditions, with a length of $L=2^{\nb}\deltar$ (where $\nb$ is the
+number of coordinate qubits for each dimension, and $\deltar$ is the grid
+spacing). The nucleus is placed at the origin of the coordinate system and the
+grid cell containing the nucleus is located such that the nucleus is at the
+center of that grid cell. As a result, the center of the simulated area is
+offset by half the grid size.
 
-Wave function components that fall outside the coordinate range $[-L/2, L/2)$
-are forcibly cut off. Decreasing $\deltar$ reduces the spatial discretization
-error $\errdisc$; however, because the number of qubits $\nb$ is fixed, the
-domain size $L$ simultaneously shrinks, resulting in an increase in the
-truncation error $\errcutoff$. Therefore, it is necessary to find the optimal
-$\deltar$ where these two errors balance out and their sum is minimized.
+Wave function components that fall outside the coordinate range
+$[-L/2-\deltar/2, L/2-\deltar/2)$ are forcibly cut off. Decreasing $\deltar$
+reduces the spatial discretization error $\errdisc$; however, because the number
+of qubits $\nb$ is fixed, the domain size $L$ simultaneously shrinks, resulting
+in an increase in the truncation error $\errcutoff$. Therefore, it is necessary
+to find the optimal $\deltar$ where these two errors balance out and their sum
+is minimized.
 
 Specifically, we define the value $S_1$ integrated over the square of the true
 wave function within the simulation domain, and the value $S_2$ integrated
 outside the domain, as follows:
 
 \begin{align}
-S_1 &= \int_{x,y,z=-L/2}^{L/2}\Psi(\bm{r})^{\ast}\Psi(\bm{r}) d\bm{r} \\
+S_1 &= \int_{x,y,z=-L/2-\deltar/2}^{L/2-\deltar/2}\Psi(\bm{r})^{\ast}\Psi(\bm{r}) d\bm{r} \\
 S_2 &= 1 - S_1
 \end{align}
 
@@ -797,13 +794,13 @@ the 1D and 2D models are presented in Section
 \label{subsubsec:time-step-constraints-from-sampling-theorem}
 
 The first condition that the time step $\deltat$ must satisfy is the avoidance
-of aliasing errors derived from the properties of the Discrete Fourier Transform
-(sampling theorem) \cite{FEIT1982412}. If one step of time evolution via the
-Suzuki-Trotter decomposition is regarded as a sampling process, the amount of
-phase rotation by the Hamiltonian must not exceed the Nyquist frequency; that
-is, the maximum phase change per step must be less than a half-period ($\pi$).
-This requires the following inequalities for the potential and kinetic energy
-terms, respectively:
+of aliasing errors derived from the sampling theorem for the Discrete Fourier
+Transform \cite{FEIT1982412}. Regarding one step of time evolution via the
+Suzuki-Trotter decomposition as a sampling process, the amount of phase change
+by the Hamiltonian must not exceed the phase change that corresponds to the
+Nyquist frequency; that is, the maximum phase change per step must be less than
+a half-period ($\pi$). This requires the following inequalities for the
+potential and kinetic energy terms, respectively:
 
 \begin{align}
 \max_{\bm{r}}\abs{\Hep(\bm{r})\deltat/\hbar} < \pi \label{eq:nyqist-limit-by-hep}\\
@@ -870,7 +867,9 @@ lower limits.
 Next, we evaluate the 2D model in the same manner. Regarding the potential term,
 for both the local average potential $\HlaTwoD$ and the soft-core potential
 $\HscTwoD$, the maximum value at the pole is equally determined by the parameter
-$\reff=\Delta=\deltar/4$:
+$\reff=\Delta=\deltar/4$ as described in sections
+\ref{subsubsec:formulation-of-local-average-potential} and
+\ref{subsubsec:deciding-offset-of-soft-core-potential}:
 
 \begin{equation}
 \max_{j}\abs{\HlaTwoD(\chij)\deltat/\hbar}
@@ -951,7 +950,7 @@ violated, becoming $O(t^2 N^{-1/4})$
 \cite{Burgarth2024.PhysRevResearch.6.043155}).
 
 Similarly, the error when using the second-order Suzuki-Trotter decomposition is
-expressed by the following equation:
+expressed using $H_1(g) = H_1-g$ and $H_2(g) = H_2-h+g$ by the following equation:
 
 \begin{equation}
   \xiN{2}(t;\phi)\leq\frac{t^3}{N^2}\left(\frac{1}{24}\|H_1(g)^3\phi\| + \frac{1}{8}\|H_2(g)H_1(g)^2\phi\|
@@ -967,8 +966,6 @@ The minimum value $\BN{2}$ of the right side of this equation is given as follow
 \label{eq:observed-trotter-error-bound-2nd}
 \end{equation}
 
-Here, $H_1(g) = H_1-g$ and $H_2(g) = H_2-h+g$.
-
 In regions where the Trotter error $\errtrotter$ is dominant among the total
 error (Eq. \eqref{eq:error-total-decomposition}), increasing the number of
 divisions $N$ (i.e., $\nT$) can be expected to naturally improve the error
@@ -977,14 +974,13 @@ according to Eqs. \eqref{eq:observed-trotter-error-bound-1st} and
 errors due to other factors such as spatial discretization are dominant,
 increasing $N$ will not yield significant improvement in the overall error.
 
-Combining the above, the absolute upper limit of the time step $\deltat$ is
-dictated by the requirement of the sampling theorem (avoidance of aliasing), and
-within that range, the number of divisions must be selected so that the Trotter
-error falls within an acceptable limit. From the perspective of computational
-cost (quantum circuit depth), it is desirable to adopt the largest possible
-value for $\deltat$ (smallest $N$). Therefore, the strategy to determine the
-optimal parameter in this method is to adopt the minimum number of divisions
-within the range that contributes to the improvement of the overall error, while
-assessing the balance with other error components.
+Combining the above, the sampling theorem (avoidance of aliasing) dictates the
+absolute upper limit of the time step $\deltat$. The number of divisions must be
+selected so that the Trotter error falls within an acceptable limit within that
+range. From the perspective of computational cost (quantum circuit depth), it is
+desirable to adopt the largest possible value for $\deltat$ (smallest $N$).
+Therefore, the strategy to determine the optimal parameter in this method is to
+adopt the minimum number of divisions within the range that minimizes the
+overall error, by assessing the balance between error components.
 
 \end{document}
