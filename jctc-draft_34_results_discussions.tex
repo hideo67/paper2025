@@ -177,34 +177,12 @@ time evolution of the wavefunction was evaluated using either the
 arithmetic circuit or the UCRZ circuit. Detailed analyses of the obtained
 calculation errors will be described in the following subsections.
 
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.6\textwidth]{paper2025_figs/circuit-size-qubits.png}
-    \caption{Relationship between the number of particles and the number of qubits}
-    \label{fig:qubit-for-some-molecules}
-    \begin{flushleft}\small
-
-        The horizontal axis is the number of particles (number of electrons +
-        number of nuclei), and the vertical axis is the required number of
-        qubits when using an arithmetic circuit (3D, 10-bit coordinates). Each
-        point from left to right indicates \ce{H}, \ce{He}, \ce{Li}, \ce{H +
-        H2}, \ce{O}, Glycine (\ce{C2H5NO2}), and Alanine (\ce{C3H7NO2}).
-        ``\verb|+|'' indicates the case where the nuclear positions are fixed
-        (Born-Oppenheimer approximation). ``\verb|x|'' indicates values based on
-        the estimation formula by Kassal et al.
-        \cite{kassal2008.pnas.0808245105}. The constant offset of ours from
-        Kassal's is due to the fact that the estimation formula does not include
-        auxiliary qubits required for the arithmetic circuit and the state
-        preparation circuit.
-    \end{flushleft}
-\end{figure}
-
-Finally, anticipating execution on future large-scale quantum computers, we
-ignored emulator limits, generated the proposed arithmetic circuit (3D, 10-bit
-resolution) for various atomic and molecular models, and evaluated scalability.
-As shown in Figure \ref{fig:qubit-for-some-molecules}, it is confirmed that the
-required number of qubits scales linearly with respect to the number of
-particles in the system (sum of electrons and nuclei).
+In this study, we evaluate the circuit for a single-electron system as a
+fundamental verification of the circuit design proposed in
+\cite{takahashi2024.doi:10.1021/acs.jctc.4c00708}. The number of qubits required
+by crsQ for various molecules, when arithmetic circuits are used for the Coulomb
+potential. is shown in Fig. 14 in Ref
+\cite{takahashi2024.doi:10.1021/acs.jctc.4c00708}.
 
 %%% discussions about the circuit configuration start here %%%
 
@@ -237,12 +215,12 @@ particular, promising error correction schemes like the surface code require
 enormous physical resources, such as in magic state distillation, to execute
 non-Clifford gates. The CC-NOT gates in arithmetic circuits and arbitrary Rz
 rotation gates in UCRZ circuits fall precisely into this category. Ultimately,
-the problem lies in the number of T gates for approximating the desired gate and
-decomposing it into T-gates. In particular, the Rz rotation in the UCRZ gate
-significantly fluctuates in T-gate consumption depending on the required
-accuracy. Therefore, for application to real devices, a quantitative comparison
-of the gate implementation costs of both methods, taking into account the
-overhead of error correction, will be required as a future challenge.
+the problem lies in decomposing them into T-gates and the number of the T-gates.
+In particular, the Rz rotation in the UCRZ gate significantly fluctuates in
+T-gate consumption depending on the required accuracy. Therefore, for
+application to real devices, a quantitative comparison of the gate
+implementation costs of both methods, taking into account the overhead of error
+correction, will be required as a future challenge.
 
 %%% discussions about the circuit configuration end here %%%
 
@@ -360,12 +338,11 @@ for a period chosen based on the cycle time of the wavefunction ($t\approx
 $\deltar/4$, where the higher-order terms are truncated.
 
 To investigate the cause of this, we re-evaluated $\reff$ so that the geometric
-regional average of the simple potential function $V(r)=-1/r$, without weighting
+regional average of the potential function $V(r)=-1/r$, without weighting
 by the wavefunction, matched the representative value. This directly derived
-$\reff=\deltar/4$ without higher-order terms. This fact suggests that since
-$\reff$ is used to approximate the potential function---rather than the energy
-expectation value---it is most accurately derived solely from values of the
-coordinates, without taking the wavefunction into account.
+$\reff=\deltar/4$ without higher-order terms.  This result coincides with the
+fact that $\ketPsi$ is a linear combination of $\ket{x}$ and $V(r)$ is determined
+with $x$.
 
 \subsubsection{Validity of the Approximation Within a Circular Region}
 To obtain a local average centered on a lattice point, one method is to
@@ -555,10 +532,12 @@ $\PsiTwoD_{1,1}$ with $\nb=6$ and $\nb=9$ is shown in Figures
 
 It can be confirmed that Trotter error reaches a lower bound around $\nT =
 \nTkminTwoD$ in all cases, and the lower bound is reduced when the spatial
-resolution $\nb$ is increased 3 bits from 6 to 9. The amount of reduction is a
-factor of about $1/2^3$ for $\PsiTwoD_{0,0}$ and $\PsiTwoD_{1,0}$, which have
-cusps at the origin, and a factor of about $1/2^6$ for $\PsiTwoD_{1,1}$, which
-is smooth at the origin.
+resolution $\nb$ is increased 3 bits from 6 to 9, i.e. increasing the number of
+grids by a factor of 8.  The amount of reduction of error is a factor of
+$0.155\simeq(1/8)^{0.89}$ for $\PsiTwoD_{0,0}$, $0.113\simeq(1/8)^{1.04}$ for
+$\PsiTwoD_{1,0}$, which have cusps at the origin, and a factor of
+$0.0143\simeq(1/8)^{2.26}$ for $\PsiTwoD_{1,1}$, which is smooth at the origin,
+as the simulated results.
 
 \begin{figure}[ht]
     \centering
@@ -616,7 +595,7 @@ that time, the maximum quantum number that can be represented without being
 affected by the cutoff error--- which is caused by the truncation of the
 computational domain--- is determined, and the range from the ground state to
 that maximum quantum number becomes the representable range of this simulation,
-that is, the "dynamic range." This serves as a powerful guideline for estimating
+that is, the ``dynamic range.'' This serves as a powerful guideline for estimating
 the representable state space in advance when executing simulations with limited
 quantum resources.
 
@@ -635,19 +614,18 @@ Conventional Trotter error evaluations tend to require an extremely small
 $\deltat$ because they assume the worst case based on the operator norm
 \cite{Burgarth2024.PhysRevResearch.6.043155}. However, in realistic systems
 where energy is concentrated in eigenstates near the ground state,
-state-dependent error evaluation is more appropriate. The results of this
-experiment show that results close to the accuracy limit for a given $\nb$ can
-be obtained by using a $\deltat$ that satisfies the limit of phase change based
-on the sampling theorem (half-period condition), which is coarser than the
-formal requirements of the Trotter error. This makes it possible to avoid
+state-dependent error evaluation is more appropriate. Our experimental results
+are consistent with this suggestion and show that the lower limit due to the
+sampling theorem (half-period condition), not the Trotter requirement,
+determines the accuracy limit for a given $\nb$. This makes it possible to avoid
 increasing the depth of the quantum circuit caused by unnecessarily fine time
 steps.
 
 \subsubsection{Trade-off Between Spatial Error and Temporal Error}
 As shown in Figure \ref{fig:trotter-error-t1-part1}, the reduction of the
 system's energy error reached a lower bound when $\deltat$ was made finer than a
-certain threshold. This can be interpreted as the dominant error factor of the
-overall simulation shifting from the temporal error (Trotter error or sampling
+certain threshold. This can be interpreted as that the dominant error factor of
+the overall simulation shifts from the temporal error (Trotter error or sampling
 error) to the spatial error (mainly spatial discretization error) caused by the
 coarseness of the spatial grid $\deltar$. That is, there is a limit to the
 spatial accuracy that can be achieved with a certain combination of $\nb$ and

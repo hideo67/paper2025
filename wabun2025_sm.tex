@@ -28,12 +28,25 @@
     bookmarksnumbered=true,
     bookmarksopen=true
 }
+% 別のドキュメントの中のラベルへの参照
+\usepackage{xr}
+\externaldocument{wabun2025}
 \usepackage{paper2025}
 
 \begin{document}
 \title{フル量子回路による1,2次元水素原子モデルの\\
 時間発展シミュレーションとその誤差解析\\
 補助資料 (Supplimentary Material)}
+\author{高橋 英男, 戸丸 辰也, 平野 敏行, 田原 才静, 佐藤 文俊}
+
+\maketitle
+
+\section{グラフに用いた計算パラメータ}
+\subsection{回路規模}
+第\ref{subsec:circuit-size-evaluation-results}節の図
+\ref{fig:hamiltonian-gatecount}で用いたパラメタと計算法を示す。
+
+
 \section{誤差を最小にするシミュレーションパラメタの決定方法の詳細}
 \label{smsec:parameter-selection-for-minimum-error-analysis-details}
 

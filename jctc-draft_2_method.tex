@@ -123,7 +123,7 @@ equation,
 \begin{equation}
 H\psi_n(\bm{r})=E_n\psi_n(\bm{r}),\quad n=1,2,\ldots
 \end{equation}
-the initial wave function of the system, is expressed as
+the initial wavefunction of the system is expressed as
 \begin{equation}
 \Psi_n(\bm{r},t)=\psi_n(\bm{r})\exp\left(-\frac{iE_nt}{\hbar}\right).
 \end{equation}
@@ -225,8 +225,9 @@ Fig. \ref{subfig:initial-wavefunction-2d-1-1}, respectively.
         part of the wave function in k-space for the same state. (c) Real part
         of the wave function in real-space for the excited state
         $\PsiTwoD_{1,0}$ with $n=1, m=0$ (Eq. \eqref{eq:psi2D10-wave-function}).
-        (d) Real part of the wave function in k-space for the same state. Both
-        (a) and (c) have non-zero wave function values at the origin.
+        (d) Real part of the wave function in k-space for the same state. The
+        qubit count for coordinates $n_b=6$ for all graphs. Both (a) and (c)
+        have non-zero wave function values at the origin.
     \end{flushleft}
 \end{figure}
 
@@ -240,7 +241,8 @@ Fig. \ref{subfig:initial-wavefunction-2d-1-1}, respectively.
         Excited state $\PsiTwoD_{1,1}$ with $n=1, m=1$ (Eq.
         \eqref{eq:psi2D11-wave-function}). (a) the real part of the wave
         function in real-space. (b) the real part of the wave function in
-        k-space. The wave function value at the origin is zero.
+        k-space. The wave function value at the origin is zero. The qubit
+        count for coordinates $n_b=6$.
     \end{flushleft}
 \end{figure}
 
@@ -394,8 +396,8 @@ the simulatable model size.
 
 In this study, we focused on the Uniformly Controlled Rotation (UCR) circuit
 \cite{Mottonen2004.PhysRevLett.93.130502}, which has an effect similar to QROM,
-as a means to drastically reduce the number of ancilla qubits, which can make
-a significant difference in small-scale models.
+as a means to drastically reduce the number of ancilla qubits, which significantly
+works in small-scale models.
 
 A UCRZ circuit, a variation of the UCR circuit, rotates the target qubit around
 the Z-axis depending on the state of an input register. Because the potential
@@ -480,7 +482,7 @@ In our application to the Coulomb potential term circuit, we set the qubits
 corresponding to the spatial coordinates of the particle as the input register
 of the UCRZ circuit. Based on the potential energy $\Hep(\deltar\bm{\chi}_b)$ at
 the discretized coordinate $\bm{\chi}_b$ corresponding to state $\ket{b}$, we
-specify the phase rotation angle $\alpha_b$ to be applied as follows:
+specify the rotation angle $\alpha_b$ to be applied as follows:
 
 \begin{equation}
 \alpha_b = \frac{\Hep(\deltar\bm{\chi}_b)\deltat}{\hbar}
@@ -612,10 +614,10 @@ determined as follows:
 A derivation in the exact same manner cannot be applied to the 1D model. This is
 because, in the 1D case, the power of the distance in the volume element is
 zeroth order, which fails to cancel out the divergence of the Coulomb potential.
-However, because the solution for the 1D model wavefunction has zero amplitude
-at the origin, assigning any arbitrary finite potential value at the singularity
-does not affect the calculated energy expectation value. Therefore, for the 1D
-model, we adopt a value that leads to the simplest circuit implementation.
+However, in the 1D model, since the wavefunction has zero amplitude at the
+origin, assigning any arbitrary finite potential value at the singularity does
+not affect the calculated energy expectation value. Therefore, for the 1D model,
+we adopt a value that leads to the simplest circuit implementation.
 
 When a division by zero occurs in the division circuit employed in this study,
 all bits of the output value become 1. In the circuit for the 1D model, where
@@ -685,9 +687,8 @@ That is, the 2D soft-core potential used in our calculations is defined as follo
 \end{equation}
 
 The evaluation results from time evolution simulations using this model are also
-discussed in Sec. \ref{subsubsec:local-average-potential-results}, comparing
-them with the results for the local average potential described at the preceding
-section.
+discussed in Sec. \ref{subsubsec:local-average-potential-results}, compared with
+the results for the local average potential described at the preceding section.
 
 \subsection{Optimization of Simulation Parameters}
 \label{subsec:optimization-of-simulation-parameters}
@@ -721,7 +722,7 @@ the following components:
 $\errdisc$ is the spatial discretization error (error due to approximating
 continuous space with a grid), and $\errcutoff$ is the domain truncation error
 (error due to the wave function extending beyond the rectangular simulation
-domain). Additionally, $\erralias$ is the aliasing error (error caused by a
+domain); $\erralias$ is the aliasing error (error caused by a
 finite sampling frequency), and $\errtrotter$ is the Trotter error (error due to
 the approximation of decomposing non-commuting operators).
 

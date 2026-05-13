@@ -72,7 +72,7 @@
 %% Many journals require that sections are unnumbered: this 
 %% is activated here
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\setcounter{secnumdepth}{-1}
+% \setcounter{secnumdepth}{-1}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Place any additional macros here.  Please use \newcommand* where
@@ -87,6 +87,10 @@
 
 \newcommand*\mycommand[1]{\texttt{\emph{#1}}}
 \usepackage{jctc-draft-commands}
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\theequation}{S\arabic{equation}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Author and title data:
@@ -115,10 +119,14 @@ Using Full Quantum Circuits}
 \date{*Email: hideo-t@iis.u-tokyo.ac.jp}
 
 \begin{document}
-\section{Details on the Method for Determining Simulation Parameters to Minimize Error}
-\label{smsec:parameter-selection-for-minimum-error-analysis-details}
+\maketitle
 
-Error evaluation when time evolution is performed over a long period.
+%\section{Details on the preparation of parameters to the UCRZ gate}
+
+%\section{Details on the Method for Determining Simulation Parameters to Minimize Error}
+%\label{smsec:parameter-selection-for-minimum-error-analysis-details}
+
+\section{Error evaluation when time evolution is performed over a long period.}
 \begin{figure}[ht]
     \centering
     \begin{subfigure}{0.45\columnwidth}

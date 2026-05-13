@@ -26,7 +26,7 @@ quantization are the mainstream of quantum chemistry research
 \cite{peruzzo2014variational}. VQE combines a quantum computer with a classical
 computer to reduce the required number of qubits and circuit depth, making it
 executable on NISQ devices as it can tolerate the presence of noise. However,
-once FTQC is realized---mitigating the impact of noise--- and qubit count
+once FTQC is realized---overcoming the impact of noise--- and qubit count
 constraints being relaxed, a broader range of algorithms is expected to be
 researched and put into practical use.
 
@@ -38,7 +38,7 @@ not used. However, it requires substantially more computational resources than
 VQE \cite{kassal2008.pnas.0808245105}. In the grid method, the indices of
 equally spaced grid points are mapped to the tensor product of computational
 basis states of multi-qubit registers each corresponding to spatial coordinates.
-The values of the wave function at these grid points are then stored as the
+The values of the wavefunction at these grid points are then stored as the
 amplitudes of the corresponding basis to simulate its time evolution. While
 algorithms based on the Suzuki-Trotter decomposition are widely known for time
 evolution calculations, algorithms employing more sophisticated approaches have
@@ -78,7 +78,7 @@ a significant number of ancilla qubits \cite{Sanders2020.PRXQuantum.1.020312}.
 In this study, to conserve qubit resources, we adopt the Uniformly Controlled
 Rotation Z (UCRZ) circuit \cite{Mottonen2004.PhysRevLett.93.130502}, which
 applies rotations to a target qubit based on the values in a control register.
-For time-evolution calculations, we employ the basic Suzuki-Trotter
+For time-evolution, we employ the basic Suzuki-Trotter
 decomposition \cite{Zalka-rspa.1998.0162}. Through this approach, we provide
 circuit configuration examples suitable for emulators and early-stage FTQC
 devices. In the grid method, the scale of the wavefunction initialization
@@ -98,7 +98,7 @@ without MPS compression to prioritize ease of implementation.
 The second challenge is to determine the handling of the singularity (pole) of
 the Coulomb potential. In the grid method, it is necessary to calculate the
 potential energy for all possible combinations of coordinates for all particles
-and update the phase of the wave function, that is proportional to the energy.
+and update the phase of the wavefunction, that is proportional to the energy.
 The point where the coordinates of the nucleus and the electron coincide is a
 singularity of the Coulomb potential, where the value diverges if left
 unaddressed. It is known that methods using a plane-wave basis (momentum-space
@@ -132,22 +132,20 @@ estimates were noted to be several orders of magnitude larger than the errors
 empirically observed in practical numerical calculations. However, by focusing
 on commutator scaling, more tight error bounds have become possible
 \cite{Childs2021.PhysRevX.11.011020}. Subsequently, it was shown that the bound
-can be further tightened by considering state-dependency---the characteristics
-of the input state relative to the domain of the Hamiltonian---rather than
-relying on worst-case evaluations \cite{Burgarth2024.PhysRevResearch.6.043155}.
-That study demonstrated that when the wavefunction value is non-zero at the
-potential singularity (e.g., for $s$-orbitals), the error convergence exhibits a
-sublinear scaling of $n^{-1/4}$ with respect to the number of Trotter steps $n$.
-It also showed that higher-order Trotter formulas do not contribute to error
-reduction for such states. This result was extended to multi-particle systems,
-proving that for unbounded Hamiltonians like the Coulomb potential, the
-dependence on the number of steps $n$ is $n^{-1/4}$, and the error increase
-relative to the particle number is polynomial \cite{fang2026trotter}. In our
-study, through numerical evaluations based on an emulator and classical
-programs, we present an integrated approach for a single-electron model: we
-optimize spatial parameters by balancing the tradeoff between spatial
-discretization error and domain truncation error, and we determine time
-parameters by considering the requirements of the sampling theorem alongside
-recent Trotter error evaluations.
+can be further tightened by considering state-dependency rather than relying on
+worst-case evaluations \cite{Burgarth2024.PhysRevResearch.6.043155}. That study
+demonstrated that when the wavefunction value is non-zero at the potential
+singularity (e.g., for $s$-orbitals), the error exhibits a sublinear scaling of
+$n^{-1/4}$ with respect to the number of Trotter steps $n$. It also showed that
+higher-order Trotter formulas do not contribute to error reduction for such
+states. This result was extended to multi-particle systems, proving that for
+unbounded Hamiltonians like the Coulomb potential, the dependence on the number
+of steps $n$ is $n^{-1/4}$, and the error increase relative to the particle
+number is polynomial \cite{fang2026trotter}. In our study, through numerical
+evaluations based on an emulator and classical programs, we present an
+integrated approach for a single-electron model: we optimize spatial parameters
+by balancing the tradeoff between spatial discretization error and domain
+truncation error, and we determine time parameters by considering the
+requirements of the sampling theorem alongside recent Trotter error evaluations.
 
 \end{document}

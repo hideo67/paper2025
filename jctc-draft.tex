@@ -120,24 +120,24 @@ Tokyo, 116-8523, Japan}
 
 A quantum circuit for first-quantization-based Hamiltonian simulation that can
 operate on a small-scale quantum computer emulator with fewer than 30 qubits was
-constructed. For small model sizes, Uniformly Controlled Rotation (UCR) circuits
-were found to be a preferrable choice to calculate the Coulomb potential
-compared to conventional arithmetic gates in terms of qubit count and circuit
-depth. Furthermore, as a guideline for obtaining optimal accuracy within given
+constructed. (1) For small model sizes, Uniformly Controlled Rotation (UCR)
+circuits were found to be a preferrable choice to calculate the Coulomb
+potential compared to conventional arithmetic gates in terms of qubit count and
+circuit depth. (2) As a guideline for obtaining optimal accuracy within given
 resources, we established a method for handling the singularity (pole) of the
 Coulomb potential and optimizing the discretization parameters. Regarding the
 singularity of the Coulomb potential, we demonstrated that divergence can be
 avoided and errors minimized by determining an effective value of the potential
 function from a simple geometric average of the potential within a minute
-circular region centered on the pole. Additionally, we proposed a method to
-determine the optimal spatial grid spacing for a given number of qubits for
-coordinates, by evaluating the tradeoff between the spatial discretization error
-caused by grid coarseness and the domain truncation error due to a finite domain
-range. For the time evolution step size, rather than relying on the formal
-Trotter error bound that assumes the worst-case scenario, we observed that
-sampling-theorem based bounds focusing on the maximum frequency component of the
-wave function are sufficient to achieve optimal accuracy while avoiding an
-unnecessary increase in quantum circuit depth.
+circular region centered on the pole. (3) We proposed a method to determine the
+optimal spatial grid spacing for a given number of qubits for coordinates, by
+evaluating the tradeoff between the spatial discretization error caused by grid
+coarseness and the domain truncation error due to a finite domain range. For the
+time evolution step size, rather than relying on the formal Trotter error bound
+that assumes the worst-case scenario, we observed that sampling-theorem based
+bounds focusing on the maximum frequency component of the wave function are
+sufficient to achieve optimal accuracy while avoiding an unnecessary increase in
+quantum circuit depth.
 
 \end{abstract}
 
