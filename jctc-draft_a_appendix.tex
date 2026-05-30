@@ -3,7 +3,7 @@
 
 \section*{Appendix}
 \appendix
-\section{Derivation of the effective distance for the Local Average Potential}
+\section{Derivation of the Effective Distance for the Local Average Potential}
 \label{chap:appendix_derivation_derivation}
 \subsection{Derivation from the Equivalence of Energy Expectation Values}
 We derive the parameter $\reff$ in the approximated formula
@@ -92,7 +92,7 @@ q_0^2\left\{\left(1+q_0^2\deltar^2\right)e^{-q_0\deltar}-1\right\}
 \subsection{Derivation from the Geometric Average}
 The derivation of the parameter $\reff$ in the approximated formula $\Hla(r)$
 described in Sec. \ref{subsec:coulomb-potential-handling} is shown
-using a method that determines it from the simple geometric average of the
+using a method determining it from the simple geometric average of the
 potential in a minute circular region centered on the singularity of the Coulomb
 potential. The geometric average of the potential in a circular region of radius
 $R=\deltar/2$ centered on the singularity of the Coulomb potential is given by,
@@ -108,7 +108,7 @@ By solving $\bar{V}=-1/\reff$, $\reff$ can be determined as $\reff=\deltar/4$.
 \label{sec:appendix_a_3d-evaluation}
 We present the results of evaluating the energy error by applying the local
 average potential to the 3D hydrogen atom model, performing time evolution
-simulations, and varying the effective distance.
+simulations, and varying the effective distance in Fig.\ref{fig:Ha1-vs-delta1-3d}.
 
 \begin{figure}[ht]
     \centering
@@ -120,8 +120,42 @@ simulations, and varying the effective distance.
         Graph for the state $\PsiThreeD_{1,0,0}$, setting $\reff=\deltar/a$ and
         varying $a$. The time evolution period $t=12.6\approx 2\pi/|E_1|$.
         Across all bit counts, the expectation value of the Hamiltonian
-        $\Hk+\Hp$ shows a value close to the analytical solution of $-0.5$a.u. when
+        $\Hk+\Hp$ shows a value close to the analytical solution of $-0.5$ a.u. when
         $a=3$ ($\reff=\deltar/3$).
+    \end{flushleft}
+\end{figure}
+
+\clearpage
+\section{Error Evaluation for a Longer Period}
+\label{sec:appendix_error_evaluation_t30}
+Error evaluation for an extended time evolution period of $t=30$ a.u. is shown in Figs.\ref{fig:trotter-error-t30-part1} and
+\ref{fig:trotter-error-t30-part2}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\columnwidth]{paper2025_figs/sdt_error/trotter_err_00_10_t30.png}
+
+    \caption{Upper bound $\BN{\gamma}$ and observed value $\xiN{\gamma}$ of the error with respect to the number of divisions $\nT$ at time evolution period $t=30.0$}
+    \label{fig:trotter-error-t30-part1}
+    \begin{flushleft}\small
+
+        Relationship between the number of Trotter divisions and error in the 2D
+        model. The time evolution period is fixed at $t=30.0$.
+    
+    \end{flushleft}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\columnwidth]{paper2025_figs/sdt_error/trotter_err_11_t30.png}
+    \caption{Upper bound $\BN{\gamma}$ and observed value $\xiN{\gamma}$ of the
+    error with respect to the number of divisions $\nT$ at time evolution period
+    $t=30.0$ (continued)}
+    \label{fig:trotter-error-t30-part2}
+    \begin{flushleft}\small
+
+        Evaluation results for the wavefunction $\PsiTwoD_{1,1}$ with azimuthal
+        quantum number $m=1$.
     \end{flushleft}
 \end{figure}
 
