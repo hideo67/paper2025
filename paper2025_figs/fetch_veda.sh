@@ -3,12 +3,13 @@
 SRC_ROOT=veda-01:crsq/crsq-explore/scripts/onedrive.lnk
 
 SRC_DIR=$SRC_ROOT/count_gates
+DEST_DIR=count_gates
 
 FILES=(hamiltonian-gatecount-revision2.png)
 
 for f in "${FILES[@]}"; do
-    if [ ! -f $f ]; then
-        scp $SRC_DIR/$f .
+    if [ ! -f $DEST_DIR/$f ]; then
+        scp $SRC_DIR/$f $DEST_DIR
     fi
 done
 
