@@ -32,7 +32,7 @@ done
 
 SRC_ROOT=~/work/py/crsq/crsq-papers/2025/notebooks/output/diagrams
 FILES=(
-    TOC_Graphic.png
+    toc-graphics.png
 )
 DEST_DIR=toc_graphics
 

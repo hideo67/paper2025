@@ -25,14 +25,27 @@ input13="dq_tradeoff/eval1d_dq.png"
 input14="dq_tradeoff/eval2d_dq_geom_0_0.png"
 input15="dq_tradeoff/eval2d_dq_geom_1_0.png"
 output8="dq_tradeoff/eval1d_2d.png"
+
 input16="sdt_error/trotter_err_n0_m0_6b_t1.0.png"
 input17="sdt_error/trotter_err_n0_m0_9b_t1.0.png"
 input18="sdt_error/trotter_err_n1_m0_6b_t1.0.png"
 input19="sdt_error/trotter_err_n1_m0_9b_t1.0.png"
 output9="sdt_error/trotter_err_00_10_t1.png"
+
 input20="sdt_error/trotter_err_n1_m1_6b_t1.0.png"
 input21="sdt_error/trotter_err_n1_m1_9b_t1.0.png"
 output10="sdt_error/trotter_err_11_t1.png"
+
+input23="sdt_error/trotter_err_n0_m0_6b_t30.png"
+input24="sdt_error/trotter_err_n0_m0_9b_t30.png"
+input25="sdt_error/trotter_err_n1_m0_6b_t30.png"
+input26="sdt_error/trotter_err_n1_m0_9b_t30.png"
+output12="sdt_error/trotter_err_00_10_t30.png"
+
+input27="sdt_error/trotter_err_n1_m1_6b_t30.png"
+input28="sdt_error/trotter_err_n1_m1_9b_t30.png"
+output13="sdt_error/trotter_err_11_t30.png"
+
 label_splice="120x0"
 label_pointsize="64"
 circuit_label_pointsize="64"
@@ -202,16 +215,32 @@ else
 	echo "Skip: output already exists: $output5"
 fi
 
-if [[ ! -f "$output11" ]]; then
-	convert \
-		\( "$input22" -background white -gravity west -splice "$label_splice" \
-			\( -clone 0 -gravity north -crop x50%+0+0 +repage -gravity northwest -fill black -pointsize "$label_pointsize" -annotate +100+40 "(a)" \) \
-			\( -clone 0 -gravity south -crop x50%+0+0 +repage -gravity northwest -fill black -pointsize "$label_pointsize" -annotate +100+40 "(b)" \) \
-			-delete 0 -append \
-		\) \
-		"$output11"
+if [[ ! -f "$output6" ]]; then
+	mkdir -p "$(dirname "$output6")"
+	if command -v pdftocairo >/dev/null 2>&1; then
+		pdftocairo -png -singlefile -r 300 "$input11" "${output6%.png}"
+	elif command -v pdftoppm >/dev/null 2>&1; then
+		pdftoppm -png -singlefile -r 300 "$input11" "${output6%.png}"
+	else
+		echo "Error: neither pdftocairo nor pdftoppm is available for PDF conversion" >&2
+		exit 1
+	fi
 else
-	echo "Skip: output already exists: $output11"
+	echo "Skip: output already exists: $output6"
+fi
+
+if [[ ! -f "$output7" ]]; then
+	mkdir -p "$(dirname "$output7")"
+	if command -v pdftocairo >/dev/null 2>&1; then
+		pdftocairo -png -singlefile -r 300 "$input12" "${output7%.png}"
+	elif command -v pdftoppm >/dev/null 2>&1; then
+		pdftoppm -png -singlefile -r 300 "$input12" "${output7%.png}"
+	else
+		echo "Error: neither pdftocairo nor pdftoppm is available for PDF conversion" >&2
+		exit 1
+	fi
+else
+	echo "Skip: output already exists: $output7"
 fi
 
 if [[ ! -f "$output8" ]]; then
@@ -253,31 +282,44 @@ else
 	echo "Skip: output already exists: $output10"
 fi
 
-if [[ ! -f "$output6" ]]; then
-	mkdir -p "$(dirname "$output6")"
-	if command -v pdftocairo >/dev/null 2>&1; then
-		pdftocairo -png -singlefile -r 300 "$input11" "${output6%.png}"
-	elif command -v pdftoppm >/dev/null 2>&1; then
-		pdftoppm -png -singlefile -r 300 "$input11" "${output6%.png}"
-	else
-		echo "Error: neither pdftocairo nor pdftoppm is available for PDF conversion" >&2
-		exit 1
-	fi
+if [[ ! -f "$output11" ]]; then
+	convert \
+		\( "$input22" -background white -gravity west -splice "$label_splice" \
+			\( -clone 0 -gravity north -crop x50%+0+0 +repage -gravity northwest -fill black -pointsize "$label_pointsize" -annotate +100+40 "(a)" \) \
+			\( -clone 0 -gravity south -crop x50%+0+0 +repage -gravity northwest -fill black -pointsize "$label_pointsize" -annotate +100+40 "(b)" \) \
+			-delete 0 -append \
+		\) \
+		"$output11"
 else
-	echo "Skip: output already exists: $output6"
+	echo "Skip: output already exists: $output11"
 fi
 
-if [[ ! -f "$output7" ]]; then
-	mkdir -p "$(dirname "$output7")"
-	if command -v pdftocairo >/dev/null 2>&1; then
-		pdftocairo -png -singlefile -r 300 "$input12" "${output7%.png}"
-	elif command -v pdftoppm >/dev/null 2>&1; then
-		pdftoppm -png -singlefile -r 300 "$input12" "${output7%.png}"
-	else
-		echo "Error: neither pdftocairo nor pdftoppm is available for PDF conversion" >&2
-		exit 1
-	fi
+
+if [[ ! -f "$output12" ]]; then
+	mkdir -p "$(dirname "$output12")"
+	convert \
+		\( \
+			\( "$input23" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$label_pointsize" -annotate "$label_offset" "(a)" \) \
+			\( "$input24" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$label_pointsize" -annotate "$label_offset" "(b)" \) \
+			+append \
+		\) \
+		\( \
+			\( "$input25" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$label_pointsize" -annotate "$label_offset" "(c)" \) \
+			\( "$input26" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$label_pointsize" -annotate "$label_offset" "(d)" \) \
+			+append \
+		\) \
+		-append "$output12"
 else
-	echo "Skip: output already exists: $output7"
+	echo "Skip: output already exists: $output12"
+fi
+
+if [[ ! -f "$output13" ]]; then
+	mkdir -p "$(dirname "$output13")"
+	convert \
+		\( "$input27" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$label_pointsize" -annotate "$label_offset" "(a)" \) \
+		\( "$input28" -background white -gravity west -splice "$label_splice" -gravity northwest -fill black -pointsize "$label_pointsize" -annotate "$label_offset" "(b)" \) \
+		+append "$output13"
+else
+	echo "Skip: output already exists: $output13"
 fi
 
