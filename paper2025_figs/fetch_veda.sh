@@ -12,16 +12,6 @@ for f in "${FILES[@]}"; do
     fi
 done
 
-SRC_DIR=$SRC_ROOT/diagrams
-
-FILES=(psi0_h2d_opt.png)
-
-for f in "${FILES[@]}"; do
-    if [ ! -f $f ]; then
-        scp $SRC_DIR/$f .
-    fi
-done
-
 SRC_DIR=$SRC_ROOT/circuits1D/GPU_cuStateVec_double_6bsigned_TO1/N1odd_L15.0_X0.0/dt0.010/63n.20e/STAR/circuits300dpi
 DEST_DIR=arith1D
 FILES=(
