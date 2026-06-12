@@ -24,9 +24,9 @@ remains to be implemented and qubit counts are limited, Variational Quantum
 Eigensolver (VQE)-based algorithms utilizing second quantization are the
 mainstream of quantum chemistry research \cite{peruzzo2014variational}. VQE
 combines a quantum computer with a classical computer to reduce the required
-number of qubits and circuit depth, facilitating the execution on NISQ devices as it
-can tolerate the presence of noise. However, once FTQC is realized---overcoming
-the impact of noise--- and qubit count constraints are relaxed, a broader
+number of qubits and circuit depth, facilitating the execution on NISQ devices
+as it can tolerate the presence of noise. However, once FTQC is realized---
+which entails overcoming noise  and relaxing qubit count constraints---a broader
 range of algorithms is expected to be researched and put into practical use.
 
 The grid-based approach, a representative method for quantum chemistry
@@ -105,7 +105,7 @@ are known to avoid direct calculations of the singularity in real space by
 treating the potential as an operation in momentum space \cite{Babbush_2019,
 eklund2026.arXiv2603.19007}. However, these approaches require a significant
 number of ancilla qubits, making them unsuitable for execution on small-scale
-quantum computers. In contrast, alhough the position-basis approach can be
+quantum computers. In contrast, although the position-basis approach can be
 implemented with fewer ancilla qubits, it necessitates an explicit strategy for
 addressing the singularity. To this end, several techniques have been proposed,
 such as employing a soft-core potential that adds a fixed offset to the
@@ -138,7 +138,7 @@ singularity is non-zero (e.g., for $s$-orbitals), the error exhibits a sublinear
 $n^{-1/4}$ with respect to the number of Trotter steps $n$. It also showed that
 higher-order Trotter formulas do not contribute to error reduction for such
 states. This result was extended to multi-particle systems, proving that for
-unbounded Hamiltonians like the Coulomb potential, dependence on the number
+unbounded Hamiltonians like the Coulomb potential, the dependence on the number
 of steps $n$ is $n^{-1/4}$, and the error increase relative to the particle
 number is polynomial \cite{fang2026trotter}. In our study, using numerical
 evaluations based on an emulator and classical programs, we present an
