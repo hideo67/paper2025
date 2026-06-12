@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 $latex            = 'platex %B -halt-on-error';
 $latex_silent     = 'platex %B -halt-on-error -interaction=batchmode';
-$bibtex           = 'upbibtex';
+$bibtex           = 'pbibtex';
 $bibtex_use       = 2;
 $biber            = 'biber --bblencoding=utf8 -u -U --output_safechars';
 $dvipdf           = 'dvipdfmx %B';
