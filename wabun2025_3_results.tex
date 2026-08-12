@@ -107,7 +107,7 @@ qubitで実装可能だが、2次元・3次元モデルでは二乗および平�
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=15cm]{paper2025_figs/hamiltonian-gatecount-revision2.png}
+    \includegraphics[width=15cm]{paper2025_figs/count_gates/hamiltonian-gatecount-revision2.png}
     \caption{回路規模}
     \label{fig:hamiltonian-gatecount}
     \begin{flushleft}\small
@@ -151,30 +151,6 @@ qubitで実装可能だが、2次元・3次元モデルでは二乗および平�
 ミュレーションパラメータを設定することで、算術演算回路・UCRZ回路のいずれを用いて
 も期待通りの波動関数の時間発展が確認できた。得られた計算誤差の詳細な分析について
 は、次項以降で述べる。
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.6\textwidth]{paper2025_figs/circuit-size-qubits.png}
-    \caption{粒子数とqubit数の関係}
-    \label{fig:qubit-for-some-molecules}
-    \begin{flushleft}\small
-
-        横軸は粒子数（電子数＋原子核数）、縦軸は算術演算回路（3次元、座標10ビッ
-        ト）を用いた場合の所要qubit数。各点は左から \ce{H}, \ce{He}, \ce{Li},
-        \ce{H + H2}, \ce{O}, Glycine(\ce{C2H5NO2}), Alanine(\ce{C3H7NO2}) を示
-        す。「\verb|+|」は原子核位置を固定した場合（Born-Oppenheimer近
-        似）。「\verb|x|」はKassalら\cite{kassal2008.pnas.0808245105}の見積もり
-        式に基づく値。この見積もり式には算術演算回路が必要とする補助qubitと、
-        状態準備回路が必要とする補助qubitの両方が含まれておらず、それが本研究との
-        オフセットの原因となっている。
-    \end{flushleft}
-\end{figure}
-
-最後に、将来的な大規模量子コンピュータでの実行を見据え、エミュレータの制限を度外
-視して様々な原子・分子モデルに対して本提案の算術演算回路（3次元、分解能10ビッ
-ト）を生成し、スケーラビリティを評価した。図\ref{fig:qubit-for-some-molecules}に
-示す通り、必要となるqubit数は系の粒子数（電子数と原子核数の和）に対して線形にス
-ケーリングすることが確認できる。
 
 \subsection{クーロンポテンシャルの極の扱い}
 \label{subsec:coulomb-potential-handling-results}

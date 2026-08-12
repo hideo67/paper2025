@@ -1,3 +1,10 @@
 qubits
 ancilla
 simulable
+NISQ
+qubit
+VQE
+Eigensolver
+wavefunction
+UCRZ
+Benenti
