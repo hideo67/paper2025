@@ -5,11 +5,14 @@
 		},
 		{
 			"path": "../thesis"
+		},
+		{
+			"path": "../aip"
 		}
 	],
 	"settings": {
 		"latex-workshop.latex": {
-			"toolsx": [
+			"tools": [
 				{
 					"name": "lualatex",
 					"command": "lualatex",

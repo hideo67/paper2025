@@ -15,7 +15,7 @@
 % quantum.bib and paper2025_figs/ are shared as-is with jctc-draft.tex
 % (referenced directly, not copied).
 
-\documentclass[aip,jcp,graphicx,draft]{revtex4-1}
+\documentclass[aip,adv,graphicx,draft,preprint]{revtex4-2}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Font setup
@@ -163,18 +163,17 @@ These findings are expected to provide highly practical and powerful guidelines
 for designing and executing quantum simulations using the grid method under
 limited quantum resources.
 
-\subfile{aip-draft_a_appendix.tex}
-
 \begin{acknowledgments}
 This research was partially supported by the UTokyo Quantum Initiative.
 \end{acknowledgments}
 
-\section*{Data and Software Availability Statement}
+\subfile{aip-draft_a_appendix.tex}
+
+\section*{Data Availability Statement}
 
 The data and source code underlying this study are openly available on GitHub at https://github.com/crsq-dev/report2026/releases.
 
-% Create the reference section using BibTeX (apsrev4-1, bundled with revtex4-1):
-\bibliographystyle{apsrev4-1}
+% Create the reference section using BibTeX (auto-selects aipnum4-2 for the adv substyle):
 \bibliography{quantum}
 
 \end{document}

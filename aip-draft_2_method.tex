@@ -35,9 +35,9 @@ variables used from this section onwards are listed in Table
 \begin{table}
     \centering
     \caption{Variables used in this paper}
-    \begin{tabular}{cl}
+    \begin{ruledtabular}\begin{tabular}{cl}
         Variable & Description \\
-        \hline
+        \colrule
         $d$ & Spatial dimension \\
         $\nb$ & Number of qubits in the coordinate register \\
         $L$ & Length in one dimension of the computational unit cell \\
@@ -46,7 +46,7 @@ variables used from this section onwards are listed in Table
         $\deltat$ & Time step for time evolution \\
         $\chij$ & Discretized coordinate of grid point $j$ in real-space\\
         $\kapl$ & Discretized wavenumber of grid point $\ell$ in k-space
-    \end{tabular}
+    \end{tabular}\end{ruledtabular}
     \label{tab:variables}
 \end{table}
 
@@ -293,16 +293,16 @@ shown in Table \ref{tab:computing-environment}.
 \begin{table}[ht]
     \centering
     \caption{Computing environment}
-    \begin{tabular}{ll}
+    \begin{ruledtabular}\begin{tabular}{ll}
         Item & Description \\
-        \hline
+        \colrule
         CPU & AMD Ryzen 9 7950X 16 Core $\times$ 1 \\
         Memory & 128GB \\
         GPU & NVIDIA GeForce RTX 4090 $\times$ 1 \\
         OS & Ubuntu 22.04.4 LTS \\
         Quantum SDK & Qiskit 1.4.0, qiskit-aer-gpu 0.15.1 \\
         Quantum Chemistry Simulator Software & Chemical Reaction Simulator Q (crsQ) \cite{website:crsq}
-    \end{tabular}
+    \end{tabular}\end{ruledtabular}
     \label{tab:computing-environment}
 \end{table}
 
