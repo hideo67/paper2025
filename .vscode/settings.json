@@ -1,4 +1,5 @@
 {
+    "latex-workshop.latex.outDir": "%DIR%/output",
     "latex-workshop.latex.recipe.default": "latexmk (lualatex)",
     "latex-workshop.latex.recipes": [
         {
