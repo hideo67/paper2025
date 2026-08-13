@@ -7,9 +7,10 @@
 \documentclass[aip-draft.tex]{subfiles}
 \begin{document}
 \section{Introduction}
-Since the conception of quantum computers, quantum chemistry simulation has been
-recognized as a highly promising application area expected to be significantly
-advanced by quantum computing \cite{Cao2019.doi:10.1021/acs.chemrev.8b00803}.
+Since the conception of quantum computers, the simulation of quantum many-body
+systems---and quantum chemistry in particular---has been recognized as a highly
+promising application area expected to be significantly advanced by quantum
+computing \cite{Cao2019.doi:10.1021/acs.chemrev.8b00803}.
 Currently, mainstream quantum hardware is inherently prone to computational
 errors because of noise, and the practical implementation of error-correction
 technologies is ongoing. The surface code method, a promising error-correction
@@ -62,8 +63,19 @@ circuits is crsQ, which has been developed by the authors
 \cite{takahashi2024.doi:10.1021/acs.jctc.4c00708}. We implement the wave
 function time evolution calculation via the grid method entirely as a quantum
 circuit, execute it on a quantum computer emulator, and evaluate the
-computational results. To achieve this, we address the following three
-challenges.
+computational results.
+
+We emphasize at the outset that the system studied here is a single
+electron in one- and two-dimensional hydrogen atom models with a fixed
+nucleus. This choice is deliberate rather than incidental: because these
+models admit exact analytical solutions, they allow the accuracy of the
+singularity treatment and of the discretization parameters to be assessed
+against a known reference, without the confounding effects of electron
+correlation. The present work is accordingly a proof of principle for the
+circuit construction, and---more durably---for a discretization
+methodology that is not tied to the particular circuit used here.
+Multi-electron simulations and execution on physical hardware are outside
+its scope. Within this scope, we address the following three challenges.
 
 The first challenge is to present a circuit configuration that can operate on an
 emulator with a limited number of qubits. In this study, we simplify the
@@ -78,9 +90,8 @@ In this study, to conserve qubit resources, we adopt the Uniformly Controlled
 Rotation Z (UCRZ) circuit \cite{Mottonen2004.PhysRevLett.93.130502}, which
 applies rotations to a target qubit based on the values in a control register.
 For time-evolution, we employ the basic Suzuki-Trotter
-decomposition \cite{Zalka-rspa.1998.0162}. Through this approach, we provide
-circuit configuration examples suitable for emulators and early-stage FTQC
-devices. In the grid method, the scale of the wavefunction initialization
+decomposition \cite{Zalka-rspa.1998.0162}. Through this approach, we provide circuit configuration examples that make
+full-circuit verification feasible at emulator scale. In the grid method, the scale of the wavefunction initialization
 circuit also poses a challenge, because preparing an arbitrary state requires a
 number of gates that scale exponentially with the grid size. As a means to
 reduce this scale, a method has been proposed to convert the initial states
@@ -126,25 +137,25 @@ Hamiltonian---which contains inherently non-commuting potential and kinetic
 energy terms---as a product of individual exponentials. This decomposition
 introduces errors arising from the non-commutativity of the operators. Early
 error analyses were based on operator norms, evaluating the worst-case scenario
-across all possible input states. Therefore, these estimates were noted to be
+across all possible input states. As a result, these estimates were noted to be
 several orders of magnitude larger than the errors empirically observed in
 practical numerical calculations. However, by focusing on commutator scaling,
 more tight error bounds have become possible
-\cite{Childs2021.PhysRevX.11.011020}. Subsequently, a study showed that the bound
-could be further tightened by considering state-dependency rather than relying on
-worst-case evaluations \cite{Burgarth2024.PhysRevResearch.6.043155}. The study
-demonstrated that when the wavefunction value at the potential
-singularity is non-zero (e.g., for $s$-orbitals), the error exhibits a sublinear scaling of
-$n^{-1/4}$ with respect to the number of Trotter steps $n$. It also showed that
-higher-order Trotter formulas do not contribute to error reduction for such
-states. This result was extended to multi-particle systems, proving that for
-unbounded Hamiltonians like the Coulomb potential, the dependence on the number
-of steps $n$ is $n^{-1/4}$, and the error increase relative to the particle
-number is polynomial \cite{fang2026trotter}. In our study, using numerical
-evaluations based on an emulator and classical programs, we present an
+\cite{Childs2021.PhysRevX.11.011020}. Subsequently, a study showed that the
+bound could be further tightened by considering state-dependency rather than
+relying on worst-case evaluations \cite{Burgarth2024.PhysRevResearch.6.043155}.
+The study demonstrated that when the wavefunction value at the potential
+singularity is non-zero (e.g., for $s$-orbitals), the error exhibits a sublinear
+scaling of $n^{-1/4}$ with respect to the number of Trotter steps $n$. It also
+showed that higher-order Trotter formulas do not contribute to error reduction
+for such states. This result was extended to multi-particle systems, proving
+that for unbounded Hamiltonians like the Coulomb potential, the dependence on
+the number of steps $n$ is $n^{-1/4}$, and the error increase relative to the
+particle number is polynomial \cite{fang2026trotter}. In our study, using
+numerical evaluations based on an emulator and classical programs, we present an
 integrated approach for a single-electron model: we optimize spatial parameters
 by balancing the tradeoff between the spatial discretization error and domain
-truncation error, and determine time parameters by considering the
-requirements of the sampling theorem alongside recent Trotter error evaluations.
+truncation error, and determine time parameters by considering the requirements
+of the sampling theorem alongside recent Trotter error evaluations.
 
 \end{document}
