@@ -12,8 +12,8 @@
 % compiled/spell-checked on its own via the subfiles package.
 %
 
-% \documentclass[aip,adv,draft,preprint]{revtex4-2}
 \documentclass[aip,adv,reprint]{revtex4-2}
+%\documentclass[aip,adv,draft,preprint]{revtex4-2}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Font setup
@@ -183,14 +183,17 @@ Similarly, for the 1D model we restricted our evaluation to the
 odd-parity eigenstates. As discussed in Sec.~\ref{subsec:simulator-model},
 the $n=0$ ground state is not amenable to a finite-grid representation at
 all---its wave function is the singular limit $|\psi|^2=\delta(x)$ with
-divergent binding energy---while the $n>0$ even-parity states, although
-well-defined with finite Balmer energies, possess a cusp (a discontinuous
-slope) at the origin that is intrinsically harder to resolve accurately on
-a finite grid than the smooth odd-parity states
-\cite{Loudon1959.10.1119/1.1934950}. Extending the present
-singularity-treatment and parameter-selection methodology to these
-even-parity states, including the singular ground state, is left for
-future work.
+divergent binding energy. The $n>0$ even-parity states are, per Loudon's
+analysis, equally legitimate, degenerate eigenstates sharing the same
+Balmer energies as their odd-parity counterparts
+\cite{Loudon1959.10.1119/1.1934950}; however, their first derivative is
+discontinuous at the origin, unlike the odd-parity states used here, giving
+their momentum-space amplitude a $1/k^2$ tail instead of a $1/k^3$ tail
+(Sec.~\ref{subsec:simulator-model}). This heavier tail is intrinsically
+harder to represent within the finite wavenumber range of a fixed-qubit
+grid. Extending the present singularity-treatment and parameter-selection
+methodology to these even-parity states, including the singular ground
+state, is left for future work.
 
 Regarding circuit implementation, the UCRZ-based approach is best
 understood as a design well suited to pedagogical, small-scale systems:

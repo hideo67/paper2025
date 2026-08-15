@@ -1,8 +1,20 @@
 #!/bin/bash -e
 
 SRC_ROOT=~/output/crsq-explore
-SRC_DIR=$SRC_ROOT/analytic1D/1D_6b_signed/N1_L15.0_X0.0_WM32/dt0.01/63n.20e/images300dpi_w3.37in
-DEST_DIR=aip/analytic1D
+SRC_DIR=$SRC_ROOT/analytic1D/1D_6b_signed/N1_L15.0_X0.0_WM32/dt0.01/0n.20e/images300dpi_w3.37in
+DEST_DIR=aip/analytic1D/odd
+FILES=(t_00.000.png)
+
+mkdir -p $DEST_DIR
+for f in "${FILES[@]}"; do
+    if [ ! -f $DEST_DIR/$f ]; then
+        cp -v $SRC_DIR/$f $DEST_DIR
+        chmod 644 $DEST_DIR/$f
+    fi
+done
+
+SRC_DIR=$SRC_ROOT/analytic1D/1D_6b_signed/N1_even_L15.0_X0.0_WM32/dt0.01/0n.20e/images300dpi_w3.37in
+DEST_DIR=aip/analytic1D/even
 FILES=(t_00.000.png)
 
 mkdir -p $DEST_DIR

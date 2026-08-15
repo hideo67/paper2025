@@ -123,7 +123,7 @@ equation,
 \begin{equation}
 H\psi_n(\bm{r})=E_n\psi_n(\bm{r}),\quad n=1,2,\ldots
 \end{equation}
-the initial wavefunction of the system is expressed as
+the wavefunction of the system is expressed as
 \begin{equation}
 \Psi_n(\bm{r},t)=\psi_n(\bm{r})\exp\left(-\frac{iE_nt}{\hbar}\right).
 \end{equation}
@@ -133,15 +133,26 @@ The analytical solutions for each dimensional model to be evaluated are shown be
 
 For the 1D model, we utilize the analytical solution provided by Loudon
 \cite{Loudon1959.10.1119/1.1934950}. According to his work, the ground state
-(principal quantum number $n=0$) is given by a delta function, whereas the states
-for $n>0$ can be categorized into even- and odd-parity solutions. The
-even-parity solutions exhibit a cusp at the origin, requiring high spatial
-resolution on a finite grid. Conversely, the odd-parity solutions are smooth at
-the origin, placing less stringent demands on the grid resolution. Because this
-study aims to assess the foundational behavior of the simulation algorithm using
-a limited number of qubits, we adopt the odd-parity solutions. The odd-parity
-solution for the quantum number $n \in \{1, 2, \dots\}$ is denoted by
-$\psi_n^{\mathrm{1D}}$.
+(principal quantum number $n=0$) is given by a delta function, whereas the
+states for $n>0$ split into two families sharing the same radial profile but
+differing only in whether the prefactor multiplying it is $x$ or $|x|$: the
+odd-parity solutions $\psi_n^{\mathrm{1D}}$ and the even-parity solutions
+$\phi_n^{\mathrm{1D}}$, both defined below. Loudon showed, by taking the
+limit of a regularized (finite-cutoff) potential, that both families are
+equally legitimate, degenerate eigenstates of the exact Hamiltonian, sharing
+the same Balmer energies. The two families do differ, however, in how
+smoothly they approach zero at the origin: the odd-parity solutions have a
+continuous first derivative there, whereas the even-parity solutions do not
+[compare Fig.~\ref{fig:initial-wavefunction-1d-odd}(a) and
+Fig.~\ref{fig:initial-wavefunction-1d-even}(a)]. Because this study aims to
+assess the foundational behavior of the simulation algorithm using a
+limited number of qubits, we adopt the odd-parity solutions for the
+evaluation that follows; see the remark below for how this difference in
+smoothness translates into a difference in the wavenumber-space resolution
+required to represent the two families on a finite grid.
+
+The odd-parity solution for the quantum number $n \in \{1, 2, \dots\}$ is
+denoted by $\psi_n^{\mathrm{1D}}$ and defined as follows:
 
 \begin{equation}
 \psi_n^{\mathrm{1D}}(x)=\sqrt{\frac{2}{a_0^3n^5(n!)^2}}
@@ -155,32 +166,90 @@ The wave function $\psi_1^{\mathrm{1D}}$ for quantum number $n=1$ and its
 eigenvalue $E_1^{\mathrm{1D}}$ used for evaluation are as follows:
 
 \begin{align}
-\psi_1^{\mathrm{1D}}(x)&=\sqrt{2}e^{-\abs{x}} x
+\psi_1^{\mathrm{1D}}(x)&=\sqrt{2} x e^{-\abs{x}}
 \label{eq:psi1D1-wave-function}\\
 E_1^{\mathrm{1D}}&=-\frac{1}{2}
 \label{eq:psi1D1-energy}
 \end{align}
-
 The position and wavenumber representations of $\psi_1^{\mathrm{1D}}$ are shown
-in Fig. \ref{fig:initial-wavefunction-1d}.
+in Fig. \ref{fig:initial-wavefunction-1d-odd}.
+
+The odd-parity solution for the quantum number $n \in \{1, 2, \dots\}$ is
+denoted by $\psi_n^{\mathrm{1D}}$ and defined as follows:
+\begin{equation}
+\phi_n^{\mathrm{1D}}(x)=\sqrt{\frac{2}{a_0^3n^5(n!)^2}}
+\abs{x}\exp\left(-\frac{\abs{x}}{na_0}\right)L_n^1\left(\frac{2\abs{x}}{na_0}\right)
+\end{equation}
+The wave function $\phi_1^{\mathrm{1D}}$ for quantum number $n=1$ used for evaluation are as follows:
+
+\begin{align}
+\phi_1^{\mathrm{1D}}(x)&=\sqrt{2} \abs{x} e^{-\abs{x}}
+\label{eq:phi1D1-wave-function}
+\end{align}
+
+The position and wavenumber representations of $\phi_1^{\mathrm{1D}}$ are shown
+in Fig. \ref{fig:initial-wavefunction-1d-even}.
 
 \begin{figure}
     \centering
-    \includegraphics[width=8.5cm]{paper2025_figs/aip/analytic1D/t_00.000.png}
-    \caption{Example of the 1D model wave function $\PsiOneD_1$}
-    \label{fig:initial-wavefunction-1d}
+    \includegraphics[width=8.5cm]{paper2025_figs/aip/analytic1D/odd/t_00.000.png}
+    \caption{Example of the 1D model odd parity wave function $\PsiOneD_1$}
+    \label{fig:initial-wavefunction-1d-odd}
     \begin{flushleft}\small
 
-        Values of $\PsiOneD_1$ (Eq. \eqref{eq:psi1D1-wave-function}) at 6-bit
-        resolution. (A) Wave function amplitude in real-space. (B)
-        Wave function amplitude in k-space. (C) Logarithmic scale
+        Values of the odd parity wave function $\PsiOneD_1$ (Eq.
+        \eqref{eq:psi1D1-wave-function}) at 6-bit resolution. (a) Wave function
+        amplitude in real-space. (b) Wave function amplitude in k-space. (c)
+        Logarithmic scale representation of the amplitude in k-space.
+    \end{flushleft}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=8.5cm]{paper2025_figs/aip/analytic1D/even/t_00.000.png}
+    \caption{Example of the 1D model even parity wave function $\PhiOneD_1$}
+    \label{fig:initial-wavefunction-1d-even}
+    \begin{flushleft}\small
+
+        Values of the even parity wave function $\PhiOneD_1$ (Eq. \eqref{eq:phi1D1-wave-function}) at 6-bit
+        resolution. (a) Wave function amplitude in real-space. (b)
+        Wave function amplitude in k-space. (c) Logarithmic scale
         representation of the amplitude in k-space.
     \end{flushleft}
 \end{figure}
 
-For the 2D model, we use the analytical solution described by Parfitt
-\cite{Parfitt2002.10.1063/1.1503868}. This model restricts an electron moving
-under the Coulomb potential, $-1/\sqrt{x^2+y^2}$ to a 2D plane. The wave function
+This difference in smoothness at the origin is visible directly in the
+closed-form Fourier transforms of the $n=1$ wave functions used here:
+\begin{align}
+\tilde\psi_1^{\mathrm{1D}}(k) &\propto \frac{k}{(1+k^2)^2}
+\ \xrightarrow[k\to\infty]{}\ k^{-3},\\
+\tilde\phi_1^{\mathrm{1D}}(k) &\propto \frac{1-k^2}{(1+k^2)^2}
+\ \xrightarrow[k\to\infty]{}\ k^{-2}.
+\end{align}
+The even-parity amplitude falls off one power of $k$ more slowly than the
+odd-parity one, consistent with the heavier high-$k$ tail seen in
+Fig.~\ref{fig:initial-wavefunction-1d-even}(c) compared with
+Fig.~\ref{fig:initial-wavefunction-1d-odd}(c); a slower-decaying tail
+requires proportionally more of the available wavenumber range---and hence
+more qubits---to represent accurately on a finite grid.
+
+For the 2D model, we use the analytical solution described by Parfitt and
+Portnoi \cite{Parfitt2002.10.1063/1.1503868}. This model restricts the
+electron's motion to a 2D plane while retaining the full three-dimensional
+Coulomb potential, $-1/\sqrt{x^2+y^2}$, between the electron and the
+nucleus---not the logarithmic potential of genuine two-dimensional
+electrostatics, which would arise only if the electromagnetic field
+itself, and not merely the charge's motion, were confined to two
+dimensions. This quasi-two-dimensional setup is the standard model for
+excitons and hydrogenic impurities in semiconductor quantum wells, where
+carriers are confined to a plane by a strong perpendicular confining
+potential (e.g., a heterostructure band offset) while the Coulomb field
+between them, propagating through the surrounding three-dimensional
+medium, is unaffected by that confinement \cite{Parfitt2002.10.1063/1.1503868}.
+We adopt it here as a second, structurally distinct test case---alongside
+the 1D model---for the singularity-treatment and parameter-selection
+methodology developed in this work; it is not intended as a model of
+genuine 2D electrodynamics. The wave function
 has two quantum numbers, $n\in\{0,\ldots\}$ and $m\in\{-n,\ldots,0,\ldots,n\}$ as
 parameters, and is expressed as follows:
 
@@ -518,12 +587,17 @@ between the nucleus and electron from strictly reaching zero by shifting the
 coordinates of nuclei by a half-grid ($\deltar/2$) spacing 
 \cite{Chan2023.sciadv.abo7484}.
 
-Although method (b) is straightforward, the steep gradient of the potential near
-the pole tends to increase the Suzuki-Trotter decomposition error, prompting
-Chan et al. to apply post-processing corrections to their computational results.
-In contrast, to complete the process purely within the framework of quantum
-circuit computation, this study adopts approach (a), which approximates and
-regularizes the potential function.
+Although method (b) is straightforward, the steep gradient of the potential
+near the pole tends to increase the Suzuki-Trotter decomposition error for
+wave functions peaked at the singularity. Rather than modifying the
+potential itself, Chan et al. address this residual error with their
+``augmented split-operator'' (ASO) technique: a small additional quantum
+circuit, derived via singular value decomposition to locally correct the
+discrepancy between the ideal and Trotterized propagators (without
+requiring knowledge of the specific state being simulated), is appended to
+every Suzuki-Trotter time step \cite{Chan2023.sciadv.abo7484}. In contrast,
+this study adopts approach (a), which regularizes the potential function
+itself so that no such per-step correction circuit is required.
 
 In this section, we examine two techniques under approach (a). The first is the
 local average potential proposed in this study, which uses an effective
