@@ -54,7 +54,7 @@
 % on the title page in preprint mode.
 %\preprint{}
 
-\title{Time Evolution Simulation of a Hydrogen Atom Using Full Quantum Circuits}
+\title{Grid-Based Quantum Circuit Simulation of the Hydrogen Atom: Coulomb Singularity Regularization and Parameter-Selection Guidelines}
 
 \author{Hideo Takahashi}
 \email{hideo.takahashi.qa@hitachi.com}
@@ -87,31 +87,31 @@
 
 \begin{abstract}
 
-A quantum circuit for first-quantization-based Hamiltonian simulation, capable
-of operating on a small-scale quantum computer emulator with fewer than 30
-qubits, was constructed and demonstrated for one- and two-dimensional
-single-electron hydrogen atom models. (1) For small model sizes, Uniformly Controlled Rotation
-(UCR) circuits were found to be a preferable choice for calculating the Coulomb
-potential compared with conventional arithmetic gates in terms of qubit count
-and circuit depth. (2) As a guideline for obtaining optimal accuracy within the
-given resources, we established a method for handling the singularity (pole) of
-Coulomb potential and optimizing the discretization parameters. Regarding the
-singularity of Coulomb potential, we demonstrated that divergence could be
-avoided and errors minimized by determining an effective value of the potential
-function from a simple geometric average of the potential within a minute
-circular region centered on the pole. (3) We proposed a method to determine the
-optimal spatial grid spacing for a given number of qubits for coordinates, by
-evaluating the tradeoff between the spatial discretization error caused by grid
-coarseness and the domain truncation error caused by a finite domain range. For
-the time evolution step size, rather than relying on the formal Trotter error
-bound that assumes the worst-case scenario, we observed that sampling-theorem
-based bounds focusing on the maximum frequency component of the wave function
-are sufficient to achieve optimal accuracy while avoiding an unnecessary
-increase in the quantum circuit depth. While the circuit implementation
-demonstrated here is specific to the small-scale regime, the singularity
-treatment and the parameter-selection procedure address the grid
-discretization itself and therefore apply to grid-based first-quantization
-simulations generally.
+A quantum circuit for first-quantization-based Hamiltonian simulation,
+capable of operating on a small-scale quantum computer emulator with fewer
+than 30 qubits, was constructed and demonstrated for one- and
+two-dimensional single-electron hydrogen atom models, addressing three
+challenges: (1) circuit design for the Coulomb potential under qubit
+constraints, (2) mitigation of the Coulomb potential's singularity, and (3)
+selection of discretization parameters that minimize error. (1) For
+low-dimensional, small-scale models, Uniformly Controlled Rotation Z (UCRZ)
+circuits were found preferable for the Coulomb potential over conventional
+arithmetic gates, requiring fewer qubits and, for 1D/2D models at moderate
+resolution, fewer gates as well; this advantage does not extend to 3D,
+where arithmetic circuits become more gate-efficient. (2) For the Coulomb
+singularity, we propose determining an effective potential value from a
+geometric average of the potential within a minute circular region centered
+on the pole, avoiding divergence and minimizing the resulting energy error.
+(3) To select parameters minimizing error for a given number of qubits, we
+determine the optimal spatial grid spacing from the tradeoff between
+spatial discretization error and domain truncation error, and determine the
+time evolution step size not from the formal worst-case Trotter error bound
+but from a sampling-theorem-based bound on the wave function's maximum
+frequency component, sufficient for optimal accuracy without unnecessarily
+increasing circuit depth. While the circuit implementation (1) is specific
+to the small-scale regime, the singularity treatment (2) and
+parameter-selection procedure (3) address the grid discretization itself
+and apply to grid-based first-quantization simulations generally.
 
 \end{abstract}
 
