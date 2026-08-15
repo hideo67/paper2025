@@ -1,6 +1,6 @@
 \documentclass[aip-draft.tex]{subfiles}
 \begin{document}
-\section{Results and Discussions}
+\section{Results}
 In this section, we present the results of the numerical evaluation based on the
 method formulated in Sec. \ref{sec:method}. First, we present the evaluation results regarding
 the implementation forms of the proposed simulator circuit (arithmetic circuits
@@ -33,7 +33,7 @@ circuit. Figure \ref{subfig:potential-energy-circuit-1d-arith} shows the
 internal structure of $\Thetaep$ (the circuit for calculating $1/|x|$), which
 consumes the most resources among these.
 
-\begin{figure}
+\begin{figure*}
     \centering
     \includegraphics[width=0.8\textwidth]{paper2025_figs/arith1D/circuit_and_elec_motion.png}
     \caption{Simulator circuit of the 1D model using arithmetic operation gates}
@@ -48,7 +48,7 @@ consumes the most resources among these.
         circuit. The number of qubits in $\Thetaep$ (20 qubits) dictates the
         total number of qubits in the entire circuit.
     \end{flushleft}
-\end{figure}
+\end{figure*}
 
 \begin{figure}[ht]
     \centering
@@ -79,9 +79,9 @@ down to 13, and is no longer the determining factor for the total number of
 qubits in the overall circuit. In this configuration, the state preparation
 circuit, $\PsiSD$, for the wavefunction requires the most qubits.
 
-\begin{figure}[ht]
+\begin{figure*}[ht]
     \centering
-    \includegraphics[width=0.72\textwidth]{paper2025_figs/ucrz2D/circuit_and_elec_motion.png}
+    \includegraphics[width=0.75\textwidth]{paper2025_figs/ucrz2D/circuit_and_elec_motion.png}
     \caption{Simulator circuit of the 2D model with a coordinate resolution of 6 bits using UCRZ circuits}
     \label{fig:circuit-2d-ucrz}
     \begin{flushleft}\small
@@ -93,9 +93,8 @@ circuit, $\PsiSD$, for the wavefunction requires the most qubits.
         qubit, $target$, is changed according to the values of the input
         registers $xq0$ and $yq0$ (6 bits each, 12 bits in total).
     \end{flushleft}
-\end{figure}
+\end{figure*}
 
-\clearpage
 \subsubsection{Comparative Evaluation of Circuit Sizes}
 \label{subsec:circuit-size-evaluation-results}
 In the computing environment (emulator) used in this study, the realistic
@@ -125,9 +124,9 @@ Consequently, the UCRZ circuit is constructed from fewer gates for 1D models and
 2D models with 6 or fewer coordinate bits, but in 3D models, the arithmetic
 circuit requires fewer gates than the UCRZ circuit across all bit counts.
 
-\begin{figure}[ht]
+\begin{figure*}[ht]
     \centering
-    \includegraphics[width=15cm]{paper2025_figs/count_gates/hamiltonian-gatecount-revision2.png}
+    \includegraphics[width=0.8\textwidth]{paper2025_figs/count_gates/hamiltonian-gatecount-revision2.png}
     \caption{Circuit Size}
     \label{fig:hamiltonian-gatecount}
     \begin{flushleft}\small
@@ -145,7 +144,7 @@ circuit requires fewer gates than the UCRZ circuit across all bit counts.
     circuit increases exponentially with input bits, making the arithmetic
     circuit more advantageous in terms of gate counts in a 3D environment.
     \end{flushleft}
-\end{figure}
+\end{figure*}
 
 These evaluations showed that when actually running circuits on a quantum
 computer (or emulator), the optimal implementation method should be selected by
@@ -154,7 +153,7 @@ available number of qubits and gates. Table
 \ref{tab:emulator-circuit-configurations} summarizes the combinations of circuit
 configurations that were actually operable under this emulator environment.
 
-\begin{table}[ht]
+\begin{table*}[ht]
 \centering
 \caption{List of circuit configurations operable on the emulator}
 \begin{ruledtabular}\begin{tabular}{rcc}
@@ -165,7 +164,7 @@ configurations that were actually operable under this emulator environment.
     3 & Did not operate & Did not operate \\
 \end{tabular}\end{ruledtabular}
 \label{tab:emulator-circuit-configurations}
-\end{table}
+\end{table*}
 
 Under the conditions in Table \ref{tab:emulator-circuit-configurations}, by
 applying the Coulomb potential singularity treatment formulated in 
@@ -252,9 +251,9 @@ bits. This strongly supports the validity of the theoretical approximation in
 Sec. \ref{subsec:coulomb-potential-handling}, which derived $\reff = \deltar/4$
 from the consistency of the integral value in a minute region.
 
-\begin{figure}
+\begin{figure*}
     \centering
-    \includegraphics[width=0.95\columnwidth]{paper2025_figs/compare_energy/compare_energy_h2D_TO2_r0lim_combined.png}
+    \includegraphics[width=0.8\textwidth]{paper2025_figs/compare_energy/compare_energy_h2D_TO2_r0lim_combined.png}
     \caption{Changes in energy when varying $\reff$ in the approximated formula $\Hla(r)$}
     \label{fig:Ha1-vs-delta1}
     \begin{flushleft}\small
@@ -267,7 +266,7 @@ from the consistency of the integral value in a minute region.
         Results for state $\PsiTwoD_{1,0}$. Similarly, the value is the closest
         to the analytical solution $-0.2222$ at $a=4$.
     \end{flushleft}
-\end{figure}
+\end{figure*}
 
 \subsubsection{Evaluation of the Soft-Core Potential}
 \label{subsubsec:soft-core-potential-results}
@@ -290,9 +289,9 @@ calculated values. This result indicates that even when the soft-core potential
 is used for regularizing the singularity, the value $\Delta = \deltar/4$ derived
 from the local average potential functions as the optimal parameter.
 
-\begin{figure}[ht]
+\begin{figure*}[ht]
     \centering
-    \includegraphics[width=0.95\columnwidth]{paper2025_figs/compare_energy/compare_energy_h2D_TO2_rofs_combined.png}
+    \includegraphics[width=0.8\textwidth]{paper2025_figs/compare_energy/compare_energy_h2D_TO2_rofs_combined.png}
     \caption{Changes in energy when varying $\Delta$ in the approximated formula $\Hsc(r)$}
     \label{fig:Ha2-vs-delta2}
     \begin{flushleft}\small
@@ -306,8 +305,7 @@ from the local average potential functions as the optimal parameter.
         2\pi/|E_1|$ Similarly, the energy expectation value is the closest to the
         analytical solution $-0.2222$ at $a=4$.
     \end{flushleft}
-\end{figure}
-\clearpage
+\end{figure*}
 
 %%% discussions about the handling of the Coulomb potential singularity start here %%%
 
@@ -366,12 +364,13 @@ and the spatial average of the Coulomb potential $-1/r$ inside it is calculated.
 Assuming the volume of the sphere of radius $R = \deltar/2$ is $V =
 \frac{4}{3}\pi R^3$, the average potential inside the sphere is obtained
 analytically as follows.
-\begin{equation}
+\begin{align}
     \frac{1}{V} \int_{0}^{R} \left(-\frac{1}{r}\right) 4\pi r^2 dr 
-    = \frac{1}{\frac{4}{3}\pi R^3} \cdot 4\pi
-      \left[ -\frac{1}{2}r^2 \right]_{0}^{R} 
-    = -\frac{3}{2R} = -\frac{3}{\deltar}=-\frac{1}{\reff}
-\end{equation}
+    &= \frac{1}{\frac{4}{3}\pi R^3} \cdot 4\pi
+      \left[ -\frac{1}{2}r^2 \right]_{0}^{R} \\
+    &= -\frac{3}{2R} = -\frac{3}{\deltar}\\
+    &= -\frac{1}{\reff}
+\end{align}
 Therefore, the effective distance for avoiding divergence at the singularity in
 the 3D model is derived as $\reff = \deltar/3$.
 
@@ -445,9 +444,9 @@ confirms that the optimal range for appropriate $\deltar$ varies significantly
 depending on the difference in the target states (spatial spread and shape of
 the wavefunctions).
 
-\begin{figure}[ht]
+\begin{figure*}[ht]
     \centering
-    \includegraphics[width=\columnwidth]{paper2025_figs/dq_tradeoff/eval1d_2d.png}
+    \includegraphics[width=1\textwidth]{paper2025_figs/dq_tradeoff/eval1d_2d.png}
     \caption{Relationship between $|\Sd-S_1|$ and $S_2$ at several $\nb$}
     \label{fig:dq-tradeoff}
     \begin{flushleft}\small 
@@ -463,8 +462,7 @@ the wavefunctions).
         equilibrium, giving the optimal $\deltar$.
 
     \end{flushleft}
-\end{figure}
-\clearpage
+\end{figure*}
 
 \subsubsection{Effective Limit for Smaller Time Steps}
 \label{subsubsec:deltat-selection-results}
@@ -535,9 +533,9 @@ $\PsiTwoD_{0,0}$ and $0.113\simeq(1/8)^{1.04}$ for $\PsiTwoD_{1,0}$, which have
 cusps at the origin, and a factor of $0.0143\simeq(1/8)^{2.26}$ for
 $\PsiTwoD_{1,1}$, which is smooth at the origin, as the simulated results.
 
-\begin{figure}[ht]
+\begin{figure*}[ht]
     \centering
-    \includegraphics[width=\columnwidth]{paper2025_figs/sdt_error/trotter_err_00_10_t1.png}
+    \includegraphics[width=0.8\textwidth]{paper2025_figs/sdt_error/trotter_err_00_10_t1.png}
 
     \caption{The upper bound $\BN{\gamma}$ and observed value $\xiN{\gamma}$ of the error
     with respect to the number of divisions $\nT$ at the time evolution period $t=1.0$}
@@ -554,11 +552,11 @@ $\PsiTwoD_{1,1}$, which is smooth at the origin, as the simulated results.
         the number of divisions for the potential term and kinetic energy term
         from the sampling theorem.
     \end{flushleft}
-\end{figure}
+\end{figure*}
 
-\begin{figure}[ht]
+\begin{figure*}[ht]
     \centering
-    \includegraphics[width=\columnwidth]{paper2025_figs/sdt_error/trotter_err_11_t1.png}
+    \includegraphics[width=0.8\textwidth]{paper2025_figs/sdt_error/trotter_err_11_t1.png}
     \caption{The upper bound $\BN{\gamma}$ and observed value $\xiN{\gamma}$ of the
     error with respect to the number of divisions $\nT$ at the time evolution period
     $t=1.0$ (continued)}
@@ -570,7 +568,7 @@ $\PsiTwoD_{1,1}$, which is smooth at the origin, as the simulated results.
         in accuracy between the 1st- and 2nd-order Trotter decompositions is
         evident.
     \end{flushleft}
-\end{figure}
+\end{figure*}
 
 
 %%% discussions about the parameter selection for minimum error start here %%%
@@ -634,5 +632,13 @@ $\nb$.
 
 %%% discussions about the parameter selection for minimum error end here %%%
 
-\clearpage
+%% Only run the bibliography when this subfile is compiled standalone; when
+%% \subfile'd into aip-draft.tex, the master's own \bibliography{quantum}
+%% (called once, at the very end) handles it instead. Without this guard,
+%% REVTeX's automatic end-of-document bibliography hook fires twice (once
+%% from revtex4-2.cls, once from the aip4-2 substyle) whenever no explicit
+%% \bibliography command is present, producing a duplicate \bibdata entry
+%% that bibtex rejects with "Illegal, another \bibdata command".
+\ifSubfilesClassLoaded{\bibliography{quantum}}{}
+
 \end{document}

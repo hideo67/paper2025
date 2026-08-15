@@ -9,55 +9,49 @@ We derive the parameter $\reff$ in the approximated formula
 $\Hla(r)$ described in Sec. \ref{subsec:coulomb-potential-handling}.
 
 First, we derive Eq.~\eqref{eq:delta-1-0-0} for $\PsiTwoD_{0,0}$.
-The integral $W_{0,0}$ is given by
+Using Eq.\eqref{eq:psi2D00-wave-function-using-q0}, the integral $W_{0,0}$ is given by
 \begin{align}
   W_{0,0}
    &= \int_{\theta=0}^{2\pi}d\theta
       \int_{r=0}^{\deltar/2}
       \Hep(r)\abs{\PsiTwoD_{0,0}(r)}^2r dr\notag\\
-   &= 2\pi
-      \int_{r=0}^{\deltar/2}
-      (-1)\frac{1}{r}\left(\frac{q_0^3(0-\abs{0})!}{\pi(0+\abs{0})!}\right)
-      (2q_0r)^{2\abs{0}}\exp(-2q_0r)
-      \left[L_{0-\abs{0}}^{2\abs{0}}(2q_0r)\right]^2 r dr\notag\\
-   &= -2\pi\int_{r=0}^{\deltar/2}\frac{q_0^3}{\pi}\frac{1}{r}e^{-2q_0r}r\ dr=-2q_0^3
-      \left[-\frac{1}{2q_0}e^{-2q_0r}\right]_{0}^{\deltar/2}\notag\\
+   &= 2\pi \int_{r=0}^{\deltar/2}
+      (-1)\frac{1}{r} \left(\sqrt{\frac{q_0^3}{\pi}}e^{-q_0 r}\right)^2 r dr \notag\\
+   &= -2\pi\int_{r=0}^{\deltar/2}\frac{q_0^3}{\pi}\frac{1}{r}e^{-2q_0r} r dr \notag\\
+   &= -2q_0^3 \left[-\frac{1}{2q_0}e^{-2q_0r}\right]_{0}^{\deltar/2}\notag\\
    &=-q_0^2(-e^{-q_0\deltar}+1) .
 \end{align}
 
 $W_{0,0}^\prime$ is given by
 \begin{align}
     W_{0,0}^\prime
-    &=\pi\left(\frac{\deltar}{2}\right)^2
-       \Hla(0)\abs{\PsiTwoD_{0,0}(0)}^2\notag\\
-    &=\frac{\pi\deltar^2}{4}(-1)-\frac{1}{\reff}
-    \left(\frac{q_0^3(0-\abs{0})!}{\pi(0+\abs{0})!}\right)
-    (0)^{2\abs{0}}\exp(0)\left[L_{0-\abs{0}}^{2\abs{0}}(0)\right]^2\notag\\
-    &= -\frac{\pi\deltar^2q_0^3}{4\pi\reff}\notag\\
-    &= -\frac{\deltar^2q_0^3}{4\reff} .
+    &=\pi\left(\frac{\deltar}{2}\right)^2 \Hla(0)\abs{\PsiTwoD_{0,0}(0)}^2\notag\\
+    &=\frac{\pi\deltar^2}{4}\times(-1)\frac{1}{\reff} \left(\sqrt{\frac{q_0^3}{\pi}}e^{-q_0\times0}\right)^2 \notag\\
+    &= -\frac{q_0^3\deltar^2}{4\reff} .
 \end{align}
 
-Solving $W_{0,0}=W_{0,0}^\prime$ yields
+Solving $W_{0,0}=W_{0,0}^\prime$ , i.e., 
 \begin{equation}
--q_0^2\left(-e^{-q_0\deltar}+1\right)=-\frac{\deltar^2q_0^3}{4\reff}
+  -q_0^2(-e^{-q_0\deltar}+1) = -\frac{q_0^3\deltar^2}{4\reff},
 \end{equation}
+yields
 \begin{align}
-\reff&=\frac{\deltar^2q_0}{4\left(-e^{-q_0\deltar}+1\right)}\notag\\
-&\simeq\frac{\deltar^2q_0}{4\left(-(1-q_0\deltar)+1\right)}\notag\\
+\reff &= \frac{q_0\deltar^2}{4\left(-e^{-q_0\deltar}+1\right)}\notag\\
+      &\simeq \frac{q_0 \deltar^2}{4\left(-(1-q_0\deltar)+1\right)}\notag\\
 &=\frac{\deltar}{4} .
 \end{align}
 
 Next, we derive Eq.~\eqref{eq:delta-1-1-0} for $\PsiTwoD_{1,0}$.
-$W_{1,0}$ is given by
+Using Eq.~\eqref{eq:psi2D10-wave-function-using-q0}, $W_{1,0}$ is given by
 \begin{align}
   W_{1,0}
    &= \int_{\theta=0}^{2\pi}d\theta
       \int_{r=0}^{\deltar/2}\Hep(r)\abs{\PsiTwoD_{1,0}(r)}^2r dr\notag\\
    &= 2\pi\int_{r=0}^{\deltar/2}
-      (-1)\frac{1}{r}\left(\frac{q_0^3(1-\abs{0})!}{\pi(1+\abs{0})!}\right)
-      (2q_0r)^{2\abs{0}}\exp(-2q_0r)
-      \left[L_{1-\abs{0}}^{2\abs{0}}(2q_0r)\right]^2 r dr\notag\\
-   &= -2\pi\int_{r=0}^{\deltar/2}\frac{q_0^3}{\pi}e^{-2q_0r}(1-2q_0r)^2dr\notag\\
+      (-1)\frac{1}{r}
+      \left\{\sqrt{\frac{q_0^3}{\pi}}(1-2q_0 r)e^{-q_0 r}\right\}^2
+      r dr\notag\\
+   &= -2\pi\int_{r=0}^{\deltar/2}\frac{q_0^3}{\pi}(1-2q_0r)^2e^{-2q_0r}dr\notag\\
    &= -2q_0^3\left[\left(-\frac{1}{2q_0}-2q_0r^2\right)e^{-2q_0r}\right]_{0}^{\deltar/2} \notag\\
    &= -2q_0^3\left\{\left(-\frac{1}{2q_0}-\frac{q_0\deltar^2}{2}\right)e^{-q_0\deltar}+\frac{1}{2q_0}\right\}\notag\\
    &= q_0^2\left\{\left(1+q_0^2\deltar^2\right)e^{-q_0\deltar}-1\right\} .
@@ -68,22 +62,20 @@ $W_{1,0}^\prime$ is given by
     W_{1,0}^\prime
     &=\pi\left(\frac{\deltar}{2}\right)^2
          \Hla(0)\abs{\PsiTwoD_{1,0}(0)}^2\notag\\
-    &=\frac{\pi\deltar^2}{4}(-1)\frac{1}{\reff}
-    \left(\frac{q_0^3(1-\abs{0})!}{\pi(1+\abs{0})!}\right)
-    (0)^{2\abs{0}}\exp(0)\left[L_{1-\abs{0}}^{2\abs{0}}(0)\right]^2\notag\\
-    &= -\frac{\pi\deltar^2q_0^3}{4\pi\reff}\notag\\
-    &= -\frac{\deltar^2q_0^3}{4\reff} .
+    &=\frac{\pi\deltar^2}{4}\times(-1)\frac{1}{\reff}
+      \left\{\sqrt{\frac{q_0^3}{\pi}}(1-2q_0 \times 0)e^{-q_0 \times 0}\right\}^2\notag\\
+    &= -\frac{q_0^3\deltar^2}{4\reff} .
 \end{align}
 
-Solving $W_{1,0}=W_{1,0}^\prime$ yields $\reff$ as follows:
+Solving $W_{1,0}=W_{1,0}^\prime$, i.e.,
 \begin{equation}
-q_0^2\left\{\left(1+q_0^2\deltar^2\right)e^{-q_0\deltar}-1\right\}
-=-\frac{\deltar^2q_0^3}{4\reff}
+q_0^2\left\{\left(1+q_0^2\deltar^2\right)e^{-q_0\deltar}-1\right\} = -\frac{q_0^3\deltar^2}{4\reff},
 \end{equation}
+yields $\reff$ as follows:
 \begin{align}
-\reff&=-\frac{\deltar^2q_0}{4\left\{\left(1+q_0^2\deltar^2\right)e^{-q_0\deltar}-1\right\}}\notag\\
-&\simeq-\frac{\deltar^2q_0}{4\left\{\left(1+q_0^2\deltar^2\right)(1-q_0\deltar)-1\right\}}\notag\\
-&=-\frac{\deltar^2q_0}{4\left(1-q_0^2\deltar^2-q_0\deltar+q_0^3\deltar^3-1\right)}\notag\\
+\reff&=-\frac{q_0\deltar^2}{4\left\{\left(1+q_0^2\deltar^2\right)e^{-q_0\deltar}-1\right\}}\notag\\
+&\simeq-\frac{q_0\deltar^2}{4\left\{\left(1+q_0^2\deltar^2\right)(1-q_0\deltar)-1\right\}}\notag\\
+&=-\frac{q_0\deltar^2}{4\left(1-q_0^2\deltar^2-q_0\deltar+q_0^3\deltar^3-1\right)}\notag\\
 &=-\frac{\deltar}{4(-1+q_0\deltar-q_0^2\deltar^2)}\notag\\
 &\simeq\frac{\deltar}{4}
 \end{align}
@@ -111,7 +103,7 @@ simulations, and varying the effective distance in Fig.\ref{fig:Ha1-vs-delta1-3d
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.6\columnwidth]{paper2025_figs/compare_energy/compare_energy_h3D_TO2_r0lim_1_0_0.png}
+    \includegraphics[width=1\columnwidth]{paper2025_figs/compare_energy/compare_energy_h3D_TO2_r0lim_1_0_0.png}
     \caption{Changes in energy values when varying $\reff$ in the approximated formula $\Hla(r)$ for the 3D hydrogen atom model}
     \label{fig:Ha1-vs-delta1-3d}
     \begin{flushleft}\small
@@ -124,15 +116,14 @@ simulations, and varying the effective distance in Fig.\ref{fig:Ha1-vs-delta1-3d
     \end{flushleft}
 \end{figure}
 
-\clearpage
 \section{Error Evaluation for a Longer Period}
 \label{sec:appendix_error_evaluation_t30}
 Error evaluation for an extended time evolution period of $t=30$ a.u. is shown in Figs.\ref{fig:trotter-error-t30-part1} and
 \ref{fig:trotter-error-t30-part2}.
 
-\begin{figure}[ht]
+\begin{figure*}[ht]
     \centering
-    \includegraphics[width=\columnwidth]{paper2025_figs/sdt_error/trotter_err_00_10_t30.png}
+    \includegraphics[width=0.8\textwidth]{paper2025_figs/sdt_error/trotter_err_00_10_t30.png}
 
     \caption{Upper bound $\BN{\gamma}$ and observed value $\xiN{\gamma}$ of the error with respect to the number of divisions $\nT$ at time evolution period $t=30.0$}
     \label{fig:trotter-error-t30-part1}
@@ -142,11 +133,11 @@ Error evaluation for an extended time evolution period of $t=30$ a.u. is shown i
         model. The time evolution period is fixed at $t=30.0$.
     
     \end{flushleft}
-\end{figure}
+\end{figure*}
 
-\begin{figure}[ht]
+\begin{figure*}[ht]
     \centering
-    \includegraphics[width=\columnwidth]{paper2025_figs/sdt_error/trotter_err_11_t30.png}
+    \includegraphics[width=0.8\textwidth]{paper2025_figs/sdt_error/trotter_err_11_t30.png}
     \caption{Upper bound $\BN{\gamma}$ and observed value $\xiN{\gamma}$ of the
     error with respect to the number of divisions $\nT$ at time evolution period
     $t=30.0$ (continued)}
@@ -156,6 +147,15 @@ Error evaluation for an extended time evolution period of $t=30$ a.u. is shown i
         Evaluation results for the wavefunction $\PsiTwoD_{1,1}$ with azimuthal
         quantum number $m=1$.
     \end{flushleft}
-\end{figure}
+\end{figure*}
+
+%% Only run the bibliography when this subfile is compiled standalone; when
+%% \subfile'd into aip-draft.tex, the master's own \bibliography{quantum}
+%% (called once, at the very end) handles it instead. Without this guard,
+%% REVTeX's automatic end-of-document bibliography hook fires twice (once
+%% from revtex4-2.cls, once from the aip4-2 substyle) whenever no explicit
+%% \bibliography command is present, producing a duplicate \bibdata entry
+%% that bibtex rejects with "Illegal, another \bibdata command".
+\ifSubfilesClassLoaded{\bibliography{quantum}}{}
 
 \end{document}

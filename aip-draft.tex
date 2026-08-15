@@ -7,15 +7,13 @@
 % This is a template for producing documents for use with
 % the REVTEX 4.1 document class and the AIP substyles.
 %
-% Adapted from the AIP/REVTeX4-1 template to mirror the structure of
-% jctc-draft.tex (ACS submission of the same manuscript). Body sections,
-% appendix and macro definitions are kept in separate subfiles so that each
-% can also be compiled/spell-checked on its own via the subfiles package.
+% Adapted from the AIP/REVTeX4-1 template . Body sections, appendix and macro
+% definitions are kept in separate subfiles so that each can also be
+% compiled/spell-checked on its own via the subfiles package.
 %
-% quantum.bib and paper2025_figs/ are shared as-is with jctc-draft.tex
-% (referenced directly, not copied).
 
-\documentclass[aip,adv,draft,preprint]{revtex4-2}
+% \documentclass[aip,adv,draft,preprint]{revtex4-2}
+\documentclass[aip,adv,reprint]{revtex4-2}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Font setup
@@ -43,7 +41,7 @@
 \usepackage[final]{graphicx}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Split manuscript into subfiles, same layout as jctc-draft.tex
+%% Split manuscript into subfiles
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{subfiles}
 
@@ -235,12 +233,25 @@ demonstrated here to fully fault-tolerant implementations.
 \begin{acknowledgments}
 This research was partially supported by the UTokyo Quantum Initiative.
 \end{acknowledgments}
-
-\subfile{aip-draft_a_appendix.tex}
+\section*{Author Declarations}
+\subsection*{Conflict of Interest}
+The authors have no conflicts to disclose.
+\subsection*{Author Contributions}
+\textbf{Hideo Takahashi}: Conceptualization (lead); Methodology (lead); Software (lead);
+Formal analysis (lead); Investigation (lead); Data curation (lead); Visualization
+(lead); Writing -- original draft (lead); Writing -- review \& editing
+(supporting).
+\textbf{Fumitoshi Sato}: Conceptualization (supporting); Supervision (lead); Funding
+acquisition (lead); Writing -- review \& editing (supporting).
+\textbf{Tatsuya Tomaru}: Writing -- review \& editing (supporting).
+\textbf{Toshiyuki Hirano}: Writing -- review \& editing (supporting).
+\textbf{Saisei Tahara}: Writing -- review \& editing (supporting).
 
 \section*{Data Availability Statement}
 
 The data and source code underlying this study are openly available on GitHub at https://github.com/crsq-dev/report2026/releases.
+
+\subfile{aip-draft_a_appendix.tex}
 
 % Create the reference section using BibTeX (auto-selects aipnum4-2 for the adv substyle):
 \bibliography{quantum}

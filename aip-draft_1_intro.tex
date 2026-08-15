@@ -158,4 +158,13 @@ by balancing the tradeoff between the spatial discretization error and domain
 truncation error, and determine time parameters by considering the requirements
 of the sampling theorem alongside recent Trotter error evaluations.
 
+%% Only run the bibliography when this subfile is compiled standalone; when
+%% \subfile'd into aip-draft.tex, the master's own \bibliography{quantum}
+%% (called once, at the very end) handles it instead. Without this guard,
+%% REVTeX's automatic end-of-document bibliography hook fires twice (once
+%% from revtex4-2.cls, once from the aip4-2 substyle) whenever no explicit
+%% \bibliography command is present, producing a duplicate \bibdata entry
+%% that bibtex rejects with "Illegal, another \bibdata command".
+\ifSubfilesClassLoaded{\bibliography{quantum}}{}
+
 \end{document}

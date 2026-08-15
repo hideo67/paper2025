@@ -40,7 +40,7 @@ variables used from this section onwards are listed in Table
         \colrule
         $d$ & Spatial dimension \\
         $\nb$ & Number of qubits in the coordinate register \\
-        $L$ & Length in one dimension of the computational unit cell \\
+        $L$ & Length in one dimension of the simulated domain \\
         $\deltar$ & Grid spacing in real-space (position space) \\
         $\deltak$ & Grid spacing in k-space \\
         $\deltat$ & Time step for time evolution \\
@@ -166,7 +166,7 @@ in Fig. \ref{fig:initial-wavefunction-1d}.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.6\textwidth]{paper2025_figs/analytic1D/t_00.000.png}
+    \includegraphics[width=1\columnwidth]{paper2025_figs/aip/analytic1D/t_00.000.png}
     \caption{Example of the 1D model wave function $\PsiOneD_1$}
     \label{fig:initial-wavefunction-1d}
     \begin{flushleft}\small
@@ -185,9 +185,11 @@ has two quantum numbers, $n\in\{0,\ldots\}$ and $m\in\{-n,\ldots,0,\ldots,n\}$ a
 parameters, and is expressed as follows:
 
 \begin{equation}
-\psi_{n,\ m}^{\mathrm{2D}}(r,\ \theta)=
-\sqrt{\frac{q_0^3(n-\abs{m})!}{\pi(n+\abs{m})!}}(2q_0r)^{\abs{m}}
+\begin{aligned}
+&\psi_{n,\ m}^{\mathrm{2D}}(r,\ \theta)\\
+&=\sqrt{\frac{q_0^3(n-\abs{m})!}{\pi(n+\abs{m})!}}(2q_0r)^{\abs{m}}
 e^{-q_0r}L_{n-\abs{m}}^{2\abs{m}}(2q_0r)e^{im\theta}
+\end{aligned}
 \end{equation}
 where $q_0=1/(n+1/2)$. The energy eigenvalue is obtained using the quantum number $n$ as:
 \begin{equation}
@@ -195,47 +197,56 @@ E_n^{\mathrm{2D}}=-\frac{1}{2(n+1/2)^2}
 \end{equation}
 For evaluation, we use the ground state $\psi_{0,0}^{\mathrm{2D}}$ and the excited states $\psi_{1,0}^{\mathrm{2D}}$ and $\psi_{1,1}^{\mathrm{2D}}$. Their respective wave functions and eigenvalues are as follows:
 \begin{align}
-\psi_{0,0}^{\mathrm{2D}}(r,\theta)&=\sqrt{\frac{8}{\pi}}e^{-2r}
-\label{eq:psi2D00-wave-function}\\
-E_0^{\mathrm{2D}}&=-2
-\label{eq:psi2D00-energy}\\
-\psi_{1,0}^{\mathrm{2D}}(r,\theta)&=\sqrt{\frac{8}{27\pi}}(1-\frac{4}{3}r)e^{-\frac{2}{3}r} 
-\label{eq:psi2D10-wave-function}\\
-\psi_{1,1}^{\mathrm{2D}}(r,\theta)&=\frac{8}{9\sqrt{3\pi}}re^{-\frac{2}{3}r+i\theta}
-\label{eq:psi2D11-wave-function}\\
-E_1^{\mathrm{2D}}&=-\frac{2}{9}\simeq -0.2222
-\label{eq:psi2D10-energy}
+\psi_{0,0}^{\mathrm{2D}}(r,\theta)&=\sqrt{\frac{q_0^3}{\pi}}e^{-q_0 r} \label{eq:psi2D00-wave-function-using-q0}\\
+&=\sqrt{\frac{8}{\pi}}e^{-2r} \label{eq:psi2D00-wave-function}\\
+E_0^{\mathrm{2D}}&=-2 \label{eq:psi2D00-energy}\\
+\psi_{1,0}^{\mathrm{2D}}(r,\theta)&=\sqrt{\frac{q_0^3}{\pi}}(1-2q_0 r)e^{-q_0 r} \label{eq:psi2D10-wave-function-using-q0}\\
+&=\sqrt{\frac{8}{27\pi}}\left(1-\frac{4}{3}r\right)e^{-\frac{2}{3}r}  \label{eq:psi2D10-wave-function}\\
+\psi_{1,1}^{\mathrm{2D}}(r,\theta)&=\sqrt{\frac{q_0^3}{2\pi}}\times 2q_0 r e^{-q_0 r + i\theta} \label{eq:psi2D11-wave-function-using-q0}\\
+&=\frac{8}{9\sqrt{3\pi}}re^{-\frac{2}{3}r+i\theta} \label{eq:psi2D11-wave-function}\\
+E_1^{\mathrm{2D}}&=-\frac{2}{9}\simeq -0.2222 \label{eq:psi2D10-energy}
 \end{align}
 
 The position and wavenumber representations of these three states are shown in
-Fig. \ref{fig:initial-wavefunction-2d-00_10}(a), Fig.
-\ref{fig:initial-wavefunction-2d-00_10}(b), and
-Fig. \ref{subfig:initial-wavefunction-2d-1-1}, respectively.
+Fig. \ref{fig:initial-wavefunction-2d-00}, Fig.
+\ref{fig:initial-wavefunction-2d-10}, and
+Fig. \ref{subfig:initial-wavefunction-2d-11}, respectively.
 
 \begin{figure}
     \centering
-    \includegraphics[width=1\columnwidth]{paper2025_figs/classic2D/initial-wavefunction-2d-00_10.png}
-    \caption{Wave functions $\PsiTwoD_{0,0}$ and $\PsiTwoD_{1,0}$}
-    \label{fig:initial-wavefunction-2d-00_10}
+    \includegraphics[width=1\columnwidth]{paper2025_figs/classic2D/6b_n0_m0/t_00.000_3d-qp.png}
+    \caption{Wave function $\PsiTwoD_{0,0}$}
+    \label{fig:initial-wavefunction-2d-00}
     \begin{flushleft}\small 
 
         (a) Real part of the wave function in real-space for the ground state
         $\PsiTwoD_{0,0}$ with the principal quantum number $n=0$ and the
         azimuthal quantum number $m=0$ (Eq. \eqref{eq:psi2D00-wave-function}).
-        (b) Real part of the wave function in k-space for the same state. (c)
-        Real part of the wave function in real-space for the excited state
-        $\PsiTwoD_{1,0}$ with $n=1, m=0$ (Eq. \eqref{eq:psi2D10-wave-function}).
-        (d) Real part of the wave function in k-space for the same state. The
-        qubit count for coordinates $n_b=6$ for all graphs. Both (a) and (c)
-        have non-zero wave function values at the origin.
+        (b) Real part of the wave function in k-space for the same state.
+        The wave function value at the origin is non-zero.
     \end{flushleft}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.45\columnwidth]{paper2025_figs/classic2D/initial-wavefunction-2d-11.png}
+    \includegraphics[width=1\columnwidth]{paper2025_figs/classic2D/6b_n1_m0/t_00.000_3d-qp.png}
+    \caption{Wave function $\PsiTwoD_{1,0}$}
+    \label{fig:initial-wavefunction-2d-10}
+    \begin{flushleft}\small 
+
+        (a) Real part of the wave function in real-space for the excited state
+        $\PsiTwoD_{1,0}$ with $n=1, m=0$ (Eq. \eqref{eq:psi2D10-wave-function}).
+        (b) Real part of the wave function in k-space for the same state. The
+        qubit count for coordinates $n_b=6$.
+        The wave function value at the origin is non-zero.
+    \end{flushleft}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\columnwidth]{paper2025_figs/classic2D/6b_n1_m1/t_00.000_3d-qp.png}
     \caption{Wave function $\PsiTwoD_{1,1}$}
-    \label{subfig:initial-wavefunction-2d-1-1}
+    \label{subfig:initial-wavefunction-2d-11}
     \begin{flushleft}\small
 
         Excited state $\PsiTwoD_{1,1}$ with $n=1, m=1$ (Eq.
@@ -246,7 +257,6 @@ Fig. \ref{subfig:initial-wavefunction-2d-1-1}, respectively.
     \end{flushleft}
 \end{figure}
 
-\clearpage
 \subsubsection{Use of a Quantum Computer Emulator}
 In this study, we execute quantum circuits using a quantum computer emulator on
 a classical computer rather than actual quantum hardware. Specifically, we
@@ -290,7 +300,7 @@ actually executed on the emulator are shown in Table
 The computer hardware and software used for the simulation calculations are
 shown in Table \ref{tab:computing-environment}.
 
-\begin{table}[ht]
+\begin{table*}[ht]
     \centering
     \caption{Computing environment}
     \begin{ruledtabular}\begin{tabular}{ll}
@@ -304,7 +314,7 @@ shown in Table \ref{tab:computing-environment}.
         Quantum Chemistry Simulator Software & Chemical Reaction Simulator Q (crsQ) \cite{website:crsq}
     \end{tabular}\end{ruledtabular}
     \label{tab:computing-environment}
-\end{table}
+\end{table*}
 
 \subsection{Design of Potential Calculation Circuits that Fit on an Emulator}
 \label{subsec:design-of-potential-calculation}
@@ -358,7 +368,7 @@ arithmetic circuits \cite{Zalka-rspa.1998.0162}.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.4\columnwidth]{paper2025_figs/quantikz/arith.png}
+    \includegraphics[width=0.8\columnwidth]{paper2025_figs/quantikz/arith.png}
 
     \caption{Example of the Coulomb potential term circuit $\Thetaep$ in a 3-electron system}
     \label{fig:theta-ep-multi-electron}
@@ -388,8 +398,6 @@ in small-scale emulator environments where only a few dozen qubits are
 available, even this constant number of ancilla qubits occupies an extremely
 large proportion of the entire circuit, becoming a factor that severely limits
 the simulable model size.
-
-\clearpage
 
 \subsubsection{Implementation Using UCRZ Gates}
 \label{subsubsec:implementation-using-ucrz-gates}
@@ -422,9 +430,9 @@ The action of a UCR circuit is generally described as follows:
     \ket{b}\ket{t} \mapsto \ket{b} R_{\mathrm{a}}(\theta_{\mathrm{b}})\ket{t}
 \end{equation}
 
-\begin{figure}[ht]
+\begin{figure*}[ht]
     \centering
-    \includegraphics[width=0.8\columnwidth]{paper2025_figs/quantikz/ucrz.png}
+    \includegraphics[width=0.8\textwidth]{paper2025_figs/quantikz/ucrz.png}
     \caption{Example of a 3-bit input UCRZ circuit}
     \label{fig:ucrz-n3}
     \begin{flushleft}\small
@@ -439,7 +447,7 @@ The action of a UCR circuit is generally described as follows:
     one.
 
 \end{flushleft}
-\end{figure}
+\end{figure*}
 
 An $n$-bit input UCRZ circuit has a structure where the CX gates and Rz gates
 applied to the target qubit are arranged alternately $2^n$ times. An example of
@@ -454,14 +462,14 @@ $\mathrm{X}\mathrm{R_z}(\theta)\mathrm{X} = \mathrm{R_z}(-\theta)$ is applied to
 the Rz gates flanked by this CX gate, thus reversing the sign of the rotation angle.
 This is represented in matrix form as follows:
 
-\begin{equation}
-    \mathrm{X}\mathrm{R_z}(\theta)\mathrm{X} = 
-    \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
+\begin{align}
+    \mathrm{X}\mathrm{R_z}(\theta)\mathrm{X}
+    &= \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
     \begin{pmatrix} e^{-i\theta/2} & 0 \\ 0 & e^{i\theta/2} \end{pmatrix}
-    \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
-    = \begin{pmatrix} e^{i\theta/2} & 0 \\ 0 & e^{-i\theta/2} \end{pmatrix}
+    \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} \notag\\
+    &= \begin{pmatrix} e^{i\theta/2} & 0 \\ 0 & e^{-i\theta/2} \end{pmatrix}
     = \mathrm{R_z}(-\theta)
-\end{equation}
+\end{align}
 
 Because each bit of the input register $b$ is connected to the control bit of
 the CX gates, the combination of Rz gates whose signs are inverted changes
@@ -507,7 +515,7 @@ two categories: (a) methods that introduce approximation or regularization into
 the potential function itself to prevent divergence even when the inter-particle
 distance becomes zero; and (b) methods that mathematically prevent the distance
 between the nucleus and electron from strictly reaching zero by shifting the
-coordinates of nuclei by a half-grid spacing ($\deltar/2$)
+coordinates of nuclei by a half-grid ($\deltar/2$) spacing 
 \cite{Chan2023.sciadv.abo7484}.
 
 Although method (b) is straightforward, the steep gradient of the potential near
@@ -585,11 +593,11 @@ Solving for states $(n,m)=(0,0)$ and $(1,0)$ so that these values match
 ($W_{n,m}=W_{n,m}^\prime$) yields the following:
 
 \begin{align}
-    \reffnm{0,0} &=\frac{q_0\deltar^2}{4(-e^{-q_0\deltar}+1)}
-    \simeq \frac{q_0\deltar^2}{4(-1+q_0\deltar+1)}=\frac{\deltar}{4}
+    \reffnm{0,0} &=\frac{q_0\deltar^2}{4(-e^{-q_0\deltar}+1)}\\
+    &\simeq \frac{q_0\deltar^2}{4(-1+q_0\deltar+1)}=\frac{\deltar}{4}
     \label{eq:delta-1-0-0}\\
-    \reffnm{1,0} &=\frac{q_0\deltar^2}{4((-1-q_0^2\deltar^2)e^{-q_0\deltar}+1)}
-    \simeq \frac{q_0\deltar^2}{4((-1-q_0^2\deltar^2)(1-q_0\deltar)+1)}
+    \reffnm{1,0} &=\frac{q_0\deltar^2}{4((-1-q_0^2\deltar^2)e^{-q_0\deltar}+1)}\\
+    &\simeq \frac{q_0\deltar^2}{4((-1-q_0^2\deltar^2)(1-q_0\deltar)+1)}
     \simeq\frac{\deltar}{4}
     \label{eq:delta-1-1-0}
 \end{align}
@@ -873,11 +881,11 @@ $\reff=\Delta=\deltar/4$ as described in sections
 \ref{subsubsec:formulation-of-local-average-potential} and
 \ref{subsubsec:deciding-offset-of-soft-core-potential}:
 
-\begin{equation}
+\begin{align}
 \max_{j}\abs{\HlaTwoD(\chij)\deltat/\hbar}
-  = \max_{j}\abs{\HscTwoD(\chij)\deltat/\hbar}
-  = \frac{4\deltat}{\deltar\hbar} < \pi
-\end{equation}
+  &= \max_{j}\abs{\HscTwoD(\chij)\deltat/\hbar}\\
+  &= \frac{4\deltat}{\deltar\hbar} < \pi
+\end{align}
 
 From this, the potential-derived upper limit of $\deltat$ in 2D is obtained as
 follows:
@@ -930,11 +938,11 @@ the error $\xiN{1}(t;\phi)$ when evolved for time $t$ using the first-order
 Suzuki-Trotter decomposition is bound for an arbitrary constant
 $g\in\mathbb{R}$ as follows \cite{Burgarth2024.PhysRevResearch.6.043155}:
 
-\begin{equation}
-    \xiN{1}(t;\phi)=\left\|\left[\SN{1}(t)-e^{-it(H_1+H_2)/\hbar}\right]\phi\right\|
-    \leq\frac{t^2}{2N}\| \left(\|(H_1-g)^2\phi\|+\|(H_2-h+g)^2\phi\|\right)
+\begin{align}
+    \xiN{1}(t;\phi) &= \left\|\left[\SN{1}(t)-e^{-it(H_1+H_2)/\hbar}\right]\phi\right\| \\
+    &\leq \frac{t^2}{2N}\| \left(\|(H_1-g)^2\phi\|+\|(H_2-h+g)^2\phi\|\right)
     \label{eq:observed-trotter-error-1st}
-\end{equation}
+\end{align}
 
 Here, $\SN{1}(t) = \left(e^{-i{tH}_1/N}e^{-itH_2/N}\right)^N$ is the first-order
 time evolution operator. The minimum value of the right side of Eq.
@@ -954,6 +962,7 @@ $O(t^2 N^{-1/4})$ \cite{Burgarth2024.PhysRevResearch.6.043155}).
 Similarly, the error when using the second-order Suzuki-Trotter decomposition is
 expressed using $H_1(g) = H_1-g$ and $H_2(g) = H_2-h+g$ by the following equation:
 
+\begin{widetext}
 \begin{equation}
   \xiN{2}(t;\phi)\leq\frac{t^3}{N^2}\left(\frac{1}{24}\|H_1(g)^3\phi\| + \frac{1}{8}\|H_2(g)H_1(g)^2\phi\|
   +\frac{1}{12}\|H_2(g)^3\phi\|\right)
@@ -967,6 +976,7 @@ The minimum value $\BN{2}$ of the right side of this equation is given as follow
   +\frac{1}{12}\|H_2(g)^3\phi\|\right)
 \label{eq:observed-trotter-error-bound-2nd}
 \end{equation}
+\end{widetext}
 
 In regions where the Trotter error $\errtrotter$ is dominant among the total
 error (Eq. \eqref{eq:error-total-decomposition}), increasing the number of
@@ -984,5 +994,14 @@ desirable to adopt the largest possible value for $\deltat$ (smallest $N$).
 Therefore, the strategy to determine the optimal parameter in this method is to
 adopt the minimum number of divisions within the range that minimizes the
 overall error, by assessing the balance between error components.
+
+%% Only run the bibliography when this subfile is compiled standalone; when
+%% \subfile'd into aip-draft.tex, the master's own \bibliography{quantum}
+%% (called once, at the very end) handles it instead. Without this guard,
+%% REVTeX's automatic end-of-document bibliography hook fires twice (once
+%% from revtex4-2.cls, once from the aip4-2 substyle) whenever no explicit
+%% \bibliography command is present, producing a duplicate \bibdata entry
+%% that bibtex rejects with "Illegal, another \bibdata command".
+\ifSubfilesClassLoaded{\bibliography{quantum}}{}
 
 \end{document}
