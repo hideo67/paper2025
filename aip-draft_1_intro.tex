@@ -67,15 +67,19 @@ computational results.
 
 We emphasize at the outset that the system studied here is a single
 electron in one- and two-dimensional hydrogen atom models with a fixed
-nucleus. This choice is deliberate rather than incidental: because these
-models admit exact analytical solutions, they allow the accuracy of the
-singularity treatment and of the discretization parameters to be assessed
-against a known reference, without the confounding effects of electron
-correlation. The present work is accordingly a proof of principle for the
-circuit construction, and---more durably---for a discretization
-methodology that is not tied to the particular circuit used here.
-Multi-electron simulations and execution on physical hardware are outside
-its scope. Within this scope, we address the following three challenges.
+nucleus. This restriction is primarily practical: a full multi-electron
+circuit, including antisymmetrized initial-state preparation, exceeds the
+qubit and gate-count budget of the near-term emulators and hardware used
+here. Restricting to the single-electron case has the additional benefit
+that, because these models admit exact analytical solutions, the accuracy
+of the singularity treatment and of the discretization parameters can be
+assessed against a known reference, without the confounding effects of
+electron correlation. The present work is accordingly a proof of
+principle for the circuit construction, and---more durably---for a
+discretization methodology that is not tied to the particular circuit
+used here. Multi-electron simulations and execution on physical hardware
+are outside its scope. Within this scope, we address the following three
+challenges.
 
 The first challenge is to present a circuit configuration that can operate on an
 emulator with a limited number of qubits. In this study, we simplify the

@@ -13,7 +13,7 @@
 %
 
 \documentclass[aip,adv,reprint]{revtex4-2}
-%\documentclass[aip,adv,draft,preprint]{revtex4-2}
+% \documentclass[aip,adv,draft,preprint]{revtex4-2}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Font setup
@@ -204,8 +204,8 @@ the even-parity states---including the singular ground state---if still
 needed, is left for future work.
 
 Regarding circuit implementation, the UCRZ-based approach is best
-understood as a design well suited to pedagogical, small-scale systems:
-within this study it clearly outperformed arithmetic circuits in qubit
+understood as a design well suited to small-scale, qubit-constrained
+systems: within this study it clearly outperformed arithmetic circuits in qubit
 count for the 1D and 2D models, but that advantage is lost once the
 dimensionality increases to 3D
 (Sec.~\ref{subsec:circuit-size-evaluation-results}, Fig.~\ref{fig:hamiltonian-gatecount}),
@@ -213,7 +213,7 @@ because the number of controlled rotations scales exponentially with the
 size of the coordinate register. Further optimization of the UCRZ
 decomposition itself is unlikely to resolve this scaling behavior.
 Consistent with prior large-scale first-quantization proposals, scaling
-beyond the pedagogical regime studied here is understood to require a
+beyond the regime studied here is understood to require a
 qualitatively different toolkit: e.g., a QROM-based potential evaluation
 combined with a Newton--Raphson-type iterative inversion of the Coulomb
 kernel, together with time evolution via quantum signal processing (QSP)
@@ -222,7 +222,7 @@ qubit count for asymptotically lower gate (T-)cost and circuit depth than
 the arithmetic- or UCRZ-based Trotter approach considered here
 \cite{YuanSu.PRXQuantum.2.040332, eklund2026.arXiv2603.19007}. The present
 work should therefore be read as establishing an accurate, resource-light
-baseline and parameter-selection methodology for this pedagogical regime,
+baseline and parameter-selection methodology for this small-scale regime,
 rather than as a stepping stone toward scaling the UCRZ circuit itself.
 
 It should be emphasized, however, that this scaling limitation is specific
