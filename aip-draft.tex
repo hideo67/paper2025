@@ -164,22 +164,22 @@ quantum circuit depth.
 
 \subsection{Limitations and Outlook}
 
-The scope of the present study was intentionally restricted to a
-single-electron hydrogen atom in one and two spatial dimensions, in order
-to validate the singularity-handling and parameter-optimization
+The scope of the present study was restricted to a single-electron
+hydrogen atom in one and two spatial dimensions. This restriction was
+primarily practical: a full multi-electron circuit construction,
+including antisymmetrized (Slater-determinant-based) initial-state
+preparation, was already demonstrated in our previous work
+\cite{takahashi2024.doi:10.1021/acs.jctc.4c00708}, but even at modest
+system sizes its qubit and gate-count requirements exceed what is
+tractable on the near-term emulators and hardware used here. Confining
+the analysis to the single-electron case had the additional benefit of
+validating the singularity-handling and parameter-optimization
 methodologies proposed here without the confounding effects of
-electron-electron interaction and correlation that arise in multi-electron
-systems. A full multi-electron circuit construction, including
-antisymmetrized (Slater-determinant-based) initial-state preparation, has
-already been demonstrated in our previous work
-\cite{takahashi2024.doi:10.1021/acs.jctc.4c00708}; the outstanding
-challenge is therefore not the construction of such circuits per se, but
-reducing their qubit and gate-count requirements to a range that is
-tractable on near-term emulators and hardware. Extending the methodology
-established here to that qubit-efficient multi-electron setting is an
+electron-electron interaction and correlation. Extending the methodology
+established here to a qubit-efficient multi-electron setting is an
 important direction for future work.
 
-Similarly, for the 1D model we restricted our evaluation to the
+Similarly, for the 1D model our evaluation was restricted to the
 odd-parity eigenstates. As discussed in Sec.~\ref{subsec:simulator-model},
 the $n=0$ ground state is not amenable to a finite-grid representation at
 all---its wave function is the singular limit $|\psi|^2=\delta(x)$ with
@@ -189,11 +189,19 @@ Balmer energies as their odd-parity counterparts
 \cite{Loudon1959.10.1119/1.1934950}; however, their first derivative is
 discontinuous at the origin, unlike the odd-parity states used here, giving
 their momentum-space amplitude a $1/k^2$ tail instead of a $1/k^3$ tail
-(Sec.~\ref{subsec:simulator-model}). This heavier tail is intrinsically
-harder to represent within the finite wavenumber range of a fixed-qubit
-grid. Extending the present singularity-treatment and parameter-selection
-methodology to these even-parity states, including the singular ground
-state, is left for future work.
+(Sec.~\ref{subsec:simulator-model}). In practice, we were unable to obtain
+an accurate time evolution for the even-parity states at the qubit counts
+(up to 6 qubits per spatial dimension) explored in this work. We suspect
+this reflects the heavier tail, which requires a wider momentum
+range---and hence more qubits---to resolve than the odd-parity states
+need; however, we have not determined the minimum qubit count required to
+represent an even-parity wave function accurately, so it is not yet
+established whether the difficulty is a fundamental limitation of the
+present methodology or simply an insufficient-resolution artifact that a
+larger qubit count would resolve. Settling this question, and extending
+the present singularity-treatment and parameter-selection methodology to
+the even-parity states---including the singular ground state---if still
+needed, is left for future work.
 
 Regarding circuit implementation, the UCRZ-based approach is best
 understood as a design well suited to pedagogical, small-scale systems:
@@ -202,17 +210,16 @@ count for the 1D and 2D models, but that advantage is lost once the
 dimensionality increases to 3D
 (Sec.~\ref{subsec:circuit-size-evaluation-results}, Fig.~\ref{fig:hamiltonian-gatecount}),
 because the number of controlled rotations scales exponentially with the
-size of the coordinate register. This is not primarily a matter that
-further optimization of the UCRZ decomposition itself can be expected to
-resolve; scaling beyond the pedagogical regime studied here is
-understood, consistent with prior large-scale first-quantization
-proposals, to require a qualitatively different toolkit---e.g. a QROM-based
-potential evaluation combined with a Newton-Raphson-type iterative
-inversion of the Coulomb kernel, together with time evolution via quantum
-signal processing (QSP) rather than Trotterization---at the cost of a
-substantially larger qubit count, in exchange for asymptotically lower
-gate (T-)cost and circuit depth than the arithmetic- or UCRZ-based
-Trotter approach considered here
+size of the coordinate register. Further optimization of the UCRZ
+decomposition itself is unlikely to resolve this scaling behavior.
+Consistent with prior large-scale first-quantization proposals, scaling
+beyond the pedagogical regime studied here is understood to require a
+qualitatively different toolkit: e.g., a QROM-based potential evaluation
+combined with a Newton--Raphson-type iterative inversion of the Coulomb
+kernel, together with time evolution via quantum signal processing (QSP)
+rather than Trotterization. This approach trades a substantially larger
+qubit count for asymptotically lower gate (T-)cost and circuit depth than
+the arithmetic- or UCRZ-based Trotter approach considered here
 \cite{YuanSu.PRXQuantum.2.040332, eklund2026.arXiv2603.19007}. The present
 work should therefore be read as establishing an accurate, resource-light
 baseline and parameter-selection methodology for this pedagogical regime,
