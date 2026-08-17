@@ -87,31 +87,30 @@
 
 \begin{abstract}
 
-A quantum circuit for first-quantization-based Hamiltonian simulation,
-capable of operating on a small-scale quantum computer emulator with fewer
-than 30 qubits, was constructed and demonstrated for one- and
-two-dimensional single-electron hydrogen atom models, addressing three
-challenges: (1) circuit design for the Coulomb potential under qubit
-constraints, (2) mitigation of the Coulomb potential's singularity, and (3)
-selection of discretization parameters that minimize error. (1) For
-low-dimensional, small-scale models, Uniformly Controlled Rotation Z (UCRZ)
-circuits were found preferable for the Coulomb potential over conventional
-arithmetic gates, requiring fewer qubits and, for 1D/2D models at moderate
-resolution, fewer gates as well; this advantage does not extend to 3D,
-where arithmetic circuits become more gate-efficient. (2) For the Coulomb
-singularity, we propose determining an effective potential value from a
-geometric average of the potential within a minute circular region centered
-on the pole, avoiding divergence and minimizing the resulting energy error.
-(3) To select parameters minimizing error for a given number of qubits, we
-determine the optimal spatial grid spacing from the tradeoff between
-spatial discretization error and domain truncation error, and determine the
-time evolution step size not from the formal worst-case Trotter error bound
-but from a sampling-theorem-based bound on the wave function's maximum
-frequency component, sufficient for optimal accuracy without unnecessarily
-increasing circuit depth. While the circuit implementation (1) is specific
-to the small-scale regime, the singularity treatment (2) and
-parameter-selection procedure (3) address the grid discretization itself
-and apply to grid-based first-quantization simulations generally.
+A quantum circuit for first-quantization-based Hamiltonian simulation, capable
+of running on a small-scale quantum computer emulator with fewer than 30
+qubits, was constructed and demonstrated for one- and two-dimensional hydrogen
+atom models, without the confounding effects of electron-electron interaction
+and correlation. Three challenges were addressed: (1) circuit design for the
+Coulomb potential under qubit constraints, (2) mitigation of the Coulomb
+potential's singularity, and (3) selection of discretization parameters that
+minimize error. (1) For low-dimensional, small-scale models, Uniformly
+Controlled Rotation Z (UCRZ) circuits were found preferable to conventional
+arithmetic gates for the Coulomb potential, requiring fewer qubits and, at
+moderate resolution, fewer gates in 1D/2D as well, though not in 3D, where
+arithmetic circuits are more gate-efficient. (2) For the Coulomb singularity,
+we propose regularizing it via a geometric average of the potential over a
+small circular region around the pole, avoiding divergence and minimizing the
+resulting energy error. (3) To select parameters minimizing error for a given
+number of qubits, we determine the optimal spatial grid spacing from the
+tradeoff between spatial discretization error and domain truncation error, and
+determine the time evolution step size not from the formal worst-case Trotter
+error bound but from a sampling-theorem-based bound on the wave function's
+maximum frequency component, avoiding unnecessary circuit depth without
+sacrificing accuracy. While the circuit implementation (1) is specific to the
+small-scale regime, the singularity treatment (2) and parameter-selection
+procedure (3) address the grid discretization itself and apply broadly to
+grid-based first-quantization simulations.
 
 \end{abstract}
 
@@ -166,7 +165,7 @@ quantum circuit depth.
 
 The scope of the present study was restricted to a single-electron
 hydrogen atom in one and two spatial dimensions. This restriction was
-primarily practical: a full multi-electron circuit construction,
+primarily practical: a full multielectron circuit construction,
 including antisymmetrized (Slater-determinant-based) initial-state
 preparation, was already demonstrated in our previous work
 \cite{takahashi2024.doi:10.1021/acs.jctc.4c00708}, but even at modest
@@ -176,7 +175,7 @@ the analysis to the single-electron case had the additional benefit of
 validating the singularity-handling and parameter-optimization
 methodologies proposed here without the confounding effects of
 electron-electron interaction and correlation. Extending the methodology
-established here to a qubit-efficient multi-electron setting is an
+established here to a qubit-efficient multielectron setting is an
 important direction for future work.
 
 Similarly, for the 1D model our evaluation was restricted to the
@@ -184,17 +183,17 @@ odd-parity eigenstates. As discussed in Sec.~\ref{subsec:simulator-model},
 the $n=0$ ground state is not amenable to a finite-grid representation at
 all---its wave function is the singular limit $|\psi|^2=\delta(x)$ with
 divergent binding energy. The $n>0$ even-parity states are, per Loudon's
-analysis, equally legitimate, degenerate eigenstates sharing the same
+analysis, equally valid, degenerate eigenstates sharing the same
 Balmer energies as their odd-parity counterparts
 \cite{Loudon1959.10.1119/1.1934950}; however, their first derivative is
 discontinuous at the origin, unlike the odd-parity states used here, giving
 their momentum-space amplitude a $1/k^2$ tail instead of a $1/k^3$ tail
 (Sec.~\ref{subsec:simulator-model}). In practice, we were unable to obtain
 an accurate time evolution for the even-parity states at the qubit counts
-(up to 6 qubits per spatial dimension) explored in this work. We suspect
-this reflects the heavier tail, which requires a wider momentum
-range---and hence more qubits---to resolve than the odd-parity states
-need; however, we have not determined the minimum qubit count required to
+(up to 6 qubits per spatial dimension) explored in this work. We attribute
+this to the heavier tail, which requires a wider momentum range---and
+hence more qubits---to resolve than the odd-parity states need; however,
+we have not determined the minimum qubit count required to
 represent an even-parity wave function accurately, so it is not yet
 established whether the difficulty is a fundamental limitation of the
 present methodology or simply an insufficient-resolution artifact that a

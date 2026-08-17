@@ -8,3 +8,5 @@ Eigensolver
 wavefunction
 UCRZ
 Benenti
+eigenstates
+Balmer
