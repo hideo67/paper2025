@@ -7,38 +7,44 @@
 % This is a template for producing documents for use with
 % the REVTEX 4.1 document class and the AIP substyles.
 %
-% Adapted from the AIP/REVTeX4-1 template . Body sections, appendix and macro
-% definitions are kept in separate subfiles so that each can also be
-% compiled/spell-checked on its own via the subfiles package.
 %
 
-\documentclass[aip,adv,reprint]{revtex4-2}
-% \documentclass[aip,adv,draft,preprint]{revtex4-2}
+\documentclass[aip, adv, amsmath, amssymb, reprint]{revtex4-1}
+
+\usepackage{graphicx}% Include figure files
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+%\usepackage[mathlines]{lineno}% Enable numbering of text and display math
+%\linenumbers\relax % Commence numbering lines
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{etoolbox}
+
+%% Apr 2021: AIP requests that the corresponding 
+%% email to be moved after the affiliations
+\makeatletter
+\def\@email#1#2{%
+ \endgroup
+ \patchcmd{\titleblock@produce}
+  {\frontmatter@RRAPformat}
+  {\frontmatter@RRAPformat{\produce@RRAP{*#1\href{mailto:#2}{#2}}}\frontmatter@RRAPformat}
+  {}{}
+}%
+\makeatother
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Font setup
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
+%\usepackage[T1]{fontenc}
+%\usepackage{lmodern}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Math support
-%% (revtex4-1 only loads amsmath/amssymb if given as class options, so
-%% pull them in explicitly here instead)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{amsmath, amssymb}
 \usepackage{braket}
 \usepackage{bm}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Graphic inclusion
-%% (the "graphicx" class option above only tells revtex4-1 which driver
-%% to assume; it does not actually load the graphicx package.
-%% [final] is needed because the "draft" class option is otherwise
-%% forwarded to graphicx too, which would replace every figure with an
-%% empty placeholder box instead of actually showing the image.)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[final]{graphicx}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Split manuscript into subfiles
@@ -88,29 +94,28 @@
 \begin{abstract}
 
 A quantum circuit for first-quantization-based Hamiltonian simulation, capable
-of running on a small-scale quantum computer emulator with fewer than 30
-qubits, was constructed and demonstrated for one- and two-dimensional hydrogen
-atom models, without the confounding effects of electron-electron interaction
-and correlation. Three challenges were addressed: (1) circuit design for the
-Coulomb potential under qubit constraints, (2) mitigation of the Coulomb
-potential's singularity, and (3) selection of discretization parameters that
-minimize error. (1) For low-dimensional, small-scale models, Uniformly
-Controlled Rotation Z (UCRZ) circuits were found preferable to conventional
-arithmetic gates for the Coulomb potential, requiring fewer qubits and, at
-moderate resolution, fewer gates in 1D/2D as well, though not in 3D, where
-arithmetic circuits are more gate-efficient. (2) For the Coulomb singularity,
-we propose regularizing it via a geometric average of the potential over a
-small circular region around the pole, avoiding divergence and minimizing the
-resulting energy error. (3) To select parameters minimizing error for a given
-number of qubits, we determine the optimal spatial grid spacing from the
-tradeoff between spatial discretization error and domain truncation error, and
-determine the time evolution step size not from the formal worst-case Trotter
-error bound but from a sampling-theorem-based bound on the wave function's
-maximum frequency component, avoiding unnecessary circuit depth without
-sacrificing accuracy. While the circuit implementation (1) is specific to the
-small-scale regime, the singularity treatment (2) and parameter-selection
-procedure (3) address the grid discretization itself and apply broadly to
-grid-based first-quantization simulations.
+of running on a small-scale quantum computer emulator with fewer than 30 qubits,
+was constructed and demonstrated for one- and two-dimensional hydrogen-atom
+models, the simplest settings sufficient to check the proposed circuits without
+the confounding effects of electron-electron interaction and correlation. (1)
+For simplified small models such as the 1D/2D hydrogen atom, Uniformly
+Controlled Rotation Z (UCRZ) circuits were found valuable for constructing a
+Coulomb potential circuit compact enough to fit on a small-scale emulator.
+Although this approach does not scale to larger models, we compare it against a
+conventional arithmetic-circuit implementation to identify the regime in which
+UCRZ is preferable. (2) For the Coulomb singularity, we propose regularizing it
+via a geometric average of the potential over a small circular region around the
+pole, avoiding divergence and minimizing the resulting energy error. (3) To
+select parameters minimizing error for a given number of qubits, we determine
+the optimal spatial grid spacing from the tradeoff between spatial
+discretization error and domain truncation error, and determine the time
+evolution step size not from the formal worst-case Trotter error bound but from
+a sampling-theorem-based bound on the wave function's maximum frequency
+component, avoiding unnecessary circuit depth without sacrificing accuracy.
+While the circuit implementation (1) is specific to the small-scale regime, the
+singularity treatment (2) and parameter-selection procedure (3) address the grid
+discretization itself and apply broadly to grid-based first-quantization
+simulations.
 
 \end{abstract}
 
@@ -183,11 +188,12 @@ odd-parity eigenstates. As discussed in Sec.~\ref{subsec:simulator-model},
 the $n=0$ ground state is not amenable to a finite-grid representation at
 all---its wave function is the singular limit $|\psi|^2=\delta(x)$ with
 divergent binding energy. The $n>0$ even-parity states are, per Loudon's
-analysis, equally valid, degenerate eigenstates sharing the same
+analysis, degenerate eigenstates sharing the same
 Balmer energies as their odd-parity counterparts
 \cite{Loudon1959.10.1119/1.1934950}; however, their first derivative is
-discontinuous at the origin, unlike the odd-parity states used here, giving
-their momentum-space amplitude a $1/k^2$ tail instead of a $1/k^3$ tail
+discontinuous at the origin, giving their momentum-space amplitude a
+$1/k^2$ tail instead of the $1/k^3$ tail of the odd-parity states, which we
+use here for their better-converging finite-grid representation
 (Sec.~\ref{subsec:simulator-model}). In practice, we were unable to obtain
 an accurate time evolution for the even-parity states at the qubit counts
 (up to 6 qubits per spatial dimension) explored in this work. We attribute
@@ -246,15 +252,14 @@ This research was partially supported by the UTokyo Quantum Initiative.
 \subsection*{Conflict of Interest}
 The authors have no conflicts to disclose.
 \subsection*{Author Contributions}
-\textbf{Hideo Takahashi}: Conceptualization (lead); Methodology (lead); Software (lead);
-Formal analysis (lead); Investigation (lead); Data curation (lead); Visualization
-(lead); Writing -- original draft (lead); Writing -- review \& editing
-(supporting).
-\textbf{Fumitoshi Sato}: Conceptualization (supporting); Supervision (lead); Funding
-acquisition (lead); Writing -- review \& editing (supporting).
-\textbf{Tatsuya Tomaru}: Writing -- review \& editing (supporting).
-\textbf{Toshiyuki Hirano}: Writing -- review \& editing (supporting).
-\textbf{Saisei Tahara}: Writing -- review \& editing (supporting).
+\textbf{Hideo Takahashi}: Conceptualization (lead); Methodology (lead); Software
+(lead); Formal analysis (lead); Investigation (lead); Data curation (lead);
+Visualization (lead); Writing -- original draft (lead); Writing -- review \&
+editing (supporting). \textbf{Fumitoshi Sato}: Conceptualization (supporting);
+Supervision (lead); Funding acquisition (lead); Writing -- review \& editing
+(supporting). \textbf{Tatsuya Tomaru}: Writing -- review \& editing
+(supporting). \textbf{Toshiyuki Hirano}: Writing -- review \& editing
+(supporting). \textbf{Saisei Tahara}: Writing -- review \& editing (supporting).
 
 \section*{Data Availability Statement}
 

@@ -1,0 +1,66 @@
+%
+% Cover letter for AIP Advances submission
+% (see AIP_Style_4thed.pdf, Sec. II.D, on including a cover letter)
+%
+\documentclass[11pt]{letter}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in,top=0.75in,bottom=0.75in]{geometry}
+
+% Sender address block (corresponding author)
+\address{
+Hideo Takahashi \\
+Managed \& Platform Services Business Division, Hitachi, Ltd. \\
+292, Yoshida, Totsuka-ku, Yokohama, 244-0817, Japan \\
+hideo.takahashi.qa@hitachi.com
+}
+
+\signature{Hideo Takahashi}
+
+\begin{document}
+
+\begin{letter}{The Editors \\ AIP Advances \\ AIP Publishing}
+
+\opening{Dear Editors,}
+
+We are pleased to submit our manuscript, entitled ``Grid-Based Quantum Circuit
+Simulation of the Hydrogen Atom: Coulomb Singularity Regularization and
+Parameter-Selection Guidelines,'' by Hideo Takahashi, Tatsuya Tomaru,
+Toshiyuki Hirano, Saisei Tahara, and Fumitoshi Sato, for consideration as a
+Research Article in AIP Advances.
+
+Quantum computers are expected to revolutionize quantum chemistry simulation.
+Among the various methods, the grid-based first-quantization approach is
+well suited to chemical reactions for its ability to represent structural
+changes in the wave function.
+
+In this work, we address three challenges in grid-based first-quantization
+simulation: (1) circuit design of the Coulomb potential under qubit constraints, (2)
+mitigation of the Coulomb potential's singularity, and (3) selection of
+discretization parameters that minimize error. (1) Uniformly Controlled
+Rotation Z (UCRZ) circuits let us construct a Coulomb-potential circuit
+compact enough for a small-scale emulator; although this approach does not
+scale to larger models, it achieves, to our knowledge, the first complete
+grid-based simulation of the Coulomb potential run end-to-end on a quantum
+computer emulator, for simplified models such as the 1D/2D hydrogen atom.
+(2) We regularize
+the singularity via a geometric average of the potential near the pole, which
+numerically minimizes the resulting energy error. (3) We determine the grid
+spacing from the trade-off between spatial discretization and domain-truncation
+error, and the time step from a sampling-theorem bound on the wave function's
+frequency content rather than the worst-case Trotter error bound.
+
+While (1) is specific to this small-scale, qubit-constrained regime, the
+methods in (2) and (3) address the grid discretization itself and apply
+broadly to grid-based first-quantization simulations at any scale. We
+believe this combination of broadly applicable methodological guidance with
+a concrete, emulator-verified demonstration will interest AIP Advances'
+readership across quantum computing and computational physics.
+
+Thank you for your consideration.
+
+\closing{Sincerely,}
+
+\end{letter}
+\end{document}

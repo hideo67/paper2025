@@ -1,0 +1,46 @@
+Alt Text for Figures and Tables
+Manuscript: Grid-Based Quantum Circuit Simulation of the Hydrogen Atom: Coulomb Singularity Regularization and Parameter-Selection Guidelines
+
+Table I: Two-column glossary table listing the paper's main symbols (spatial dimension, qubit count, domain length, real- and k-space grid spacing, time step, discretized coordinate and wavenumber) alongside a one-line description of each.
+
+Figure 1: Three stacked line plots of the 1D odd-parity wave function psi_1 at 6-bit resolution: amplitude versus position, and its Fourier-transformed amplitude versus wavenumber on linear and logarithmic scales, showing a narrow high-wavenumber tail.
+
+Figure 2: Three stacked line plots of the 1D even-parity wave function phi_1 at 6-bit resolution: amplitude versus position, and its Fourier-transformed amplitude versus wavenumber, showing a heavier high-wavenumber tail than the odd-parity case.
+
+Figure 3: Two 3D surface plots of the 2D hydrogen ground-state wave function psi_0,0: real part versus position, peaking at the origin, and its Fourier transform versus wavenumber, also nonzero at the origin.
+
+Figure 4: Two 3D surface plots of the 2D excited-state wave function psi_1,0 (n=1, m=0) at 6-bit coordinate resolution: real part versus position and its Fourier transform versus wavenumber, both nonzero at the origin.
+
+Figure 5: Two 3D surface plots of the 2D excited-state wave function psi_1,1 (n=1, m=1) at 6-bit coordinate resolution: real part versus position and its Fourier transform versus wavenumber, both vanishing at the origin.
+
+Table II: Two-column table listing the computing environment used for the simulations: CPU, memory, GPU, operating system, quantum SDK, and quantum chemistry simulator software, each with its specification or version.
+
+Figure 6: Quantum circuit diagram of the Coulomb potential term for a 3-electron system, showing three coordinate registers and a shared ancilla register connected through repeated potential-calculation circuit blocks for each electron pair.
+
+Figure 7: Quantum circuit diagram of a 3-bit-input UCRZ circuit, showing eight Rz rotation gates on a target qubit interleaved with CNOT gates that flip rotation signs following a Gray-code bit-string ordering.
+
+Figure 8: Quantum circuit diagrams for the 1D arithmetic-gate simulator: (a) overall circuit with state-preparation and time-evolution blocks; (b) internal structure of the time-evolution circuit, dominated by the 20-qubit potential term.
+
+Figure 9: Quantum circuit diagram of the 1D Coulomb potential term implemented with arithmetic gates, showing a division circuit computing 1/|x| followed by phase gates, with the division gate dominating the qubit count.
+
+Figure 10: Quantum circuit diagrams for the 2D UCRZ-based simulator: (a) overall circuit dominated by the state-preparation block; (b) time-evolution circuit where the potential term uses a UCRZ circuit acting on a single ancilla qubit.
+
+Figure 11: Six line plots comparing arithmetic and UCRZ circuit implementations across 1D, 2D, and 3D models: qubit count versus coordinate resolution (top row) and 2-qubit gate count versus coordinate resolution on a log scale (bottom row), each with an emulator resource-limit line.
+
+Table III: Three-column table listing which circuit configurations (arithmetic-gate qubit counts, UCRZ qubit counts) were successfully run on the emulator for 1D, 2D, and 3D models.
+
+Figure 12: Two line plots of computed energy expectation value versus the effective-distance parameter a for 2D states psi_0,0 and psi_1,0 at several qubit counts, each showing kinetic, potential, and total energy curves crossing the analytical value near a=4.
+
+Figure 13: Two line plots of computed energy expectation value versus the soft-core offset parameter a for 2D states psi_0,0 and psi_1,0 at several qubit counts, again showing the total energy closest to the analytical value near a=4.
+
+Figure 14: Nine-panel figure for 1D and 2D wave functions showing, per state, the real-space wave function with domain boundaries marked, discretization and cutoff error curves versus grid spacing, and their sum, whose minimum marks the optimal grid spacing.
+
+Figure 15: Four line plots of theoretical Trotter error bounds and observed simulation error versus number of Trotter divisions for 2D states psi_0,0 and psi_1,0 at two qubit counts, with vertical lines marking sampling-theorem division limits.
+
+Figure 16: Two line plots of theoretical Trotter error bounds and observed simulation error versus number of Trotter divisions for the 2D state psi_1,1 at two qubit counts, showing a clear gap between first- and second-order Trotter accuracy at small division counts.
+
+Figure 17: Line plot of computed ground-state energy for the 3D hydrogen model versus the effective-distance parameter a at several qubit counts, with the total energy closest to the analytical value near a=3.
+
+Figure 18: Four line plots of theoretical Trotter error bounds and observed simulation error versus number of Trotter divisions for 2D states psi_0,0 and psi_1,0 at two qubit counts, evaluated over an extended time-evolution period.
+
+Figure 19: Two line plots of theoretical Trotter error bounds and observed simulation error versus number of Trotter divisions for the 2D state psi_1,1 at two qubit counts, evaluated over an extended time-evolution period.

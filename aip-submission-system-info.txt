@@ -1,0 +1,14 @@
+significance statement:
+
+Quantum computers are expected to eventually transform how chemical reactions
+are simulated. Grid-based methods are attractive for this because, in principle,
+they can represent the changing shape of a molecule's electron cloud as bonds
+break and form — but on today's small, qubit-limited hardware, even a basic
+obstacle stands in the way: building a compact enough quantum circuit for the
+Coulomb interaction between electron and nucleus. This work demonstrates the
+first complete grid-based simulation of this interaction run end-to-end on a
+quantum computer emulator, using a compact circuit design suited to near-term
+devices, verified on simple test cases such as the 1D/2D hydrogen atom. The work
+also provides broadly applicable guidelines — for regularizing the Coulomb
+singularity and for choosing simulation parameters — that reduce wasted qubits
+and circuit depth in grid-based quantum simulations at any scale.
