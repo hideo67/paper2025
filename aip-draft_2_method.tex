@@ -873,7 +873,7 @@ numerical analysis results of this tradeoff using specific wave functions for
 the 1D and 2D models are presented in Section
 \ref{subsubsec:delta-r-selection-results}.
 
-\subsubsection{Time Step Contraints from the Sampling Theorem}
+\subsubsection{Time Step Constraints from the Sampling Theorem}
 
 \label{subsubsec:time-step-constraints-from-sampling-theorem}
 
@@ -881,10 +881,14 @@ The first condition that the time step $\deltat$ must satisfy is the avoidance
 of aliasing errors derived from the sampling theorem for the Discrete Fourier
 Transform \cite{FEIT1982412}. Considering one step of time evolution via the
 Suzuki-Trotter decomposition as a sampling process, the amount of phase change
-by the Hamiltonian must not exceed the phase change corresponding to the Nyquist
-frequency; that is, the maximum phase change per step must be less than a
-half-period ($\pi$). This requires the following inequalities for the potential
-and kinetic energy terms, respectively:
+by each of the decomposed Hamiltonians must not exceed the phase change
+corresponding to the Nyquist frequency; that is, the maximum phase change per
+step must be less than a half-period ($\pi$). This constraint is specific to the
+non-commuting case: if $\Hep$ and $\Hek$ commuted, the decomposition would be
+exact and larger phase changes per step would be allowed \cite{Kosloff1988}.
+Since $\Hep$ and $\Hek$ do not commute in general, as in the case of the
+hydrogen atom, we require the following inequalities for the potential and
+kinetic energy terms, respectively:
 
 \begin{align}
 \max_{\bm{r}}\abs{\Hep(\bm{r})\deltat/\hbar} < \pi \label{eq:nyqist-limit-by-hep}\\
@@ -1001,7 +1005,8 @@ components, but this tends to overestimate the actual simulation errors
 \cite{Childs2021.PhysRevX.11.011020}. To perform a more rigorous and practical
 error estimation, this study introduces the state-dependent Trotter error bound
 proposed by Burgarth et al., which assumes a specific target wave function
-\cite{Burgarth2024.PhysRevResearch.6.043155}.
+\cite{Burgarth2024.PhysRevResearch.6.043155}.  Following their convention we
+identify $H_1=\Hek$ and $H_2=\Hep$.
 
 While this does not directly provide a clear upper limit (threshold) for
 $\deltat$ like the sampling theorem, using this evaluation formula allows us to

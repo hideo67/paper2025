@@ -156,8 +156,12 @@ showed that higher-order Trotter formulas do not contribute to error reduction
 for such states. This result was extended to multi-particle systems, proving
 that for unbounded Hamiltonians like the Coulomb potential, the dependence on
 the number of steps $n$ is $n^{-1/4}$, and the error increase relative to the
-particle number is polynomial \cite{fang2026trotter}. In our study, using
-numerical evaluations based on an emulator and classical programs, we present an
+particle number is polynomial \cite{fang2026trotter}. A subsequent study showed
+that the convergence order expected for bounded operators is recovered for
+hydrogen-atom initial states with sufficiently high angular momentum $\ell$:
+$\ell\ge 2$ for the first-order and $\ell \ge 4$ for the second-order
+formula \cite{fangwu2026trotterization}. In our study, using numerical
+evaluations based on an emulator and classical programs, we present an
 integrated approach for a single-electron model: we optimize spatial parameters
 by balancing the tradeoff between the spatial discretization error and domain
 truncation error, and determine time parameters by considering the requirements

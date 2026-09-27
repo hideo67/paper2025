@@ -1,0 +1,60 @@
+・p.12に関して
+
+随分難しく書かれていますが、要するに以下のことだと思います。 「本論文ではH_epと
+H_ekが非可換であることが前提なので、それに伴う誤差を議論の出発点にする。（可換の
+場合はsuzuki-Trottrer分解は誤差を発生しない。）」
+
+これをoriginalの
+"The first condition that the time step d t must satisfy is the
+avoidance of aliasing errors derived from the sampling theorem
+for the Discrete Fourier Transform34."
+の後に後続の文を多少modifyして入れればよいのではないでしょうか。
+Reviewerはこの部分を読んだ際に
+「本論文ではH_epとH_ekが非可換であることが前提なので、」
+がないことを厳密性に欠けると認識したものと想像します。
+" it would still be beneficial to be careful in wording/argument when justifying this sampling constraint"
+この文言からはそのように感じ取れます。
+
+・p. 3に関して
+意味は取れました。
+Fang and Wuのことが細かく書かれていますが、
+後に続く高橋さんの取り組みに関する記述に上手くつながっているでしょうか。
+Reviewer commentに基づく分を入れたが為に文章のつながりが悪くなるのを心配した次第です。（老婆心）
+問題なければOKです。
+
+・その他の修正
+意味は取れました。ご自身で最終チェックされてOKならば大丈夫だと思います。
+
+以上、ご検討頂ければ幸いです。
+
+=== 以下、共著者レビューで指摘された状態のテキスト（gitにコミットせずに編集するのでいまからの変更前=rev1.2の記録）
+
+p.12
+
+The first condition that the time step $\deltat$ must satisfy arises from the
+sampling theorem applied to the time evolution. Regarding one step of time
+evolution via the Suzuki-Trotter decomposition as a sampling process with
+interval $\deltat$, the phase factors $e^{-iE\deltat/\hbar}$ can distinguish
+energies only modulo $2\pi\hbar/\deltat$. For the exact propagator this
+ambiguity is harmless, because each energy eigencomponent acquires the correct
+phase modulo $2\pi$ regardless of $\deltat$; indeed, a global propagator such as
+the Chebyshev expansion imposes no upper bound on the time step, and neither
+does the Suzuki-Trotter decomposition when $\Hep$ and $\Hek$ commute. For
+short-time propagators that factorize the evolution operator into
+non-commuting parts, however, the time step is limited: although the
+Suzuki-Trotter decomposition (referred to as the split-operator scheme by
+Kosloff \cite{Kosloff1988}) is unconditionally stable because each factor is
+unitary, a time step for which the phase of the propagator exceeds $2\pi$ over
+the energy range represented on the grid is meaningless.
+Since the potential term is non-positive and the kinetic term is non-negative,
+this energy range is bounded by $\max_{\bm{r}}\abs{\Hep(\bm{r})} +
+\max_{\bm{k}}\Hek(\bm{k})$, and the condition reads
+\begin{equation}
+\left(\max_{\bm{r}}\abs{\Hep(\bm{r})} + \max_{\bm{k}}\Hek(\bm{k})\right)
+\frac{\deltat}{\hbar} < 2\pi .
+\label{eq:nyquist-limit-total}
+\end{equation}
+In this study, we impose this condition in a balanced form by allocating a
+half-period ($\pi$) of the phase change per step to each term, which yields the
+following sufficient conditions for the potential and kinetic energy terms,
+respectively:

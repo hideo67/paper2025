@@ -1,0 +1,94 @@
+AIP Advances MS #ADV26-AR-04146 Decision Letter
+
+
+Dear Dr. Takahashi,
+
+We are pleased to inform you that your manuscript, referenced below, has received a positive review:
+
+"Grid-Based Quantum Circuit Simulation of the Hydrogen Atom: Coulomb Singularity Regularization and Parameter-Selection Guidelines"
+
+However, the reviewers felt that the manuscript would be improved with modifications in response to their suggestions. Comments from the reviewer(s) are included below.
+
+If you make these corrections and reply to the critique point by point, we should be able to complete the review process and send your paper on for production.
+
+We request that you submit your revision by 30-Sep-2026. Please include a cover letter that addresses each point and indicates how the manuscript has been revised.
+
+When submitting your revision, please follow these instructions:
+
+    For Word users: Upload your revised Word file with all figures embedded within the text.
+    For TeX users: Upload your revised TeX file along with a PDF that includes all figures embedded within the document.
+    Do not upload figures as separate files - all figures must be embedded in your main document.
+
+
+
+You will also be asked to upload a highlight image that will be used in the table of contents if your manuscript is published. The highlight image should be a visually interesting figure representing your manuscript and may also be selected for the Cover Image. Further instructions will appear on the file upload screen.
+
+Please go to the URL below to submit your revised manuscript:
+
+https://aipadvances.peerx-press.org/cgi-bin/main.plex?el=A4CR2PLwu7A7Vaun3I3A9ftd28G230jv0LQTIxgdhW9SAY
+
+Papers published in AIP Advances are subject to an Article Processing Charge, which allows the published paper to be made freely available to all readers and gives authors the broadest possible distribution of their research. If your paper is accepted for publication, you will receive an email message from the Publisher containing a link to the payment site.
+
+To support accessibility AIP Publishing is now asking all authors to submit alt text for their figures and tables. When submitting your revision, please upload a Microsoft Word document with alt text for your figures and tables.
+
+If you have any questions, please contact us at aipadv-edoffice@aip.org.
+
+Sincerely,
+
+Tiange Bi
+Associate Editor
+
+AIP Advances 
+AIP Publishing
+Suite 110
+1305 Walt Whitman Road
+Melville, NY 11747-4300 USA
+ 
+E-mail: aipadv-edoffice@aip.org
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Manuscript #ADV26-AR-04146:
+
+Editor's Comments:
+
+
+Reviewer Comments:
+Reviewer #1 Evaluations:
+RECOMMENDATION: Publish with mandatory revision (minor)
+Original Paper required: Yes
+Well Organized and Clear required : Yes
+Free From Errors required : Yes
+Conclusions Supported required : Yes
+Satisfactory English required : Yes
+Appropriate Title required : Yes
+Good Abstract required : Yes
+Clear Figures required : Yes
+Adequate References required : Yes
+
+Reviewer #1 (Comments to the Author required ):
+
+The manuscript presents quantum circuits for grid-based time evolution of 1D and 2D hydrogen atom models. It uses UCRZ circuits to reduce the number of ancilla qubits, proposes a local average potential for the Coulomb singularity, and gives guidelines for choosing the grid spacing and time step.
+
+The research is interesting, original, and overall well presented. I would recommend it for publication after the authors have satisfactorily addressed the following minor comments.
+
+1. The writing of the abstract could be further improved. For example, the placement of (1), (2), and (3) in the last sentence of the abstract is somewhat awkward. If these are intended as parallel items, each should fit the same grammatical structure; otherwise, the numbers could simply be omitted. The earlier list of contributions, (1)-(3), would also benefit from a brief introductory sentence, as the enumeration currently begins rather abruptly.
+
+2. I am not sure some wording about the sampling-theorem argument in Section II D 2 is fully accurate. In particular, the Nyquist constraint may not always be necessary for accurate Trotter simulation. One naive example is when $H_1$ and $H_2$ commute, then time step can be anything (not restricted by sampling constraints). Although Coulomb Hamiltonian terms certainly do not commute, it would still be beneficial to be careful in wording/argument when justifying this sampling constraint as mandatory.
+
+3. Given the relevance of high-order Trotter error for Coulomb systems and the theoretical understanding of improved convergence and angular momentum for the hydrogen atom, arXiv:2604.07704 should also be cited.
+
+4. On p. 22, I am not sure the wording that "Because states with non-zero angular momentum are smooth at the origin and lack a cusp, the divergence of the higher moments is avoided" for $\psi^{2D}_{1,1}$ is fully accurate, as $\|V^3\psi^{2D}_{1,1}\|_{L^2}$ (and $\|V^2\psi^{2D}_{1,1}\|_{L^2}$ both) diverge, making the corresponding term in Eq. (73) divergent. Please revise the wording in this part to enhance accuracy.
+
+
+
+
+------------
+
+
+
+
+This email message and any files transmitted with it contain confidential information. If you are not the intended recipient please notify the sender, delete this email and any attachments from your system, and destroy any copies you have made, electronic or otherwise.
+
+IMPORTANT NOTE: Links in this email message are specific to you, the email recipient and should not be forwarded to anyone.

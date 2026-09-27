@@ -498,10 +498,27 @@ In contrast, for $\PsiTwoD_{1,1}$ with the azimuthal quantum number $m=1$ (Figs.
 \ref{fig:trotter-error-t1-part2}(a)--(b)), a distinct difference in accuracy
 between the first-order ($\xiN{1}$) and second-order ($\xiN{2}$) Trotter
 decompositions is observed in the regime where the number of Trotter steps $\nT$
-is small. Because states with non-zero angular momentum are smooth at the origin
-and lack a cusp, the divergence of the higher moments is avoided. Consequently,
-the inherent error-reduction benefit of the higher-order decomposition functions
-as expected, manifesting as the significant difference observed in accuracy.
+is small. Because states with non-zero angular momentum vanish at the origin
+($\psi\sim r^{|m|}$) rather than forming a cusp, the terms of
+Eq.~\eqref{eq:observed-trotter-error-2nd} are less singular than for $m=0$
+states; the singularity is weakened, however, not removed. In the continuum
+limit, $\|H_2(g)^3\phi\|$ remains finite only for $|m|\ge3$, and the terms
+involving the kinetic energy require even larger $|m|$, so that for
+$\PsiTwoD_{1,1}$ the bound diverges as $\deltar\to0$. On the grid, by contrast,
+every term is finite, because the potential is capped at $|V(0)|=4/\deltar$ and
+the kinetic energy is bounded by the maximum wavenumber of the grid. Since this
+holds equally for $m=0$ states, what distinguishes the two cases is how fast
+the terms grow as $\deltar$ decreases. A power-counting estimate based on the
+behavior $\psi\sim r^{|m|}$ near the origin indicates that each term grows by
+one power of $1/\deltar$ less for $|m|=1$ than for $m=0$; for example,
+$\|H_2(g)^3\phi\|$ grows as $\deltar^{-1}$ for $\PsiTwoD_{1,1}$ but as
+$\deltar^{-2}$ for $\PsiTwoD_{0,0}$, and the same one-power reduction applies to
+the mixed term $\|H_2(g)H_1(g)^2\phi\|$ and the kinetic term
+$\|H_1(g)^3\phi\|$. At the resolution used here, the second-order bound is
+therefore expected to be considerably smaller for $\PsiTwoD_{1,1}$, which is
+consistent with the observed advantage of the second-order decomposition.
+Because this advantage relies on the finite resolution, it is not guaranteed to
+persist in the continuum limit for $|m|=1$.
 
 As a general trend, under all conditions, the errors $\xiN{1}$ and $\xiN{2}$
 decrease as the number of divisions $\nT$ increases, but reaches a lower bound

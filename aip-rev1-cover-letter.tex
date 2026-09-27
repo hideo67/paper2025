@@ -1,0 +1,238 @@
+%
+% Cover letter for AIP Advances revised submission (MS #ADV26-AR-04146)
+% (see AIP_Style_4thed.pdf, Sec. II.D, on including a cover letter)
+%
+\documentclass[11pt]{letter}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in,top=0.75in,bottom=0.75in]{geometry}
+
+% Sender address block (corresponding author)
+\address{
+Hideo Takahashi \\
+Managed \& Platform Services Business Division, Hitachi, Ltd. \\
+292, Yoshida, Totsuka-ku, Yokohama, 244-0817, Japan \\
+hideo.takahashi.qa@hitachi.com
+}
+
+\signature{Hideo Takahashi}
+
+\begin{document}
+
+\begin{letter}{Dr. Tiange Bi \\ Associate Editor \\ AIP Advances \\ AIP Publishing}
+
+\opening{Dear Dr. Bi,}
+
+Thank you for the opportunity to revise our manuscript, MS \#ADV26-AR-04146,
+``Grid-Based Quantum Circuit Simulation of the Hydrogen Atom: Coulomb
+Singularity Regularization and Parameter-Selection Guidelines,'' by Hideo
+Takahashi, Tatsuya Tomaru, Toshiyuki Hirano, Saisei Tahara, and Fumitoshi Sato,
+for consideration in AIP Advances. We thank Reviewer \#1 for the careful
+reading and constructive comments. We have revised the manuscript accordingly
+and provide a point-by-point response below, with page numbers referring to
+the revised manuscript.
+
+\begin{enumerate}
+
+\item \textit{The writing of the abstract could be further improved. For
+example, the placement of (1), (2), and (3) in the last sentence of the
+abstract is somewhat awkward. If these are intended as parallel items, each
+should fit the same grammatical structure; otherwise, the numbers could simply
+be omitted. The earlier list of contributions, (1)--(3), would also benefit
+from a brief introductory sentence, as the enumeration currently begins rather
+abruptly.}
+
+We have removed the (1)/(2)/(3) numbering throughout the abstract and instead
+refer back to each contribution by its content (e.g., ``the circuit
+implementation,'' ``the singularity treatment,'' ``the parameter-selection
+procedure''), which avoids both the awkward parallel-structure issue in the
+final sentence and the abrupt start of the enumeration. We also removed a
+repeated occurrence of ``one- and two-dimensional hydrogen atom,'' replacing
+the second instance with ``these systems.'' (Abstract, p.~1.)
+
+\item \textit{I am not sure some wording about the sampling-theorem argument
+in Section II D 2 is fully accurate. In particular, the Nyquist constraint may
+not always be necessary for accurate Trotter simulation. One naive example is
+when $H_1$ and $H_2$ commute, then time step can be anything (not restricted
+by sampling constraints). Although Coulomb Hamiltonian terms certainly do not
+commute, it would still be beneficial to be careful in wording/argument when
+justifying this sampling constraint as mandatory.}
+
+We thank the reviewer for this comment. We agree that the sampling constraint
+is not required when $H_1$ and $H_2$ commute, since the decomposition is then
+exact and larger phase changes per step are allowed. The constraint is thus
+specific to the non-commuting case, which applies to the Coulomb Hamiltonians
+considered in this work. We have revised Sec.~II~D~2 to state this
+explicitly, citing Kosloff [J.~Phys.~Chem.\ \textbf{92}, 2087 (1988)], who
+pointed out that such a restriction on the time step applies to short-time
+propagators that factorize the evolution operator into non-commuting parts.
+We have also clarified that the phase condition is imposed on each of the
+decomposed Hamiltonians. The conditions themselves [Eqs.~(54)--(55)] are
+unchanged, so all derived time-step limits and numerical results remain the
+same.
+
+\smallskip
+\noindent\textbf{Submitted version:}
+\begin{quote}
+\itshape
+``The first condition that the time step $\delta t$ must satisfy is the
+avoidance of aliasing errors derived from the sampling theorem for the
+Discrete Fourier Transform. Considering one step of time evolution via the
+Suzuki--Trotter decomposition as a sampling process, the amount of phase
+change by the Hamiltonian must not exceed the phase change corresponding to
+the Nyquist frequency; that is, the maximum phase change per step must be
+less than a half-period ($\pi$). This requires the following inequalities for
+the potential and kinetic energy terms, respectively: [Eqs.~(54)--(55)]''
+\end{quote}
+
+\noindent\textbf{Revised version:}
+\begin{quote}
+\itshape
+``The first condition that the time step $\delta t$ must satisfy is the
+avoidance of aliasing errors derived from the sampling theorem for the
+Discrete Fourier Transform. Considering one step of time evolution via the
+Suzuki--Trotter decomposition as a sampling process, the amount of phase
+change by each of the decomposed Hamiltonians must not exceed the phase change
+corresponding to the Nyquist frequency; that is, the maximum phase change per
+step must be less than a half-period ($\pi$). This constraint is specific to
+the non-commuting case: if $H_p$ and $H_k$ commuted, the decomposition would
+be exact and larger phase changes per step would be allowed [Kosloff 1988].
+Since $H_p$ and $H_k$ do not commute in general, as in the case of the
+hydrogen atom, we require the following inequalities for the potential and
+kinetic energy terms, respectively: [Eqs.~(54)--(55), unchanged]''
+\end{quote}
+(Sec.~II~D~2, p.~12.)
+
+\item \textit{Given the relevance of high-order Trotter error for Coulomb
+systems and the theoretical understanding of improved convergence and angular
+momentum for the hydrogen atom, arXiv:2604.07704 should also be cited.}
+
+We thank the reviewer for pointing us to this work by Fang and Wu. We have
+cited it in the Introduction, following the discussion of the $n^{-1/4}$
+scaling for Coulomb systems, and briefly noted its result that the
+convergence order expected for bounded operators is recovered for
+hydrogen-atom initial states with sufficiently high orbital angular momentum.
+
+\smallskip
+\noindent\textbf{Submitted version} (Sec.~I, p.~3):
+\begin{quote}
+\itshape
+``$\dots$ the error increase relative to the particle number is polynomial.
+In our study, using numerical evaluations based on an emulator and classical
+programs, we present an integrated approach for a single-electron model:
+$\dots$''
+\end{quote}
+
+\noindent\textbf{Revised version:}
+\begin{quote}
+\itshape
+``$\dots$ the error increase relative to the particle number is polynomial. A
+subsequent study showed that the convergence order expected for bounded
+operators is recovered for hydrogen-atom initial states with sufficiently high
+angular momentum $\ell$: $\ell \ge 2$ for the first-order and $\ell \ge 4$ for
+the second-order formula [Fang and Wu, arXiv:2604.07704]. In our study, using
+numerical evaluations based on an emulator and classical programs, we present
+an integrated approach for a single-electron model: $\dots$''
+\end{quote}
+
+\item \textit{On p.~22, I am not sure the wording that ``Because states with
+non-zero angular momentum are smooth at the origin and lack a cusp, the
+divergence of the higher moments is avoided'' for $\psi^{2D}_{1,1}$ is fully
+accurate, as $\|V^3\psi^{2D}_{1,1}\|_{L^2}$ (and $\|V^2\psi^{2D}_{1,1}\|_{L^2}$
+both) diverge, making the corresponding term in Eq.~(73) divergent. Please
+revise the wording in this part to enhance accuracy.}
+
+We thank the reviewer for this important correction and have substantially
+revised this passage. We now state precisely that states with non-zero angular
+momentum vanish at the origin as $\psi\sim r^{|m|}$ rather than being smooth,
+so that the singularity of the terms in the state-dependent error bound is
+weakened but not removed. In agreement with the reviewer's calculation, we now
+state that in the continuum limit $\delta r\to0$ these terms diverge for
+$\psi^{2D}_{1,1}$: $\|V^3\psi\|$ remains finite only for $|m|\ge3$, and the
+terms involving the kinetic energy require even larger $|m|$. On our grid,
+every term is finite, because the potential is capped at $|V(0)|=4/\delta r$
+and the kinetic energy is bounded by the maximum wavenumber of the grid.
+However, since this also holds for $m=0$ states, finiteness alone does not
+explain the difference between $m=0$ and $m=1$. We therefore base the
+explanation on how fast the terms grow as $\delta r$ decreases: a
+power-counting estimate based on $\psi\sim r^{|m|}$ near the origin indicates
+that each term grows by one power of $1/\delta r$ less for $|m|=1$ than for
+$m=0$ (e.g., $\|V^3\psi\|\propto\delta r^{-1}$ versus $\delta r^{-2}$), so that
+at the resolution used here the second-order bound is considerably smaller for
+$\psi^{2D}_{1,1}$, consistent with the observed advantage. We also state
+explicitly that this advantage relies on the finite resolution and is not
+guaranteed to persist in the continuum limit for $|m|=1$.
+
+\smallskip
+\noindent\textbf{Submitted version:}
+\begin{quote}
+\itshape
+``Because states with non-zero angular momentum are smooth at the origin and
+lack a cusp, the divergence of the higher moments is avoided. Consequently,
+the inherent error-reduction benefit of the higher-order decomposition
+functions as expected, manifesting as the significant difference observed in
+accuracy.''
+\end{quote}
+
+\noindent\textbf{Revised version:}
+\begin{quote}
+\itshape
+``Because states with non-zero angular momentum vanish at the origin
+($\psi\sim r^{|m|}$) rather than forming a cusp, the terms of Eq.~(73) are
+less singular than for $m=0$ states; the singularity is weakened, however,
+not removed. In the continuum limit, $\|H_2(g)^3\phi\|$ remains finite only
+for $|m|\ge3$, and the terms involving the kinetic energy require even larger
+$|m|$, so that for $\psi^{2D}_{1,1}$ the bound diverges as $\delta r\to0$. On
+the grid, by contrast, every term is finite, because the potential is capped
+at $|V(0)|=4/\delta r$ and the kinetic energy is bounded by the maximum
+wavenumber of the grid. Since this holds equally for $m=0$ states, what
+distinguishes the two cases is how fast the terms grow as $\delta r$
+decreases. A power-counting estimate based on the behavior $\psi\sim r^{|m|}$
+near the origin indicates that each term grows by one power of $1/\delta r$
+less for $|m|=1$ than for $m=0$; for example, $\|H_2(g)^3\phi\|$ grows as
+$\delta r^{-1}$ for $\psi^{2D}_{1,1}$ but as $\delta r^{-2}$ for
+$\psi^{2D}_{0,0}$, and the same one-power reduction applies to the mixed term
+$\|H_2(g)H_1(g)^2\phi\|$ and the kinetic term $\|H_1(g)^3\phi\|$. At the
+resolution used here, the second-order bound is therefore expected to be
+considerably smaller for $\psi^{2D}_{1,1}$, which is consistent with the
+observed advantage of the second-order decomposition. Because this advantage
+relies on the finite resolution, it is not guaranteed to persist in the
+continuum limit for $|m|=1$.''
+\end{quote}
+(Sec.~IV, p.~21.)
+
+In addition, since this discussion relies on the state-dependent Trotter error
+bound of Burgarth et al.\ already used in our manuscript, we also clarified
+our identification of their operators $H_1$ and $H_2$ with the kinetic and
+potential energy terms, respectively, which was previously left implicit:
+
+\smallskip
+\noindent\textbf{Submitted version} (Sec.~II~D~3, p.~13):
+\begin{quote}
+\itshape
+``$\dots$ this study introduces the state-dependent Trotter error bound
+proposed by Burgarth et al., which assumes a specific target wave function.''
+\end{quote}
+
+\noindent\textbf{Revised version:}
+\begin{quote}
+\itshape
+``$\dots$ this study introduces the state-dependent Trotter error bound
+proposed by Burgarth et al., which assumes a specific target wave function.
+Following their convention we identify $H_1=H_{\mathrm{ek}}$ and
+$H_2=H_{\mathrm{ep}}$.''
+\end{quote}
+
+\end{enumerate}
+
+We believe these revisions fully address the reviewer's comments and have
+improved the accuracy and clarity of the manuscript. We hope the revised
+manuscript is now suitable for publication in AIP Advances.
+
+Thank you for your consideration.
+
+\closing{Sincerely,}
+
+\end{letter}
+\end{document}

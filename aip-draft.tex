@@ -97,25 +97,24 @@ A quantum circuit for first-quantization-based Hamiltonian simulation, capable
 of running on a small-scale quantum computer emulator with fewer than 30 qubits,
 was constructed and demonstrated for one- and two-dimensional hydrogen-atom
 models, the simplest settings sufficient to check the proposed circuits without
-the confounding effects of electron-electron interaction and correlation. (1)
-For simplified small models such as the 1D/2D hydrogen atom, Uniformly
-Controlled Rotation Z (UCRZ) circuits were found valuable for constructing a
-Coulomb potential circuit compact enough to fit on a small-scale emulator.
-Although this approach does not scale to larger models, we compare it against a
-conventional arithmetic-circuit implementation to identify the regime in which
-UCRZ is preferable. (2) For the Coulomb singularity, we propose regularizing it
-via a geometric average of the potential over a small circular region around the
-pole, avoiding divergence and minimizing the resulting energy error. (3) To
-select parameters minimizing error for a given number of qubits, we determine
-the optimal spatial grid spacing from the tradeoff between spatial
-discretization error and domain truncation error, and determine the time
-evolution step size not from the formal worst-case Trotter error bound but from
-a sampling-theorem-based bound on the wave function's maximum frequency
+the confounding effects of electron-electron interaction and correlation. For
+these systems, Uniformly Controlled Rotation Z (UCRZ) circuits were found
+valuable for constructing a Coulomb potential circuit compact enough to fit on a
+small-scale emulator. Although this approach does not scale to larger models, we
+compare it against a conventional arithmetic-circuit implementation to identify
+the regime in which UCRZ is preferable. To deal with the Coulomb singularity, we
+propose regularizing it via a geometric average of the potential over a small
+circular region around the pole, avoiding divergence and minimizing the
+resulting energy error. To select parameters minimizing error for a given number
+of qubits, we determine the optimal spatial grid spacing from the tradeoff
+between spatial discretization error and domain truncation error, and determine
+the time evolution step size not from the formal worst-case Trotter error bound
+but from a sampling-theorem-based bound on the wave function's maximum frequency
 component, avoiding unnecessary circuit depth without sacrificing accuracy.
-While the circuit implementation (1) is specific to the small-scale regime, the
-singularity treatment (2) and parameter-selection procedure (3) address the grid
-discretization itself and apply broadly to grid-based first-quantization
-simulations.
+While the validity of a UCRZ-based circuit structure is restricted to the
+small-scale regime, the singularity treatment and parameter-selection procedure
+address the grid discretization itself and apply broadly to grid-based
+first-quantization simulations.
 
 \end{abstract}
 
